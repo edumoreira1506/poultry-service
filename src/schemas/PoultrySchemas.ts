@@ -3,6 +3,8 @@ import Joi from 'joi'
 import i18n from '@Configs/i18n'
 import { AVAILABLE_PROVINCES, MAXIMUM_CHARACTERS_DESCRIPTION, MAXIMUM_CHARACTERS_NAME, MINIMUM_CHARACTERS_DESCRIPTION, MINIMUM_CHARACTERS_NAME } from '@Constants/poultry'
 
+const CEP_REGEX = new RegExp(/^\d{5}-\d{3}$/)
+
 export const storePoultrySchema = Joi.object({
   name: Joi.string().required().min(MINIMUM_CHARACTERS_NAME).max(MAXIMUM_CHARACTERS_NAME).messages({
     'string.empty': i18n.__('empty-field', { field: i18n.__('poultry.fields.name') }),
@@ -26,9 +28,10 @@ export const storePoultrySchema = Joi.object({
       'string.empty': i18n.__('empty-field', { field: i18n.__('poultry.fields.address.street') }),
       'any.required': i18n.__('required-field', { field: i18n.__('poultry.fields.address.street') })
     }),
-    zipcode: Joi.string().required().messages({
+    zipcode: Joi.string().required().regex(CEP_REGEX).messages({
       'string.empty': i18n.__('empty-field', { field: i18n.__('poultry.fields.address.zipcode') }),
-      'any.required': i18n.__('required-field', { field: i18n.__('poultry.fields.address.zipcode') })
+      'any.required': i18n.__('required-field', { field: i18n.__('poultry.fields.address.zipcode') }),
+      'string.pattern.base': i18n.__('poultry.errors.invalid-address-zipcode')
     }),
     number: Joi.number().required().min(1).messages({
       'number.empty': i18n.__('empty-field', { field: i18n.__('poultry.fields.address.number') }),

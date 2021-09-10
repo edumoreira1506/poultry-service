@@ -24,7 +24,7 @@ class PoultryController extends BaseController<Poultry, PoultryRepository>  {
 
     const poultry = await this.repository.save(poultryDTO)
 
-    return res.send({ ok: true, message: i18n.__('messages.success'), poultry })
+    return BaseController.successResponse(res, { poultry, message: i18n.__('messages.success') })
   }
 }
 
