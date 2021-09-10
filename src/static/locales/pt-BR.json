@@ -12,5 +12,7 @@
 	"poultry.fields.address.street": "Rua",
 	"poultry.fields.address.zipcode": "CEP",
 	"poultry.fields.address.number": "Nº",
-	"messages.success": "messages.success"
+	"messages.success": "messages.success",
+	"poultry.errors.invalid-address-number": "Número do endereço precisa ser positivo",
+	"poultry.errors.invalid-address-province": "Estado inválido"
 }
