@@ -5,5 +5,16 @@
 	"required-field": "{{field}} é obrigatório",
 	"validated": "Válido!",
 	"app.title": "CIG: Plataforma de Comercialização de Índio Gigante",
-	"app.description": "Documentação da API"
+	"app.description": "Documentação da API",
+	"poultry.fields.name": "Nome",
+	"poultry.fields.address.city": "Cidade",
+	"poultry.fields.address.province": "Estado",
+	"poultry.fields.address.street": "Rua",
+	"poultry.fields.address.zipcode": "CEP",
+	"poultry.fields.address.number": "Nº",
+	"messages.success": "messages.success",
+	"poultry.errors.invalid-address-number": "Número do endereço precisa ser positivo",
+	"poultry.errors.invalid-address-province": "Estado inválido",
+	"poultry.errors.invalid-address-zipcode": "CEP inválido",
+	"poultry.errors.invalid-address-city": "Cidade inválida"
 }
