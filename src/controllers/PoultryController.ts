@@ -16,7 +16,7 @@ class PoultryController extends BaseController<Poultry, PoultryRepository>  {
 
   @BaseController.errorHandler()
   async store(req: Request, res: Response): Promise<Response> {
-    const poultryDTO = new PoultryBuilder()
+    const poultryDTO = await new PoultryBuilder()
       .setName(req.body.name)
       .setDescription(req.body.description)
       .setAddress(req.body.address)

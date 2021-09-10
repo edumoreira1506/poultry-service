@@ -1,4 +1,8 @@
+import { ValidationError } from '@cig-platform/core'
+
+import i18n from '@Configs/i18n'
 import Poultry from '@Entities/PoultryEntity'
+import CepService from '@Services/CepService'
 import { IPoultryAddress } from '@Types/poultry'
 
 export default class PoultryBuilder {
@@ -24,13 +28,22 @@ export default class PoultryBuilder {
     return this
   }
 
-  validate(): void {
-    console.log('validando')
+  async validate(): Promise<void> {
+    if (this._address) {
+      const cepInfo = await CepService.getInfo(this._address.zipcode)
+
+      if (!cepInfo) throw new ValidationError(i18n.__('poultry.errors.invalid-address-zipcode'))
+
+      const city = this._address.city
+      const cepCity = cepInfo.localidade
+
+      if (city.trim().toLocaleLowerCase() !== cepCity.trim().toLocaleLowerCase()) throw new ValidationError(i18n.__('poultry.errors.invalid-address-city'))
+    }
   }
 
 
-  build = (): Poultry => {
-    this.validate()
+  build = async (): Promise<Poultry> => {
+    await this.validate()
 
     const poultry = new Poultry()
 

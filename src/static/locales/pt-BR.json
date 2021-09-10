@@ -14,5 +14,7 @@
 	"poultry.fields.address.number": "Nº",
 	"messages.success": "messages.success",
 	"poultry.errors.invalid-address-number": "Número do endereço precisa ser positivo",
-	"poultry.errors.invalid-address-province": "Estado inválido"
+	"poultry.errors.invalid-address-province": "Estado inválido",
+	"poultry.errors.invalid-address-zipcode": "CEP inválido",
+	"poultry.errors.invalid-address-city": "Cidade inválida"
 }
