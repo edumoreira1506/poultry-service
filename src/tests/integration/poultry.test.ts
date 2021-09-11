@@ -1,13 +1,16 @@
 import request from 'supertest'
 import typeorm from 'typeorm'
 import faker from 'faker'
+import { AccountServiceClient } from '@cig-platform/core'
 
 import App from '@Configs/server'
 import i18n from '@Configs/i18n'
 import CepService from '@Services/CepService'
+import PoultryController from '@Controllers/PoultryController'
 
 import poultryFactory from '../factories/poultryFactory'
 import addressFactory from '../factories/addressFactory'
+import poultryUserFactory from '../factories/poultryUserFactory'
 
 jest.mock('typeorm', () => ({
   createConnection: jest.fn().mockResolvedValue({}),
@@ -213,6 +216,133 @@ describe('Poultry actions', () => {
         error: {
           name: 'ValidationError',
           message: i18n.__('poultry.errors.invalid-address-zipcode')
+        }
+      })
+      expect(mockSave).not.toHaveBeenCalled()
+    })
+  })
+
+  describe('Register an user', () => {
+    it('is a valid poultry user', async () => {
+      const mockSave = jest.fn()
+      const poultry = poultryFactory()
+      const poultryUser = poultryUserFactory({ poultryId: poultry.id })
+      const mockPoultryRepository: any = {
+        findById: jest.fn().mockResolvedValue(poultry),
+        save: mockSave,
+      }
+      const mockGetUser = jest.fn().mockReturnValue({})
+
+      jest.spyOn(typeorm, 'getCustomRepository').mockReturnValue({
+        save: mockSave,
+      })
+      jest.spyOn(PoultryController, 'repository', 'get').mockReturnValue(mockPoultryRepository)
+      jest.spyOn(AccountServiceClient.prototype, 'getUser').mockImplementation(mockGetUser)
+
+      const response = await request(App).post(`/v1/poultries/${poultryUser.poultryId}/users`).send({
+        userId: poultryUser.userId
+      })
+
+      expect(response.statusCode).toBe(200)
+      expect(response.body).toMatchObject({
+        message: i18n.__('messages.success'),
+        ok: true,
+      })
+      expect(mockSave).toHaveBeenCalledWith(expect.objectContaining({
+        userId: poultryUser.userId,
+        poultryId: poultryUser.poultryId
+      }))
+    })
+
+    it('is an invalid poultry user when poultry does not exist', async () => {
+      const mockSave = jest.fn()
+      const poultry = poultryFactory()
+      const poultryUser = poultryUserFactory({ poultryId: poultry.id })
+      const mockPoultryRepository: any = {
+        findById: jest.fn().mockResolvedValue(null),
+        save: mockSave,
+      }
+      const mockGetUser = jest.fn().mockReturnValue({})
+
+      jest.spyOn(typeorm, 'getCustomRepository').mockReturnValue({
+        save: mockSave,
+      })
+      jest.spyOn(PoultryController, 'repository', 'get').mockReturnValue(mockPoultryRepository)
+      jest.spyOn(AccountServiceClient.prototype, 'getUser').mockImplementation(mockGetUser)
+
+      const response = await request(App).post(`/v1/poultries/${poultryUser.poultryId}/users`).send({
+        userId: poultryUser.userId
+      })
+
+      expect(response.statusCode).toBe(400)
+      expect(response.body).toMatchObject({
+        ok: false,
+        error: {
+          name: 'NotFoundError',
+          message: i18n.__('errors.not-found')
+        }
+      })
+      expect(mockSave).not.toHaveBeenCalled()
+    })
+
+    it('is an invalid poultry user when userId is not valid', async () => {
+      const invalidUserId = 'invalid user id'
+      const mockSave = jest.fn()
+      const poultry = poultryFactory()
+      const poultryUser = poultryUserFactory({ poultryId: poultry.id, userId: invalidUserId })
+      const mockPoultryRepository: any = {
+        findById: jest.fn().mockResolvedValue(poultry),
+        save: mockSave,
+      }
+      const mockGetUser = jest.fn().mockReturnValue({})
+
+      jest.spyOn(typeorm, 'getCustomRepository').mockReturnValue({
+        save: mockSave,
+      })
+      jest.spyOn(PoultryController, 'repository', 'get').mockReturnValue(mockPoultryRepository)
+      jest.spyOn(AccountServiceClient.prototype, 'getUser').mockImplementation(mockGetUser)
+
+      const response = await request(App).post(`/v1/poultries/${poultryUser.poultryId}/users`).send({
+        userId: poultryUser.userId
+      })
+
+      expect(response.statusCode).toBe(400)
+      expect(response.body).toMatchObject({
+        ok: false,
+        error: {
+          name: 'ValidationError',
+          message: i18n.__('invalid-uuid', { field: i18n.__('poultry-user.fields.user-id') })
+        }
+      })
+      expect(mockSave).not.toHaveBeenCalled()
+    })
+
+    it('is an invalid poultry user when user does not exist', async () => {
+      const mockSave = jest.fn()
+      const poultry = poultryFactory()
+      const poultryUser = poultryUserFactory({ poultryId: poultry.id })
+      const mockPoultryRepository: any = {
+        findById: jest.fn().mockResolvedValue(poultry),
+        save: mockSave,
+      }
+      const mockGetUser = jest.fn().mockReturnValue(null)
+
+      jest.spyOn(typeorm, 'getCustomRepository').mockReturnValue({
+        save: mockSave,
+      })
+      jest.spyOn(PoultryController, 'repository', 'get').mockReturnValue(mockPoultryRepository)
+      jest.spyOn(AccountServiceClient.prototype, 'getUser').mockImplementation(mockGetUser)
+
+      const response = await request(App).post(`/v1/poultries/${poultryUser.poultryId}/users`).send({
+        userId: poultryUser.userId
+      })
+
+      expect(response.statusCode).toBe(400)
+      expect(response.body).toMatchObject({
+        ok: false,
+        error: {
+          name: 'ValidationError',
+          message: i18n.__('poultry-user.errors.invalid-user')
         }
       })
       expect(mockSave).not.toHaveBeenCalled()

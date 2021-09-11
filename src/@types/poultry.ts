@@ -12,3 +12,9 @@ export interface IPoultryAddress {
   zipcode: string;
   number: number;
 }
+
+export interface IPoultryUser {
+  id: string;
+  userId: string;
+  poultryId: string;
+}
