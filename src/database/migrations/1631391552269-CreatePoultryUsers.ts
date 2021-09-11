@@ -23,6 +23,12 @@ export class CreatePoultryUsers1631391552269 implements MigrationInterface {
           name: 'poultry_id',
           type: 'uuid',
           isNullable: false
+        },
+        {
+          name: 'active',
+          type: 'boolean',
+          default: true,
+          isNullable: false
         }
       ]
     }), true)
