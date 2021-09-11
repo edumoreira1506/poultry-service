@@ -11,4 +11,7 @@ export default class PoultryUser {
 
   @Column({ type: 'uuid', name: 'poultry_id'})
   poultryId: string;
+
+  @Column('boolean')
+  active: boolean;
 }

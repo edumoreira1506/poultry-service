@@ -1,12 +1,8 @@
-import { EntityRepository, Repository } from 'typeorm'
-import { FindEntityErrorHandler } from '@cig-platform/core'
+import { EntityRepository } from 'typeorm'
+import { BaseRepository } from '@cig-platform/core'
 
 import Poultry from '@Entities/PoultryEntity'
 
 @EntityRepository(Poultry)
-export default class PoultryRepository extends Repository<Poultry> {
-  @FindEntityErrorHandler()
-  findById(id: string) {
-    return this.findOne({ id })
-  }
+export default class PoultryRepository extends BaseRepository<Poultry> {
 }

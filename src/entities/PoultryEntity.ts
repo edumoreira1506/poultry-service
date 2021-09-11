@@ -16,4 +16,7 @@ export default class Poultry {
 
   @Column('varchar')
   description: string;
+
+  @Column('boolean')
+  active: boolean;
 }
