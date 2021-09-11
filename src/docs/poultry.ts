@@ -2,7 +2,7 @@ import createDoc from '@cig-platform/docs/build/docs/createDoc'
 
 import { storePoultrySchema } from '@Schemas/PoultrySchemas'
 
-const userDocs = {
+const poultryDocs = {
   ...createDoc('/poultries', ['Poultries'], [
     {
       method: 'post',
@@ -12,4 +12,4 @@ const userDocs = {
   ]),
 }
 
-export default userDocs
+export default poultryDocs

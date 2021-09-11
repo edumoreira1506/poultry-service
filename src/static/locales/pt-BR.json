@@ -16,5 +16,9 @@
 	"poultry.errors.invalid-address-number": "Número do endereço precisa ser positivo",
 	"poultry.errors.invalid-address-province": "Estado inválido",
 	"poultry.errors.invalid-address-zipcode": "CEP inválido",
-	"poultry.errors.invalid-address-city": "Cidade inválida"
+	"poultry.errors.invalid-address-city": "Cidade inválida",
+	"poultry-user.errors.invalid-user": "Usuário inválido",
+	"poultry-user.fields.user-id": "ID do usuário",
+	"poultry-user.fields.poultry-id": "ID do criatório",
+	"errors.not-found": "errors.not-found"
 }
