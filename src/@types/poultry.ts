@@ -3,6 +3,7 @@ export interface IPoultry {
   name: string;
   description: string;
   address: IPoultryAddress;
+  active: boolean;
 }
 
 export interface IPoultryAddress {
@@ -11,4 +12,10 @@ export interface IPoultryAddress {
   street: string;
   zipcode: string;
   number: number;
+}
+
+export interface IPoultryUser {
+  id: string;
+  userId: string;
+  poultryId: string;
 }

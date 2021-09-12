@@ -3,6 +3,7 @@
 	"invalid-email": "{{field}} precisa ser um e-mail",
 	"empty-field": "{{field}} não pode ser vazio",
 	"required-field": "{{field}} é obrigatório",
+	"invalid-uuid": "{{field}} precisa ser um UUID válido",
 	"validated": "Válido!",
 	"app.title": "CIG: Plataforma de Comercialização de Índio Gigante",
 	"app.description": "Documentação da API",
@@ -16,5 +17,9 @@
 	"poultry.errors.invalid-address-number": "Número do endereço precisa ser positivo",
 	"poultry.errors.invalid-address-province": "Estado inválido",
 	"poultry.errors.invalid-address-zipcode": "CEP inválido",
-	"poultry.errors.invalid-address-city": "Cidade inválida"
+	"poultry.errors.invalid-address-city": "Cidade inválida",
+	"poultry-user.errors.invalid-user": "Usuário inválido",
+	"poultry-user.fields.user-id": "ID do usuário",
+	"poultry-user.fields.poultry-id": "ID do criatório",
+	"errors.not-found": "errors.not-found"
 }
