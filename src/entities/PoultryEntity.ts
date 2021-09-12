@@ -1,7 +1,6 @@
 
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
-
-import { IPoultryAddress } from '@Types/poultry'
+import { IPoultryAddress } from '@cig-platform/core'
 
 @Entity('poultries')
 export default class Poultry {
