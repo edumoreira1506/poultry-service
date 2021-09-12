@@ -3,6 +3,7 @@ export interface IPoultry {
   name: string;
   description: string;
   address: IPoultryAddress;
+  active: boolean;
 }
 
 export interface IPoultryAddress {
