@@ -1,6 +1,5 @@
 import faker from 'faker'
-
-import { IPoultryUser } from '@Types/poultry'
+import { IPoultryUser } from '@cig-platform/core'
 
 export default function poultryUserFactory({
   id = faker.datatype.uuid(),

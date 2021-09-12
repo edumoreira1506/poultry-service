@@ -1,6 +1,6 @@
 import faker from 'faker'
+import { IPoultry } from '@cig-platform/core'
 
-import { IPoultry } from '@Types/poultry'
 import addressFactory from './addressFactory'
 
 export default function poultryFactory({

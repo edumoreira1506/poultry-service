@@ -1,6 +1,6 @@
 import faker from 'faker'
+import { IPoultryAddress } from '@cig-platform/core'
 
-import { IPoultryAddress } from '@Types/poultry'
 import { AVAILABLE_PROVINCES } from '@Constants/poultry'
 
 export default function addressFactory({

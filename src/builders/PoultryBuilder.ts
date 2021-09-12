@@ -1,9 +1,8 @@
-import { ValidationError } from '@cig-platform/core'
+import { ValidationError, IPoultryAddress } from '@cig-platform/core'
 
 import i18n from '@Configs/i18n'
 import Poultry from '@Entities/PoultryEntity'
 import CepService from '@Services/CepService'
-import { IPoultryAddress } from '@Types/poultry'
 
 export default class PoultryBuilder {
   private _name = '';
