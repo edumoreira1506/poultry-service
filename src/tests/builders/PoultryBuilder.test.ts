@@ -1,8 +1,8 @@
+import { poultryFactory } from '@cig-platform/core'
+
 import PoultryBuilder from '@Builders/PoultryBuilder'
 import i18n from '@Configs/i18n'
 import CepService from '@Services/CepService'
-
-import poultryFactory from '../factories/poultryFactory'
 
 describe('PoultryBuilder', () => {
   describe('.build', () => {

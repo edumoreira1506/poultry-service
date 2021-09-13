@@ -1,10 +1,7 @@
-import { AccountServiceClient } from '@cig-platform/core'
+import { AccountServiceClient, poultryFactory, poultryUserFactory } from '@cig-platform/core'
 
 import PoultryUserBuilder from '@Builders/PoultryUserBuilder'
 import i18n from '@Configs/i18n'
-
-import poultryFactory from '../factories/poultryFactory'
-import poultryUserFactory from '../factories/poultryUserFactory'
 
 describe('PoultryUserBuilder', () => {
   describe('.build', () => {
