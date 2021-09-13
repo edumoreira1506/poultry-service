@@ -1,16 +1,12 @@
 import request from 'supertest'
 import typeorm from 'typeorm'
 import faker from 'faker'
-import { AccountServiceClient } from '@cig-platform/core'
+import { AccountServiceClient, poultryAddressFactory, poultryFactory, poultryUserFactory } from '@cig-platform/core'
 
 import App from '@Configs/server'
 import i18n from '@Configs/i18n'
 import CepService from '@Services/CepService'
 import PoultryController from '@Controllers/PoultryController'
-
-import poultryFactory from '../factories/poultryFactory'
-import addressFactory from '../factories/addressFactory'
-import poultryUserFactory from '../factories/poultryUserFactory'
 
 jest.mock('typeorm', () => ({
   createConnection: jest.fn().mockResolvedValue({}),
@@ -67,7 +63,7 @@ describe('Poultry actions', () => {
     it('is an invalid poultry when the name is too big', async () => {
       const mockSave = jest.fn()
       const bigName = faker.lorem.paragraph(100)
-      const poultry = poultryFactory({ id: '', name: bigName, address: addressFactory(), description: faker.lorem.sentence(10) })
+      const poultry = poultryFactory({ id: '', name: bigName, address: poultryAddressFactory(), description: faker.lorem.sentence(10) })
 
       jest.spyOn(typeorm, 'getCustomRepository').mockReturnValue({
         save: mockSave,
@@ -104,7 +100,7 @@ describe('Poultry actions', () => {
     it('is an invalid poultry when the description is too big', async () => {
       const mockSave = jest.fn()
       const bigDescription = faker.lorem.paragraph(100)
-      const poultry = poultryFactory({ id: '', name: faker.name.findName(), address: addressFactory(), description: bigDescription })
+      const poultry = poultryFactory({ id: '', name: faker.name.findName(), address: poultryAddressFactory(), description: bigDescription })
 
       jest.spyOn(typeorm, 'getCustomRepository').mockReturnValue({
         save: mockSave,
@@ -141,7 +137,7 @@ describe('Poultry actions', () => {
     it('is an invalid poultry when the province is not valid', async () => {
       const mockSave = jest.fn()
       const mockAddress = {
-        ...addressFactory(),
+        ...poultryAddressFactory(),
         province: 'invalid province'
       }
 
@@ -183,7 +179,7 @@ describe('Poultry actions', () => {
     it('is an invalid poultry when the zipcode is not valid', async () => {
       const mockSave = jest.fn()
       const mockAddress = {
-        ...addressFactory(),
+        ...poultryAddressFactory(),
         zipcode: 'invalid zip code'
       }
       const poultry = poultryFactory({ id: '', name: faker.name.findName(), address: mockAddress, description: faker.lorem.sentence(2) })
