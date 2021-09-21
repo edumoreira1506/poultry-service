@@ -1,17 +1,19 @@
 import { Request, Response } from 'express'
 import { ObjectType } from 'typeorm'
-import { BaseController } from '@cig-platform/core'
+import { BaseController, NotFoundError } from '@cig-platform/core'
 
 import i18n from '@Configs/i18n'
 import PoultryRepository from '@Repositories/PoultryRepository'
 import Poultry from '@Entities/PoultryEntity'
 import PoultryBuilder from '@Builders/PoultryBuilder'
+import { RequestWithPoultry } from '@Types/requests'
 
 class PoultryController extends BaseController<Poultry, PoultryRepository>  {
   constructor(repository: ObjectType<Poultry>) {
     super(repository)
 
     this.store = this.store.bind(this)
+    this.update = this.update.bind(this)
   }
 
   @BaseController.errorHandler()
@@ -25,6 +27,23 @@ class PoultryController extends BaseController<Poultry, PoultryRepository>  {
     const poultry = await this.repository.save(poultryDTO)
 
     return BaseController.successResponse(res, { poultry, message: i18n.__('messages.success') })
+  }
+
+  @BaseController.errorHandler()
+  @BaseController.actionHandler(i18n.__('common.updated'))
+  async update(req: RequestWithPoultry): Promise<void> {
+    const poultry = req.poultry
+
+    if (!poultry) throw new NotFoundError()
+
+    const newPoultry = { ...poultry, ...req.body }
+    const poultryDTO = await new PoultryBuilder()
+      .setName(newPoultry.name)
+      .setDescription(newPoultry.description)
+      .setAddress(newPoultry.address)
+      .build()
+
+    await this.repository.update({ id: newPoultry.id }, poultryDTO)
   }
 }
 
