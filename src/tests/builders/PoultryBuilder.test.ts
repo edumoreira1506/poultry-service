@@ -1,4 +1,4 @@
-import { poultryFactory } from '@cig-platform/core'
+import { poultryFactory } from '@cig-platform/factories'
 
 import PoultryBuilder from '@Builders/PoultryBuilder'
 import i18n from '@Configs/i18n'

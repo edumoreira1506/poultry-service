@@ -1,4 +1,5 @@
-import { AccountServiceClient, poultryFactory, poultryUserFactory } from '@cig-platform/core'
+import { AccountServiceClient } from '@cig-platform/core'
+import { poultryFactory, poultryUserFactory } from '@cig-platform/factories'
 
 import PoultryUserBuilder from '@Builders/PoultryUserBuilder'
 import i18n from '@Configs/i18n'
