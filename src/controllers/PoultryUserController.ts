@@ -4,7 +4,7 @@ import { BaseController, NotFoundError } from '@cig-platform/core'
 
 import PoultryUserRepository from '@Repositories/PoultryUserRepository'
 import PoultryUser from '@Entities/PoultryUserEntity'
-import { PoultryUserRequest } from '@Types/requests'
+import { RequestWithPoultry } from '@Types/requests'
 import PoultryUserBuilder from '@Builders/PoultryUserBuilder'
 import i18n from '@Configs/i18n'
 
@@ -16,7 +16,7 @@ class PoultryUserController extends BaseController<PoultryUser, PoultryUserRepos
   }
 
   @BaseController.errorHandler()
-  async store(req: PoultryUserRequest, res: Response): Promise<Response> {
+  async store(req: RequestWithPoultry, res: Response): Promise<Response> {
     const poultry = req.poultry
 
     if (!poultry) throw new NotFoundError()
