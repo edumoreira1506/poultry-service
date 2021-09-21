@@ -1,7 +1,8 @@
 import request from 'supertest'
 import typeorm from 'typeorm'
 import faker from 'faker'
-import { AccountServiceClient, poultryAddressFactory, poultryFactory, poultryUserFactory } from '@cig-platform/core'
+import { AccountServiceClient } from '@cig-platform/core'
+import { poultryAddressFactory, poultryFactory, poultryUserFactory } from '@cig-platform/factories'
 
 import App from '@Configs/server'
 import i18n from '@Configs/i18n'
