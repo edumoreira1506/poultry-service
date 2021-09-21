@@ -14,6 +14,7 @@ class PoultryController extends BaseController<Poultry, PoultryRepository>  {
 
     this.store = this.store.bind(this)
     this.update = this.update.bind(this)
+    this.show = this.show.bind(this)
   }
 
   @BaseController.errorHandler()
@@ -44,6 +45,15 @@ class PoultryController extends BaseController<Poultry, PoultryRepository>  {
       .build()
 
     await this.repository.updateById(newPoultry.id, poultryDTO)
+  }
+
+  @BaseController.errorHandler()
+  async show(req: RequestWithPoultry, res: Response): Promise<Response> {
+    const poultry = req.poultry
+
+    if (!poultry) throw new NotFoundError()
+
+    return BaseController.successResponse(res, { poultry })
   }
 }
 
