@@ -20,7 +20,7 @@
 	"bugs": {},
 	"homepage": "",
 	"dependencies": {
-		"@cig-platform/core": "^0.2.36",
+		"@cig-platform/core": "^0.3.1",
 		"@cig-platform/docs": "^0.4.3",
 		"@cig-platform/types": "0.0.1",
 		"axios": "^0.21.4",
