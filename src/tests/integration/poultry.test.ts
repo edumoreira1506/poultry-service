@@ -565,4 +565,45 @@ describe('Poultry actions', () => {
       expect(mockUpdate).not.toHaveBeenCalled()
     })
   })
+
+  describe('Show', () => {
+    it('gets the poultry', async () => {
+      const poultry = poultryFactory({ description: 'Description' })
+      const mockPoultryRepository: any = {
+        findById: jest.fn().mockResolvedValue(poultry),
+      }
+
+      jest.spyOn(PoultryController, 'repository', 'get').mockReturnValue(mockPoultryRepository)
+
+      const response = await request(App).get(`/v1/poultries/${poultry.id}`)
+
+      expect(response.statusCode).toBe(200)
+      expect(response.body).toMatchObject({
+        ok: true,
+        poultry
+      })
+      expect(mockPoultryRepository.findById).toHaveBeenCalledWith(poultry.id)
+    })
+
+    it('does not send the poultry', async () => {
+      const { id } = poultryFactory()
+      const mockPoultryRepository: any = {
+        findById: jest.fn().mockResolvedValue(null),
+      }
+
+      jest.spyOn(PoultryController, 'repository', 'get').mockReturnValue(mockPoultryRepository)
+
+      const response = await request(App).get(`/v1/poultries/${id}`)
+
+      expect(response.statusCode).toBe(400)
+      expect(response.body).toMatchObject({
+        ok: false,
+        error: {
+          name: 'NotFoundError',
+          message: i18n.__('errors.not-found')
+        }
+      })
+      expect(mockPoultryRepository.findById).toHaveBeenCalledWith(id)
+    })
+  })
 })
