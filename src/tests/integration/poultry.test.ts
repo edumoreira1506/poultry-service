@@ -230,9 +230,7 @@ describe('Poultry actions', () => {
       }
       const mockGetUser = jest.fn().mockReturnValue({})
 
-      jest.spyOn(typeorm, 'getCustomRepository').mockReturnValue({
-        save: mockSave,
-      })
+      jest.spyOn(typeorm, 'getCustomRepository').mockReturnValue(mockPoultryRepository)
       jest.spyOn(PoultryController, 'repository', 'get').mockReturnValue(mockPoultryRepository)
       jest.spyOn(AccountServiceClient.prototype, 'getUser').mockImplementation(mockGetUser)
 
@@ -261,9 +259,6 @@ describe('Poultry actions', () => {
       }
       const mockGetUser = jest.fn().mockReturnValue({})
 
-      jest.spyOn(typeorm, 'getCustomRepository').mockReturnValue({
-        save: mockSave,
-      })
       jest.spyOn(PoultryController, 'repository', 'get').mockReturnValue(mockPoultryRepository)
       jest.spyOn(AccountServiceClient.prototype, 'getUser').mockImplementation(mockGetUser)
 
@@ -293,9 +288,6 @@ describe('Poultry actions', () => {
       }
       const mockGetUser = jest.fn().mockReturnValue({})
 
-      jest.spyOn(typeorm, 'getCustomRepository').mockReturnValue({
-        save: mockSave,
-      })
       jest.spyOn(PoultryController, 'repository', 'get').mockReturnValue(mockPoultryRepository)
       jest.spyOn(AccountServiceClient.prototype, 'getUser').mockImplementation(mockGetUser)
 
@@ -324,9 +316,6 @@ describe('Poultry actions', () => {
       }
       const mockGetUser = jest.fn().mockReturnValue(null)
 
-      jest.spyOn(typeorm, 'getCustomRepository').mockReturnValue({
-        save: mockSave,
-      })
       jest.spyOn(PoultryController, 'repository', 'get').mockReturnValue(mockPoultryRepository)
       jest.spyOn(AccountServiceClient.prototype, 'getUser').mockImplementation(mockGetUser)
 
@@ -343,6 +332,237 @@ describe('Poultry actions', () => {
         }
       })
       expect(mockSave).not.toHaveBeenCalled()
+    })
+  })
+
+  describe('Update', () => {
+    it('is a valid poultry update', async () => {
+      const mockUpdate = jest.fn()
+      const poultry = poultryFactory()
+      const { name: newName } = poultryFactory()
+      const mockPoultryRepository: any = {
+        findById: jest.fn().mockResolvedValue(poultry),
+        updateById: mockUpdate,
+      }
+
+      jest.spyOn(PoultryController, 'repository', 'get').mockReturnValue(mockPoultryRepository)
+      jest.spyOn(CepService, 'getInfo').mockResolvedValue({
+        cep: '01001-000',
+        logradouro: 'Another city',
+        complemento: 'lado ímpar',
+        bairro: 'Sé',
+        localidade: poultry.address.city,
+        uf: 'SP',
+        ibge: '3550308',
+        gia: '1004',
+        ddd: '11',
+        siafi: '7107'
+      })
+
+      const response = await request(App).patch(`/v1/poultries/${poultry.id}`).send({
+        name: newName
+      })
+
+      expect(response.statusCode).toBe(200)
+      expect(response.body).toMatchObject({
+        message: i18n.__('common.updated'),
+        ok: true,
+      })
+      expect(mockUpdate).toHaveBeenCalledWith(poultry.id, expect.objectContaining({
+        name: newName
+      }))
+    })
+
+    it('is an invalid poultry update when poultry does not exist', async () => {
+      const mockUpdate = jest.fn()
+      const poultry = poultryFactory()
+      const { name: newName } = poultryFactory()
+      const mockPoultryRepository: any = {
+        findById: jest.fn().mockResolvedValue(null),
+        updateById: mockUpdate,
+      }
+
+      jest.spyOn(PoultryController, 'repository', 'get').mockReturnValue(mockPoultryRepository)
+
+      const response = await request(App).patch(`/v1/poultries/${poultry.id}`).send({
+        name: newName
+      })
+
+      expect(response.statusCode).toBe(400)
+      expect(response.body).toMatchObject({
+        ok: false,
+        error: {
+          name: 'NotFoundError',
+          message: i18n.__('errors.not-found')
+        }
+      })
+      expect(mockUpdate).not.toHaveBeenCalled()
+    })
+
+    it('is an invalid poultry update when the name is too big', async () => {
+      const mockUpdate = jest.fn()
+      const bigName = faker.lorem.paragraph(100)
+      const poultry = poultryFactory({ id: '', name: bigName, address: poultryAddressFactory(), description: faker.lorem.sentence(10) })
+      const mockPoultryRepository: any = {
+        findById: jest.fn().mockResolvedValue(poultry),
+        updateById: mockUpdate,
+      }
+
+      jest.spyOn(typeorm, 'getCustomRepository').mockReturnValue(mockPoultryRepository)
+      jest.spyOn(CepService, 'getInfo').mockResolvedValue({
+        cep: '01001-000',
+        logradouro: 'Another city',
+        complemento: 'lado ímpar',
+        bairro: 'Sé',
+        localidade: poultry.address.city,
+        uf: 'SP',
+        ibge: '3550308',
+        gia: '1004',
+        ddd: '11',
+        siafi: '7107'
+      })
+
+      const response = await request(App).post('/v1/poultries').send({
+        name: poultry.name,
+        description: poultry.description,
+        address: poultry.address,
+      })
+
+      expect(response.statusCode).toBe(400)
+      expect(response.body).toMatchObject({
+        ok: false,
+        error: {
+          name: 'ValidationError',
+        }
+      })
+      expect(mockUpdate).not.toHaveBeenCalled()
+    })
+
+    it('is an invalid poultry update when the description is too big', async () => {
+      const mockUpdate = jest.fn()
+      const bigDescription = faker.lorem.paragraph(100)
+      const poultry = poultryFactory({ id: '', name: faker.name.findName(), address: poultryAddressFactory(), description: bigDescription })
+      const mockPoultryRepository: any = {
+        findById: jest.fn().mockResolvedValue(poultry),
+        updateById: mockUpdate,
+      }
+
+      jest.spyOn(typeorm, 'getCustomRepository').mockReturnValue(mockPoultryRepository)
+      jest.spyOn(CepService, 'getInfo').mockResolvedValue({
+        cep: '01001-000',
+        logradouro: 'Another city',
+        complemento: 'lado ímpar',
+        bairro: 'Sé',
+        localidade: poultry.address.city,
+        uf: 'SP',
+        ibge: '3550308',
+        gia: '1004',
+        ddd: '11',
+        siafi: '7107'
+      })
+
+      const response = await request(App).post('/v1/poultries').send({
+        name: poultry.name,
+        description: poultry.description,
+        address: poultry.address,
+      })
+
+      expect(response.statusCode).toBe(400)
+      expect(response.body).toMatchObject({
+        ok: false,
+        error: {
+          name: 'ValidationError',
+        }
+      })
+      expect(mockUpdate).not.toHaveBeenCalled()
+    })
+
+    it('is an invalid poultry update when the province is not valid', async () => {
+      const mockUpdate = jest.fn()
+      const mockAddress = {
+        ...poultryAddressFactory(),
+        province: 'invalid province'
+      }
+
+      const poultry = poultryFactory({ id: '', name: faker.name.findName(), address: mockAddress, description: faker.lorem.sentence(2) })
+
+      const mockPoultryRepository: any = {
+        findById: jest.fn().mockResolvedValue(poultry),
+        updateById: mockUpdate,
+      }
+
+      jest.spyOn(typeorm, 'getCustomRepository').mockReturnValue(mockPoultryRepository)
+      jest.spyOn(CepService, 'getInfo').mockResolvedValue({
+        cep: '01001-000',
+        logradouro: 'Another city',
+        complemento: 'lado ímpar',
+        bairro: 'Sé',
+        localidade: poultry.address.city,
+        uf: 'SP',
+        ibge: '3550308',
+        gia: '1004',
+        ddd: '11',
+        siafi: '7107'
+      })
+
+      const response = await request(App).post('/v1/poultries').send({
+        name: poultry.name,
+        description: poultry.description,
+        address: poultry.address,
+      })
+
+      expect(response.statusCode).toBe(400)
+      expect(response.body).toMatchObject({
+        ok: false,
+        error: {
+          name: 'ValidationError',
+          message: i18n.__('poultry.errors.invalid-address-province')
+        }
+      })
+      expect(mockUpdate).not.toHaveBeenCalled()
+    })
+
+    it('is an invalid poultry update when the zipcode is not valid', async () => {
+      const mockUpdate = jest.fn()
+      const mockAddress = {
+        ...poultryAddressFactory(),
+        zipcode: 'invalid zip code'
+      }
+      const poultry = poultryFactory({ id: '', name: faker.name.findName(), address: mockAddress, description: faker.lorem.sentence(2) })
+      const mockPoultryRepository: any = {
+        findById: jest.fn().mockResolvedValue(poultry),
+        updateById: mockUpdate,
+      }
+
+      jest.spyOn(typeorm, 'getCustomRepository').mockReturnValue(mockPoultryRepository)
+      jest.spyOn(CepService, 'getInfo').mockResolvedValue({
+        cep: '01001-000',
+        logradouro: 'Another city',
+        complemento: 'lado ímpar',
+        bairro: 'Sé',
+        localidade: poultry.address.city,
+        uf: 'SP',
+        ibge: '3550308',
+        gia: '1004',
+        ddd: '11',
+        siafi: '7107'
+      })
+
+      const response = await request(App).post('/v1/poultries').send({
+        name: poultry.name,
+        description: poultry.description,
+        address: poultry.address,
+      })
+
+      expect(response.statusCode).toBe(400)
+      expect(response.body).toMatchObject({
+        ok: false,
+        error: {
+          name: 'ValidationError',
+          message: i18n.__('poultry.errors.invalid-address-zipcode')
+        }
+      })
+      expect(mockUpdate).not.toHaveBeenCalled()
     })
   })
 })

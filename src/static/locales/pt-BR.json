@@ -21,6 +21,6 @@
 	"poultry-user.errors.invalid-user": "Usuário inválido",
 	"poultry-user.fields.user-id": "ID do usuário",
 	"poultry-user.fields.poultry-id": "ID do criatório",
-	"errors.not-found": "errors.not-found",
-	"common.updated": "Atualizado com sucesso"
+	"common.updated": "Atualizado com sucesso",
+	"errors.not-found": "Recurso não encontrado"
 }

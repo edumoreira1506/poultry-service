@@ -43,7 +43,7 @@ class PoultryController extends BaseController<Poultry, PoultryRepository>  {
       .setAddress(newPoultry.address)
       .build()
 
-    await this.repository.update({ id: newPoultry.id }, poultryDTO)
+    await this.repository.updateById(newPoultry.id, poultryDTO)
   }
 }
 
