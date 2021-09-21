@@ -1,4 +1,5 @@
-import { ValidationError, IPoultryAddress } from '@cig-platform/core'
+import { ValidationError } from '@cig-platform/core'
+import { IPoultryAddress } from '@cig-platform/types'
 
 import i18n from '@Configs/i18n'
 import Poultry from '@Entities/PoultryEntity'
