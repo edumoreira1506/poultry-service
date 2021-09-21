@@ -18,6 +18,12 @@ router.patch(
   PoultryController.update
 )
 
+router.get(
+  '/poultries/:poultryId',
+  withPoultryParam,
+  PoultryController.show
+)
+
 router.post(
   '/poultries/:poultryId/users',
   withPoultryParam,
