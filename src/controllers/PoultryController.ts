@@ -58,8 +58,11 @@ class PoultryController extends BaseController<Poultry, PoultryRepository>  {
   }
 
   @BaseController.errorHandler()
-  async index(_: Request, res: Response): Promise<Response> {
-    const poultries = await this.repository.all()
+  async index(req: Request, res: Response): Promise<Response> {
+    const userIdQueryParam = req.query?.userId
+    const poultries = userIdQueryParam
+      ? await this.repository.findByUser(String(userIdQueryParam))
+      : await this.repository.all()
 
     return BaseController.successResponse(res, { poultries })
   }

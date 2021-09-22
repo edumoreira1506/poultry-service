@@ -1,6 +1,8 @@
 
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 import { IPoultryAddress } from '@cig-platform/types'
+
+import PoultryUser from './PoultryUserEntity'
 
 @Entity('poultries')
 export default class Poultry {
@@ -18,4 +20,7 @@ export default class Poultry {
 
   @Column('boolean')
   active: boolean;
+
+  @OneToMany(() => PoultryUser, poultryUser => poultryUser.userId)
+  users: PoultryUser[];
 }
