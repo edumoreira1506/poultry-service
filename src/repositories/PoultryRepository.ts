@@ -8,12 +8,15 @@ import Poultry from '@Entities/PoultryEntity'
 export default class PoultryRepository extends BaseRepository<Poultry> {
   findByUser(userId: IUser['id']) {
     return this.find({
-      relations: ['users'],
-      where: {
-        users: {
-          id: userId
-        }
-      }
+      join: {
+        alias: 'poultry',
+        innerJoin: {
+          users: 'poultry.users',
+        },
+      },
+      where: (qb: any) => {
+        qb.where('users.userId = :userId', { userId })
+      },
     })
   }
 }
