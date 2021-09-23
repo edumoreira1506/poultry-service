@@ -7,6 +7,7 @@
 	"validated": "Válido!",
 	"app.title": "CIG: Plataforma de Comercialização de Índio Gigante",
 	"app.description": "Documentação da API",
+	"poultry.fields.foundation-date": "Data de fundação",
 	"poultry.fields.name": "Nome",
 	"poultry.fields.address.city": "Cidade",
 	"poultry.fields.address.province": "Estado",
@@ -22,5 +23,6 @@
 	"poultry-user.fields.user-id": "ID do usuário",
 	"poultry-user.fields.poultry-id": "ID do criatório",
 	"common.updated": "Atualizado com sucesso",
-	"errors.not-found": "Recurso não encontrado"
+	"errors.not-found": "Recurso não encontrado",
+	"invalid-date": "{{field}} precisa ser uma data"
 }

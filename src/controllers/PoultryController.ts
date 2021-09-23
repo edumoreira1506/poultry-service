@@ -24,6 +24,7 @@ class PoultryController extends BaseController<Poultry, PoultryRepository>  {
       .setName(req.body.name)
       .setDescription(req.body.description)
       .setAddress(req.body.address)
+      .setFoundationDate(req.body.foundationDate)
       .build()
 
     const poultry = await this.repository.save(poultryDTO)
@@ -43,6 +44,7 @@ class PoultryController extends BaseController<Poultry, PoultryRepository>  {
       .setName(newPoultry.name)
       .setDescription(newPoultry.description)
       .setAddress(newPoultry.address)
+      .setFoundationDate(newPoultry.foundationDate)
       .build()
 
     await this.repository.updateById(newPoultry.id, poultryDTO)

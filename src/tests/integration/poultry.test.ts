@@ -50,6 +50,7 @@ describe('Poultry actions', () => {
         name: poultry.name,
         description: poultry.description,
         address: poultry.address,
+        foundationDate: poultry.foundationDate
       })
 
       expect(response.statusCode).toBe(200)
@@ -61,6 +62,7 @@ describe('Poultry actions', () => {
         name: poultry.name,
         description: poultry.description,
         address: poultry.address,
+        foundationDate: poultry.foundationDate.toISOString(),
       }))
     })
 
@@ -219,6 +221,27 @@ describe('Poultry actions', () => {
         }
       })
       expect(mockSave).not.toHaveBeenCalled()
+    })
+
+    it('is an invalid poultry when the foundationDate is not valid', async () => {
+      const foundationDate = 'invalid date'
+      const poultry = poultryFactory()
+
+      const response = await request(App).post('/v1/poultries').send({
+        name: poultry.name,
+        description: poultry.description,
+        address: poultry.address,
+        foundationDate
+      })
+
+      expect(response.statusCode).toBe(400)
+      expect(response.body).toMatchObject({
+        error: {
+          name: 'ValidationError',
+          message: i18n.__('invalid-date', { field: i18n.__('poultry.fields.foundation-date') })
+        },
+        ok: false,
+      })
     })
   })
 
@@ -567,6 +590,29 @@ describe('Poultry actions', () => {
       })
       expect(mockUpdate).not.toHaveBeenCalled()
     })
+
+    it('is an invalid poultry update when the foundationDate is not valid', async () => {
+      const foundationDate = 'invalid date'
+      const poultry = poultryFactory()
+      const mockPoultryRepository: any = {
+        findById: jest.fn().mockResolvedValue(poultry),
+      }
+
+      jest.spyOn(PoultryController, 'repository', 'get').mockReturnValue(mockPoultryRepository)
+
+      const response = await request(App).patch(`/v1/poultries/${poultry.id}`).send({
+        foundationDate
+      })
+
+      expect(response.statusCode).toBe(400)
+      expect(response.body).toMatchObject({
+        error: {
+          name: 'ValidationError',
+          message: i18n.__('invalid-date', { field: i18n.__('poultry.fields.foundation-date') })
+        },
+        ok: false,
+      })
+    })
   })
 
   describe('Show', () => {
@@ -583,7 +629,10 @@ describe('Poultry actions', () => {
       expect(response.statusCode).toBe(200)
       expect(response.body).toMatchObject({
         ok: true,
-        poultry
+        poultry: {
+          ...poultry,
+          foundationDate: poultry.foundationDate.toISOString()
+        }
       })
       expect(mockPoultryRepository.findById).toHaveBeenCalledWith(poultry.id)
     })
@@ -624,7 +673,10 @@ describe('Poultry actions', () => {
       expect(response.statusCode).toBe(200)
       expect(response.body).toMatchObject({
         ok: true,
-        poultries
+        poultries: poultries.map((poultry) => ({
+          ...poultry,
+          foundationDate: poultry.foundationDate.toISOString()
+        }))
       })
       expect(mockPoultryRepository.all).toHaveBeenCalled()
     })
@@ -643,7 +695,10 @@ describe('Poultry actions', () => {
       expect(response.statusCode).toBe(200)
       expect(response.body).toMatchObject({
         ok: true,
-        poultries
+        poultries: poultries.map((poultry) => ({
+          ...poultry,
+          foundationDate: poultry.foundationDate.toISOString()
+        }))
       })
       expect(mockPoultryRepository.findByUser).toHaveBeenCalledWith(userId)
     })

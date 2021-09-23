@@ -14,6 +14,10 @@ const descriptionSchema = Joi.string().min(MINIMUM_CHARACTERS_DESCRIPTION).max(M
   'string.empty': i18n.__('empty-field', { field: i18n.__('poultry.fields.name') }),
 })
 
+const foundationDateSchema = Joi.date().messages({
+  'date.base': i18n.__('invalid-date', { field: i18n.__('poultry.fields.foundation-date') })
+})
+
 const addressSchema = Joi.object({
   city: Joi.string().required().messages({
     'string.empty': i18n.__('empty-field', { field: i18n.__('poultry.fields.address.city') }),
@@ -43,11 +47,13 @@ const addressSchema = Joi.object({
 export const storePoultrySchema = Joi.object({
   name: nameSchema.required(),
   description: descriptionSchema,
-  address: addressSchema
+  address: addressSchema,
+  foundationDate: foundationDateSchema,
 }).options({ abortEarly: false })
 
 export const updatePoultrySchema = Joi.object({
   name: nameSchema,
   description: descriptionSchema,
-  address: addressSchema
+  address: addressSchema,
+  foundationDate: foundationDateSchema
 }).options({ abortEarly: false })
