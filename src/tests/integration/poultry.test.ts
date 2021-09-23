@@ -19,6 +19,9 @@ jest.mock('typeorm', () => ({
   getCustomRepository: jest.fn().mockReturnValue({
     save: jest.fn()
   }),
+  ManyToOne: jest.fn(),
+  JoinColumn: jest.fn(),
+  OneToMany: jest.fn(),
 }))
 
 describe('Poultry actions', () => {
@@ -604,6 +607,45 @@ describe('Poultry actions', () => {
         }
       })
       expect(mockPoultryRepository.findById).toHaveBeenCalledWith(id)
+    })
+  })
+
+  describe('Index', () => {
+    it('sends all poultries as the response', async () => {
+      const poultries = Array(10).fill({ description: 'description' }).map(poultryFactory)
+      const mockPoultryRepository: any = {
+        all: jest.fn().mockResolvedValue(poultries),
+      }
+
+      jest.spyOn(PoultryController, 'repository', 'get').mockReturnValue(mockPoultryRepository)
+
+      const response = await request(App).get('/v1/poultries')
+
+      expect(response.statusCode).toBe(200)
+      expect(response.body).toMatchObject({
+        ok: true,
+        poultries
+      })
+      expect(mockPoultryRepository.all).toHaveBeenCalled()
+    })
+
+    it('sends the poultries of the user as the response', async () => {
+      const poultries = Array(10).fill({ description: 'description' }).map(poultryFactory)
+      const userId = faker.datatype.uuid()
+      const mockPoultryRepository: any = {
+        findByUser: jest.fn().mockResolvedValue(poultries),
+      }
+
+      jest.spyOn(PoultryController, 'repository', 'get').mockReturnValue(mockPoultryRepository)
+
+      const response = await request(App).get(`/v1/poultries?userId=${userId}`)
+
+      expect(response.statusCode).toBe(200)
+      expect(response.body).toMatchObject({
+        ok: true,
+        poultries
+      })
+      expect(mockPoultryRepository.findByUser).toHaveBeenCalledWith(userId)
     })
   })
 })

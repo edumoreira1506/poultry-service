@@ -15,6 +15,7 @@ class PoultryController extends BaseController<Poultry, PoultryRepository>  {
     this.store = this.store.bind(this)
     this.update = this.update.bind(this)
     this.show = this.show.bind(this)
+    this.index = this.index.bind(this)
   }
 
   @BaseController.errorHandler()
@@ -54,6 +55,16 @@ class PoultryController extends BaseController<Poultry, PoultryRepository>  {
     if (!poultry) throw new NotFoundError()
 
     return BaseController.successResponse(res, { poultry })
+  }
+
+  @BaseController.errorHandler()
+  async index(req: Request, res: Response): Promise<Response> {
+    const userIdQueryParam = req.query?.userId
+    const poultries = userIdQueryParam
+      ? await this.repository.findByUser(String(userIdQueryParam))
+      : await this.repository.all()
+
+    return BaseController.successResponse(res, { poultries })
   }
 }
 

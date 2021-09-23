@@ -1,6 +1,6 @@
 import createDoc from '@cig-platform/docs/build/docs/createDoc'
 
-import { storePoultrySchema } from '@Schemas/PoultrySchemas'
+import { storePoultrySchema, updatePoultrySchema } from '@Schemas/PoultrySchemas'
 
 const poultryDocs = {
   ...createDoc('/poultries', ['Poultries'], [
@@ -8,8 +8,26 @@ const poultryDocs = {
       method: 'post',
       title: 'Store poultry',
       objectSchema: storePoultrySchema,
+    },
+    {
+      method: 'get',
+      title: 'Get poultries',
+      queryParams: [{ type: 'string', name: 'userId' }]
     }
   ]),
+  ...createDoc('/poultries/{poultryId}', ['Poultries'], [
+    {
+      method: 'get',
+      title: 'Get poultry',
+    },
+    {
+      method: 'patch',
+      title: 'Update poultry',
+      objectSchema: updatePoultrySchema
+    }
+  ], {
+    pathVariables: [{ type: 'string', name: 'poultryId' }]
+  })
 }
 
 export default poultryDocs
