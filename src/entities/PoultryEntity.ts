@@ -22,5 +22,5 @@ export default class Poultry {
   active: boolean;
 
   @OneToMany(() => PoultryUser, poultryUser => poultryUser.poultry)
-  users: PoultryUser[];
+  users?: PoultryUser[];
 }
