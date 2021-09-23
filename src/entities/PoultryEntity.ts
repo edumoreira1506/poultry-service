@@ -21,6 +21,6 @@ export default class Poultry {
   @Column('boolean')
   active: boolean;
 
-  @OneToMany(() => PoultryUser, poultryUser => poultryUser.userId)
+  @OneToMany(() => PoultryUser, poultryUser => poultryUser.poultry)
   users: PoultryUser[];
 }

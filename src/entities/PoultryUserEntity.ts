@@ -1,5 +1,7 @@
 
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
+
+import Poultry from './PoultryEntity'
 
 @Entity('poultry_users')
 export default class PoultryUser {
@@ -14,4 +16,8 @@ export default class PoultryUser {
 
   @Column('boolean')
   active: boolean;
+
+  @ManyToOne(() => Poultry, poultry => poultry.users)
+  @JoinColumn({ name: 'poultry_id' })
+  poultry: Poultry;
 }
