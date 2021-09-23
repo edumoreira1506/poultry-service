@@ -583,7 +583,10 @@ describe('Poultry actions', () => {
       expect(response.statusCode).toBe(200)
       expect(response.body).toMatchObject({
         ok: true,
-        poultry
+        poultry: {
+          ...poultry,
+          foundationDate: poultry.foundationDate.toISOString()
+        }
       })
       expect(mockPoultryRepository.findById).toHaveBeenCalledWith(poultry.id)
     })
@@ -624,7 +627,10 @@ describe('Poultry actions', () => {
       expect(response.statusCode).toBe(200)
       expect(response.body).toMatchObject({
         ok: true,
-        poultries
+        poultries: poultries.map((poultry) => ({
+          ...poultry,
+          foundationDate: poultry.foundationDate.toISOString()
+        }))
       })
       expect(mockPoultryRepository.all).toHaveBeenCalled()
     })
@@ -643,7 +649,10 @@ describe('Poultry actions', () => {
       expect(response.statusCode).toBe(200)
       expect(response.body).toMatchObject({
         ok: true,
-        poultries
+        poultries: poultries.map((poultry) => ({
+          ...poultry,
+          foundationDate: poultry.foundationDate.toISOString()
+        }))
       })
       expect(mockPoultryRepository.findByUser).toHaveBeenCalledWith(userId)
     })
