@@ -11,7 +11,8 @@ const poultryDocs = {
     },
     {
       method: 'get',
-      title: 'Get poultries'
+      title: 'Get poultries',
+      queryParams: [{ type: 'string', name: 'userId' }]
     }
   ]),
   ...createDoc('/poultries/{poultryId}', ['Poultries'], [
