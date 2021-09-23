@@ -9,6 +9,13 @@ export default class PoultryBuilder {
   private _name = '';
   private _description = '';
   private _address: undefined | IPoultryAddress;
+  private _foundationDate: Date;
+
+  setFoundationDate(foundationDate: Date) {
+    this._foundationDate = foundationDate
+
+    return this
+  }
 
   setDescription(description: string): PoultryBuilder {
     this._description = description
@@ -49,6 +56,7 @@ export default class PoultryBuilder {
 
     poultry.name = this._name
     poultry.description = this._description
+    poultry.foundationDate = this._foundationDate
 
     if (this._address) {
       poultry.address = this._address

@@ -21,6 +21,9 @@ export default class Poultry {
   @Column('boolean')
   active: boolean;
 
+  @Column({ name: 'foundation_date', type: 'date' })
+  foundationDate: Date;
+
   @OneToMany(() => PoultryUser, poultryUser => poultryUser.poultry)
   users?: PoultryUser[];
 }
