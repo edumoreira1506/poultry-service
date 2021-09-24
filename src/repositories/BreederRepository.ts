@@ -2,16 +2,16 @@ import { EntityRepository } from 'typeorm'
 import { BaseRepository } from '@cig-platform/core'
 import { IUser } from '@cig-platform/types'
 
-import Poultry from '@Entities/PoultryEntity'
+import Breeder from '@Entities/BreederEntity'
 
-@EntityRepository(Poultry)
-export default class PoultryRepository extends BaseRepository<Poultry> {
+@EntityRepository(Breeder)
+export default class BreederRepository extends BaseRepository<Breeder> {
   findByUser(userId: IUser['id']) {
     return this.find({
       join: {
-        alias: 'poultry',
+        alias: 'breeder',
         innerJoin: {
-          users: 'poultry.users',
+          users: 'breeder.users',
         },
       },
       where: (qb: any) => {

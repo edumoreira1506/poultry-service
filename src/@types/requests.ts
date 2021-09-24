@@ -1,7 +1,7 @@
 import { Request } from 'express'
 
-import Poultry from '@Entities/PoultryEntity'
+import Breeder from '@Entities/BreederEntity'
 
-export interface RequestWithPoultry extends Request {
-  poultry?: Poultry;
+export interface RequestWithBreeder extends Request {
+  breeder?: Breeder;
 }

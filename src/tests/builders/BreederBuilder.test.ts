@@ -1,12 +1,12 @@
-import { poultryFactory } from '@cig-platform/factories'
+import { breederFactory } from '@cig-platform/factories'
 
-import PoultryBuilder from '@Builders/PoultryBuilder'
+import BreederBuilder from '@Builders/BreederBuilder'
 import i18n from '@Configs/i18n'
 import CepService from '@Services/CepService'
 
-describe('PoultryBuilder', () => {
+describe('BreederBuilder', () => {
   describe('.build', () => {
-    it('a valid poultry', async () => {
+    it('a valid breeder', async () => {
       const mockAddress = {
         city: 'São Paulo',
         province: 'SP',
@@ -28,29 +28,29 @@ describe('PoultryBuilder', () => {
         siafi: '7107'
       })
 
-      const poultry = poultryFactory({ address: mockAddress, id: '', name: 'mock name', description: 'mock description' })
-      const poultryBuilder = await new PoultryBuilder()
-        .setName(poultry.name)
-        .setDescription(poultry.description)
-        .setAddress(poultry.address)
+      const breeder = breederFactory({ address: mockAddress, id: '', name: 'mock name', description: 'mock description' })
+      const breederBuilder = await new BreederBuilder()
+        .setName(breeder.name)
+        .setDescription(breeder.description)
+        .setAddress(breeder.address)
 
-      expect(await poultryBuilder.build()).toMatchObject({
-        name: poultry.name,
-        description: poultry.description,
-        address: poultry.address,
+      expect(await breederBuilder.build()).toMatchObject({
+        name: breeder.name,
+        description: breeder.description,
+        address: breeder.address,
       })
     })
 
     it('throws an error when the address does not exist on CepService', async () => {
       jest.spyOn(CepService, 'getInfo').mockResolvedValue(null)
 
-      const poultry = poultryFactory()
-      const poultryBuilder = await new PoultryBuilder()
-        .setName(poultry.name)
-        .setDescription(poultry.description)
-        .setAddress(poultry.address)
+      const breeder = breederFactory()
+      const breederBuilder = await new BreederBuilder()
+        .setName(breeder.name)
+        .setDescription(breeder.description)
+        .setAddress(breeder.address)
 
-      await expect(poultryBuilder.build).rejects.toThrow(i18n.__('poultry.errors.invalid-address-zipcode'))
+      await expect(breederBuilder.build).rejects.toThrow(i18n.__('breeder.errors.invalid-address-zipcode'))
     })
 
     it('throws an error when the city address is different from the returned by CepService', async () => {
@@ -75,13 +75,13 @@ describe('PoultryBuilder', () => {
         siafi: '7107'
       })
 
-      const poultry = poultryFactory()
-      const poultryBuilder = await new PoultryBuilder()
-        .setName(poultry.name)
-        .setDescription(poultry.description)
-        .setAddress(poultry.address)
+      const breeder = breederFactory()
+      const breederBuilder = await new BreederBuilder()
+        .setName(breeder.name)
+        .setDescription(breeder.description)
+        .setAddress(breeder.address)
 
-      await expect(poultryBuilder.build).rejects.toThrow(i18n.__('poultry.errors.invalid-address-city'))
+      await expect(breederBuilder.build).rejects.toThrow(i18n.__('breeder.errors.invalid-address-city'))
     })
   })
 })
