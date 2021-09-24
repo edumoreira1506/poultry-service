@@ -1,7 +1,7 @@
-import poultryDocs from './poultry'
-import poultryUserDocs from './poultryUser'
+import breederDocs from './breeder'
+import breederUserDocs from './breederUser'
 
 export default {
-  ...poultryDocs,
-  ...poultryUserDocs
+  ...breederDocs,
+  ...breederUserDocs
 }

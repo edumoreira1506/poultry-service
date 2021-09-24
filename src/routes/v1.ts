@@ -1,36 +1,36 @@
 import express from 'express'
 import { withBodyValidation } from '@cig-platform/core'
 
-import PoultryController from '@Controllers/PoultryController'
-import PoultryUserController from '@Controllers/PoultryUserController'
-import { storePoultrySchema, updatePoultrySchema } from '@Schemas/PoultrySchemas'
-import { storePoultryUserSchema } from '@Schemas/PoultryUserSchema'
-import withPoultryParam from '@Middlewares/withPoultryParam'
+import BreederController from '@Controllers/BreederController'
+import BreederUserController from '@Controllers/BreederUserController'
+import { storeBreederSchema, updateBreederSchema } from '@Schemas/BreederSchemas'
+import { storeBreederUserSchema } from '@Schemas/BreederUserSchema'
+import withBreederParam from '@Middlewares/withBreederParam'
 
 const router = express.Router()
 
-router.post('/poultries', withBodyValidation(storePoultrySchema), PoultryController.store)
+router.post('/breeders', withBodyValidation(storeBreederSchema), BreederController.store)
 
-router.get('/poultries', PoultryController.index)
+router.get('/breeders', BreederController.index)
 
 router.patch(
-  '/poultries/:poultryId',
-  withPoultryParam,
-  withBodyValidation(updatePoultrySchema),
-  PoultryController.update
+  '/breeders/:breederId',
+  withBreederParam,
+  withBodyValidation(updateBreederSchema),
+  BreederController.update
 )
 
 router.get(
-  '/poultries/:poultryId',
-  withPoultryParam,
-  PoultryController.show
+  '/breeders/:breederId',
+  withBreederParam,
+  BreederController.show
 )
 
 router.post(
-  '/poultries/:poultryId/users',
-  withPoultryParam,
-  withBodyValidation(storePoultryUserSchema),
-  PoultryUserController.store
+  '/breeders/:breederId/users',
+  withBreederParam,
+  withBodyValidation(storeBreederUserSchema),
+  BreederUserController.store
 )
 
 export default router

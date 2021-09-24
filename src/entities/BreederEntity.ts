@@ -1,11 +1,11 @@
 
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
-import { IPoultryAddress } from '@cig-platform/types'
+import { IBreederAddress } from '@cig-platform/types'
 
-import PoultryUser from './PoultryUserEntity'
+import BreederUser from './BreederUserEntity'
 
-@Entity('poultries')
-export default class Poultry {
+@Entity('breeders')
+export default class Breeder {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -13,7 +13,7 @@ export default class Poultry {
   name: string;
 
   @Column('json')
-  address: IPoultryAddress;
+  address: IBreederAddress;
 
   @Column('varchar')
   description: string;
@@ -24,6 +24,6 @@ export default class Poultry {
   @Column({ name: 'foundation_date', type: 'date' })
   foundationDate: Date;
 
-  @OneToMany(() => PoultryUser, poultryUser => poultryUser.poultry)
-  users?: PoultryUser[];
+  @OneToMany(() => BreederUser, breederUser => breederUser.breeder)
+  users?: BreederUser[];
 }
