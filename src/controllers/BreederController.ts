@@ -47,7 +47,12 @@ class BreederController extends BaseController<Breeder, BreederRepository>  {
       .setFoundationDate(newBreeder.foundationDate)
       .build()
 
-    await this.repository.updateById(newBreeder.id, breederDTO)
+    await this.repository.updateById(newBreeder.id, {
+      description: breederDTO.description,
+      address: breederDTO.address,
+      foundationDate: breederDTO.foundationDate,
+      name: breederDTO.name,
+    })
   }
 
   @BaseController.errorHandler()
