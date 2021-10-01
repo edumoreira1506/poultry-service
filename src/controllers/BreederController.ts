@@ -39,7 +39,8 @@ class BreederController extends BaseController<Breeder, BreederRepository>  {
 
     if (!breeder) throw new NotFoundError()
 
-    const newBreeder = { ...breeder, ...req.body }
+    const address = req.body.address ? JSON.parse(req.body.address) : breeder.address
+    const newBreeder = { ...breeder, ...req.body, address }
     const breederDTO = await new BreederBuilder()
       .setName(newBreeder.name)
       .setDescription(newBreeder.description)
