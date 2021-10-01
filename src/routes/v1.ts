@@ -6,6 +6,8 @@ import BreederUserController from '@Controllers/BreederUserController'
 import { storeBreederSchema, updateBreederSchema } from '@Schemas/BreederSchemas'
 import { storeBreederUserSchema } from '@Schemas/BreederUserSchema'
 import withBreederParam from '@Middlewares/withBreederParam'
+import withFileSupport from '@Middlewares/withFileSupport'
+import withFileUpload from '@Middlewares/withFileUpload'
 
 const router = express.Router()
 
@@ -16,6 +18,8 @@ router.get('/breeders', BreederController.index)
 router.patch(
   '/breeders/:breederId',
   withBreederParam,
+  withFileSupport,
+  withFileUpload,
   withBodyValidation(updateBreederSchema),
   BreederController.update
 )
