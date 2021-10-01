@@ -21,7 +21,7 @@
 	"homepage": "",
 	"dependencies": {
 		"@cig-platform/core": "^0.4.2",
-		"@cig-platform/docs": "^0.4.4",
+		"@cig-platform/docs": "^0.4.6",
 		"@cig-platform/factories": "0.0.3",
 		"@cig-platform/types": "0.0.3",
 		"aws-sdk": "^2.998.0",
