@@ -10,6 +10,13 @@ export default class BreederBuilder {
   private _description = '';
   private _address: undefined | IBreederAddress;
   private _foundationDate: Date;
+  private _profileImageUrl = ''
+
+  setProfileImageUrl(profileImageUrl: string) {
+    this._profileImageUrl = profileImageUrl
+
+    return this
+  }
 
   setFoundationDate(foundationDate: Date) {
     this._foundationDate = foundationDate
@@ -57,6 +64,7 @@ export default class BreederBuilder {
     breeder.name = this._name
     breeder.description = this._description
     breeder.foundationDate = this._foundationDate
+    breeder.profileImageUrl = this._profileImageUrl
 
     if (this._address) {
       breeder.address = this._address

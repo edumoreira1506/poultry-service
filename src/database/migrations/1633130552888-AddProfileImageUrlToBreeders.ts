@@ -5,7 +5,7 @@ export class AddProfileImageUrlToBreeders1633130552888 implements MigrationInter
     await queryRunner.addColumn('breeders', new TableColumn({
       name: 'profile_image_url',
       type: 'varchar',
-      default: true
+      isNullable: true
     }))
   }
         

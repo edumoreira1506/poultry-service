@@ -9,3 +9,5 @@ export interface RequestWithBreeder extends Request {
 export interface RequestWithFile extends Request {
   fileNames?: string[]
 }
+
+export interface RequestUpdateBreeder extends RequestWithBreeder, RequestWithFile {}
