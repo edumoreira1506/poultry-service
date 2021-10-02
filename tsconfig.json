@@ -59,6 +59,9 @@
       ],
       "@Services/*": [
         "src/services/*"
+      ],
+      "@Utils/*": [
+        "src/utils/*"
       ]
     }
   }
