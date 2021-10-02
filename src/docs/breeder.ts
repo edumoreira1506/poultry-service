@@ -23,7 +23,8 @@ const breederDocs = {
     {
       method: 'patch',
       title: 'Update breeder',
-      objectSchema: updateBreederSchema
+      objectSchema: updateBreederSchema,
+      files: ['files']
     }
   ], {
     pathVariables: [{ type: 'string', name: 'breederId' }]

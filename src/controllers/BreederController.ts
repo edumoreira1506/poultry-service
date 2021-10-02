@@ -6,7 +6,7 @@ import i18n from '@Configs/i18n'
 import BreederRepository from '@Repositories/BreederRepository'
 import Breeder from '@Entities/BreederEntity'
 import BreederBuilder from '@Builders/BreederBuilder'
-import { RequestWithBreeder } from '@Types/requests'
+import { RequestUpdateBreeder, RequestWithBreeder } from '@Types/requests'
 
 class BreederController extends BaseController<Breeder, BreederRepository>  {
   constructor(repository: ObjectType<Breeder>) {
@@ -34,14 +34,17 @@ class BreederController extends BaseController<Breeder, BreederRepository>  {
 
   @BaseController.errorHandler()
   @BaseController.actionHandler(i18n.__('common.updated'))
-  async update(req: RequestWithBreeder): Promise<void> {
+  async update(req: RequestUpdateBreeder): Promise<void> {
     const breeder = req.breeder
 
     if (!breeder) throw new NotFoundError()
 
-    const newBreeder = { ...breeder, ...req.body }
+    const address = req.body.address ? JSON.parse(req.body.address) : breeder.address
+    const profileImageUrl = req.fileNames?.[0] || breeder.profileImageUrl
+    const newBreeder = { ...breeder, ...req.body, address }
     const breederDTO = await new BreederBuilder()
       .setName(newBreeder.name)
+      .setProfileImageUrl(profileImageUrl)
       .setDescription(newBreeder.description)
       .setAddress(newBreeder.address)
       .setFoundationDate(newBreeder.foundationDate)
@@ -52,6 +55,7 @@ class BreederController extends BaseController<Breeder, BreederRepository>  {
       address: breederDTO.address,
       foundationDate: breederDTO.foundationDate,
       name: breederDTO.name,
+      profileImageUrl: breederDTO.profileImageUrl,
     })
   }
 

@@ -3,5 +3,5 @@ import breederUserDocs from './breederUser'
 
 export default {
   ...breederDocs,
-  ...breederUserDocs
+  ...breederUserDocs,
 }

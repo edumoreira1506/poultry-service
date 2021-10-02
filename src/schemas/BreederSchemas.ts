@@ -60,6 +60,6 @@ export const storeBreederSchema = Joi.object({
 export const updateBreederSchema = Joi.object({
   name: nameSchema,
   description: descriptionSchema,
-  address: addressSchema,
+  address: Joi.string(),
   foundationDate: foundationDateSchema
 }).options({ abortEarly: false })

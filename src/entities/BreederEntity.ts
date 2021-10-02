@@ -24,6 +24,9 @@ export default class Breeder {
   @Column({ name: 'foundation_date', type: 'date' })
   foundationDate: Date;
 
+  @Column({ name: 'profile_image_url', type: 'varchar' })
+  profileImageUrl: string;
+
   @OneToMany(() => BreederUser, breederUser => breederUser.breeder)
   users?: BreederUser[];
 }
