@@ -20,11 +20,12 @@ export const withFileUploadFactory = (errorCallback: (res: Response, error: ApiE
     const fileNames: string[] = []
   
     files.forEach((file) => {
-      const fileName = createImagePath({ folder: 'breeders', subfolder: 'profile', fileName: file.originalname })
-  
+      const filePath = createImagePath({ folder: 'breeders', subfolder: 'profile', fileName: file.originalname })
+      const [fileName] = filePath.split('/').reverse()
+
       fileNames.push(fileName)
   
-      S3.upload(file, fileName)
+      S3.upload(file, filePath)
     })
   
     req.fileNames = fileNames
