@@ -1,5 +1,3 @@
-import { breederFactory } from '@cig-platform/factories'
-
 import FileError from '@Errors/FileError'
 import { withFileUploadFactory } from '@Middlewares/withFileUpload'
 import S3 from '@Services/S3Service'
@@ -41,7 +39,7 @@ describe('withFileUpload', () => {
 
   it('uploades the image on S3', () => {
     const file = {
-      originalname: breederFactory().profileImageUrl
+      originalname: 'exemplo.png',
     }
     const request: any = {
       files: [file]
