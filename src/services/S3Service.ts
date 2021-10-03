@@ -13,6 +13,7 @@ export default class S3 {
       Bucket: AWS_BUCKET_NAME,
       Key: fileName,
       Body: file.buffer,
+      ACL: 'public-read',
     }
 
     s3Provider.upload(params, (err: any, data: { Location: string }) => {
