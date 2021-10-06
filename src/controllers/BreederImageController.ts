@@ -12,6 +12,8 @@ class BreederImageController extends BaseController<BreederImage, BreederImageRe
     super(repository)
 
     this.store = this.store.bind(this)
+    this.remove = this.remove.bind(this)
+    this.index = this.index.bind(this)
   }
 
   @BaseController.errorHandler()
