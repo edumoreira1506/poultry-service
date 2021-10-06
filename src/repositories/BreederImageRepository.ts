@@ -12,10 +12,10 @@ export default class BreederImageRepository extends BaseRepository<BreederImage>
   }
 
   deleteById(id: string) {
-    return this.delete({ id })
+    return this.updateById(id, { active: false })
   }
 
   findByBreeder(breederId: string) {
-    return this.find({ breederId })
+    return this.find({ breederId, active: true })
   }
 }
