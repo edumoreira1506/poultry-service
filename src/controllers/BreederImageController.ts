@@ -44,9 +44,9 @@ class BreederImageController extends BaseController<BreederImage, BreederImageRe
 
     if (!breeder) throw new NotFoundError()
 
-    const breeders = await this.repository.findByBreeder(breeder.id)
+    const breederImages = await this.repository.findByBreeder(breeder.id)
 
-    return BaseController.successResponse(res, { breeders })
+    return BaseController.successResponse(res, { breederImages })
   }
 }
 
