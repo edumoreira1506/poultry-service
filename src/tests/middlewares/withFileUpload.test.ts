@@ -10,7 +10,7 @@ describe('withFileUpload', () => {
     const errorCallback = jest.fn()
     const mockNext = jest.fn()
 
-    const withFileUpload = withFileUploadFactory(errorCallback)
+    const withFileUpload = withFileUploadFactory({ folder: '' }, errorCallback)
 
     withFileUpload(request, response, mockNext)
 
@@ -29,7 +29,7 @@ describe('withFileUpload', () => {
     const errorCallback = jest.fn()
     const mockNext = jest.fn()
 
-    const withFileUpload = withFileUploadFactory(errorCallback)
+    const withFileUpload = withFileUploadFactory({ folder: '' }, errorCallback)
 
     withFileUpload(request, response, mockNext)
 
@@ -49,18 +49,20 @@ describe('withFileUpload', () => {
     const mockNext = jest.fn()
     const mockUpload = jest.fn()
     const mockCreateImagePath = jest.fn().mockReturnValue(file.originalname)
+    const folder = 'breeders'
+    const subfolder = 'profile'
 
     jest.spyOn(S3, 'upload').mockImplementation(mockUpload)
     jest.spyOn(Path, 'createImagePath').mockImplementation(mockCreateImagePath)
 
-    const withFileUpload = withFileUploadFactory(errorCallback)
+    const withFileUpload = withFileUploadFactory({ folder, subfolder }, errorCallback)
 
     withFileUpload(request, response, mockNext)
 
     expect(mockNext).toHaveBeenCalled()
     expect(errorCallback).not.toHaveBeenCalled()
     expect(mockUpload).toHaveBeenCalledWith(file, file.originalname)
-    expect(mockCreateImagePath).toHaveBeenCalledWith({ folder: 'breeders', subfolder: 'profile', fileName: file.originalname })
+    expect(mockCreateImagePath).toHaveBeenCalledWith({ folder, subfolder, fileName: file.originalname })
     expect(request.fileNames).toStrictEqual([file.originalname])
   })
 })
