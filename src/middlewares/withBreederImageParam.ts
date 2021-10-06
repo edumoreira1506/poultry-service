@@ -6,7 +6,7 @@ import BreederImageRepository from '@Repositories/BreederImageRepository'
 import Breeder from '@Entities/BreederEntity'
 import { RequestWithBreederAndBreederImage } from '@Types/requests'
 
-const withBreederImageParamFactory =
+export const withBreederImageParamFactory =
   (errorCallback: (res: Response, error: ApiError) => Response) =>
     (req: RequestWithBreederAndBreederImage, res: Response, next: NextFunction) => {
       return withRequestParam<BreederImageRepository, Breeder>('breederImageId', 'breederImage', BreederImageController, errorCallback)(req, res, () => {
