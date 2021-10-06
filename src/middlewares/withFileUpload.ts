@@ -8,7 +8,10 @@ import FileError from '@Errors/FileError'
 import { RequestWithFile } from '@Types/requests'
 import { createImagePath } from '@Utils/path'
 
-export const withFileUploadFactory = (errorCallback: (res: Response, error: ApiErrorType) => Response) => (req: RequestWithFile, res: Response, next: NextFunction) => {
+export const withFileUploadFactory = (
+  { folder, subfolder }: { folder: string; subfolder?: string },
+  errorCallback: (res: Response, error: ApiErrorType) => Response = BaseController.errorResponse
+) => (req: RequestWithFile, res: Response, next: NextFunction) => {
   if (Array.isArray(req.files)) {
     const files = req?.files ?? []
     const hasSomeInvalidFile = files.some((file) => (
@@ -20,7 +23,7 @@ export const withFileUploadFactory = (errorCallback: (res: Response, error: ApiE
     const fileNames: string[] = []
   
     files.forEach((file) => {
-      const filePath = createImagePath({ folder: 'breeders', subfolder: 'profile', fileName: file.originalname })
+      const filePath = createImagePath({ folder, subfolder, fileName: file.originalname })
       const [fileName] = filePath.split('/').reverse()
 
       fileNames.push(fileName)
@@ -33,5 +36,3 @@ export const withFileUploadFactory = (errorCallback: (res: Response, error: ApiE
 
   next()
 }
-
-export default withFileUploadFactory(BaseController.errorResponse)

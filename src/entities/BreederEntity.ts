@@ -3,6 +3,7 @@ import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 import { IBreederAddress } from '@cig-platform/types'
 
 import BreederUser from './BreederUserEntity'
+import BreederImage from './BreederImageEntity'
 
 @Entity('breeders')
 export default class Breeder {
@@ -29,4 +30,7 @@ export default class Breeder {
 
   @OneToMany(() => BreederUser, breederUser => breederUser.breeder)
   users?: BreederUser[];
+
+  @OneToMany(() => BreederImage, breederImage => breederImage.breeder)
+  images?: BreederImage[];
 }
