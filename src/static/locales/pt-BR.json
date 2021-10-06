@@ -26,5 +26,6 @@
 	"common.deleted": "Removido com sucesso",
 	"errors.invalid-file": "Tipo de arquivo inválido",
 	"errors.not-found": "Recurso não encontrado",
-	"invalid-date": "{{field}} precisa ser uma data"
+	"invalid-date": "{{field}} precisa ser uma data",
+	"auth.errors.invalid-login": "Operação não permitida"
 }
