@@ -3,7 +3,7 @@ import { BaseController, NotFoundError } from '@cig-platform/core'
 
 import BreederImageRepository from '@Repositories/BreederImageRepository'
 import BreederImage from '@Entities/BreederImageEntity'
-import { RequestWithBreederAndFile } from '@Types/requests'
+import { RequestWithBreederAndFile, RequestWithBreederImage } from '@Types/requests'
 import i18n from '@Configs/i18n'
 
 class BreederImageController extends BaseController<BreederImage, BreederImageRepository>  {
@@ -23,6 +23,16 @@ class BreederImageController extends BaseController<BreederImage, BreederImageRe
     const fileNames = req.fileNames ?? []
 
     await this.repository.insertAll(fileNames, breeder.id)
+  }
+
+  @BaseController.errorHandler()
+  @BaseController.actionHandler(i18n.__('common.deleted'))
+  async remove(req: RequestWithBreederImage): Promise<void> {
+    const breederImage = req.breederImage
+
+    if (!breederImage) throw new NotFoundError()
+
+    await this.repository.deleteById(breederImage.id)
   }
 }
 

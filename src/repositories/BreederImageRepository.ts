@@ -10,4 +10,8 @@ export default class BreederImageRepository extends BaseRepository<BreederImage>
 
     return this.insert(images)
   }
+
+  deleteById(id: string) {
+    return this.delete({ id })
+  }
 }

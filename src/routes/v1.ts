@@ -9,6 +9,7 @@ import withBreederParam from '@Middlewares/withBreederParam'
 import withFileSupport from '@Middlewares/withFileSupport'
 import { withFileUploadFactory } from '@Middlewares/withFileUpload'
 import BreederImageController from '@Controllers/BreederImageController'
+import withBreederImageParam from '@Middlewares/withBreederImageParam'
 
 const router = express.Router()
 
@@ -44,6 +45,13 @@ router.post(
   withFileSupport,
   withFileUploadFactory({ folder: 'breeders', subfolder: 'images' }),
   BreederImageController.store
+)
+
+router.delete(
+  '/breeders/:breederId/images/:breederImageId',
+  withBreederParam,
+  withBreederImageParam,
+  BreederImageController.remove
 )
 
 export default router

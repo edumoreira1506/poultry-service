@@ -23,6 +23,7 @@
 	"breeder-user.fields.user-id": "ID do usuário",
 	"breeder-user.fields.breeder-id": "ID do criatório",
 	"common.updated": "Atualizado com sucesso",
+	"common.deleted": "Removido com sucesso",
 	"errors.invalid-file": "Tipo de arquivo inválido",
 	"errors.not-found": "Recurso não encontrado",
 	"invalid-date": "{{field}} precisa ser uma data"
