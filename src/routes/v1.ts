@@ -7,7 +7,9 @@ import { storeBreederSchema, updateBreederSchema } from '@Schemas/BreederSchemas
 import { storeBreederUserSchema } from '@Schemas/BreederUserSchema'
 import withBreederParam from '@Middlewares/withBreederParam'
 import withFileSupport from '@Middlewares/withFileSupport'
-import withFileUpload from '@Middlewares/withFileUpload'
+import { withFileUploadFactory } from '@Middlewares/withFileUpload'
+import BreederImageController from '@Controllers/BreederImageController'
+import withBreederImageParam from '@Middlewares/withBreederImageParam'
 
 const router = express.Router()
 
@@ -19,7 +21,7 @@ router.patch(
   '/breeders/:breederId',
   withBreederParam,
   withFileSupport,
-  withFileUpload,
+  withFileUploadFactory({ folder: 'breeders', subfolder: 'profile' }),
   withBodyValidation(updateBreederSchema),
   BreederController.update
 )
@@ -35,6 +37,23 @@ router.post(
   withBreederParam,
   withBodyValidation(storeBreederUserSchema),
   BreederUserController.store
+)
+
+router.post(
+  '/breeders/:breederId/images',
+  withBreederParam,
+  withFileSupport,
+  withFileUploadFactory({ folder: 'breeders', subfolder: 'images' }),
+  BreederImageController.store
+)
+
+router.get('/breeders/:breederId/images', withBreederParam, BreederImageController.index)
+
+router.delete(
+  '/breeders/:breederId/images/:breederImageId',
+  withBreederParam,
+  withBreederImageParam,
+  BreederImageController.remove
 )
 
 export default router

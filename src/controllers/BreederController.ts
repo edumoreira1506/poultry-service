@@ -6,7 +6,7 @@ import i18n from '@Configs/i18n'
 import BreederRepository from '@Repositories/BreederRepository'
 import Breeder from '@Entities/BreederEntity'
 import BreederBuilder from '@Builders/BreederBuilder'
-import { RequestUpdateBreeder, RequestWithBreeder } from '@Types/requests'
+import { RequestWithBreederAndFile, RequestWithBreeder } from '@Types/requests'
 
 class BreederController extends BaseController<Breeder, BreederRepository>  {
   constructor(repository: ObjectType<Breeder>) {
@@ -34,7 +34,7 @@ class BreederController extends BaseController<Breeder, BreederRepository>  {
 
   @BaseController.errorHandler()
   @BaseController.actionHandler(i18n.__('common.updated'))
-  async update(req: RequestUpdateBreeder): Promise<void> {
+  async update(req: RequestWithBreederAndFile): Promise<void> {
     const breeder = req.breeder
 
     if (!breeder) throw new NotFoundError()
