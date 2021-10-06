@@ -47,6 +47,8 @@ router.post(
   BreederImageController.store
 )
 
+router.get('/breeders/:breederId/images', withBreederParam, BreederImageController.index)
+
 router.delete(
   '/breeders/:breederId/images/:breederImageId',
   withBreederParam,

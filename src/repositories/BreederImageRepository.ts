@@ -14,4 +14,8 @@ export default class BreederImageRepository extends BaseRepository<BreederImage>
   deleteById(id: string) {
     return this.delete({ id })
   }
+
+  findByBreeder(breederId: string) {
+    return this.find({ breederId })
+  }
 }

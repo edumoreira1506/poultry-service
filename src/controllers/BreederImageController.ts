@@ -1,9 +1,10 @@
 import { ObjectType } from 'typeorm'
+import { Response } from 'express'
 import { BaseController, NotFoundError } from '@cig-platform/core'
 
 import BreederImageRepository from '@Repositories/BreederImageRepository'
 import BreederImage from '@Entities/BreederImageEntity'
-import { RequestWithBreederAndFile, RequestWithBreederImage } from '@Types/requests'
+import { RequestWithBreeder, RequestWithBreederAndFile, RequestWithBreederImage } from '@Types/requests'
 import i18n from '@Configs/i18n'
 
 class BreederImageController extends BaseController<BreederImage, BreederImageRepository>  {
@@ -33,6 +34,17 @@ class BreederImageController extends BaseController<BreederImage, BreederImageRe
     if (!breederImage) throw new NotFoundError()
 
     await this.repository.deleteById(breederImage.id)
+  }
+
+  @BaseController.errorHandler()
+  async index(req: RequestWithBreeder, res: Response): Promise<Response> {
+    const breeder = req.breeder
+
+    if (!breeder) throw new NotFoundError()
+
+    const breeders = await this.repository.findByBreeder(breeder.id)
+
+    return BaseController.successResponse(res, { breeders })
   }
 }
 
