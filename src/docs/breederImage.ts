@@ -6,11 +6,7 @@ const breederImageDocs = {
       method: 'post',
       title: 'Register breeder image',
       files: ['files']
-    }
-  ], {
-    pathVariables: [{ type: 'string', name: 'breederId' }]
-  }),
-  ...createDoc('/breeders/{breederId}/images', ['Breeder images'], [
+    },
     {
       method: 'get',
       title: 'Get breeder images',
