@@ -58,6 +58,7 @@ class BreederController extends BaseController<Breeder, BreederRepository>  {
       foundationDate: breederDTO.foundationDate,
       name: breederDTO.name,
       profileImageUrl: breederDTO.profileImageUrl,
+      mainVideo: breederDTO.mainVideo,
     })
   }
 
