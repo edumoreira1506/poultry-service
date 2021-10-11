@@ -28,6 +28,9 @@ export default class Breeder {
   @Column({ name: 'profile_image_url', type: 'varchar' })
   profileImageUrl: string;
 
+  @Column({ name: 'main_video', type: 'varchar' })
+  mainVideo: string;
+
   @OneToMany(() => BreederUser, breederUser => breederUser.breeder)
   users?: BreederUser[];
 
