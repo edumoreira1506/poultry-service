@@ -1,3 +1,4 @@
+import faker from 'faker'
 import { breederFactory } from '@cig-platform/factories'
 
 import BreederBuilder from '@Builders/BreederBuilder'
@@ -12,7 +13,9 @@ describe('BreederBuilder', () => {
         province: 'SP',
         street: 'Praça da Sé',
         zipcode: '01001-000',
-        number: 1004
+        number: 1004,
+        latitude: Number(faker.address.latitude()),
+        longitude: Number(faker.address.longitude()),
       }
 
       jest.spyOn(CepService, 'getInfo').mockResolvedValue({

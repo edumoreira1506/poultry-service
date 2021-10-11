@@ -48,6 +48,8 @@ const addressSchema = Joi.object({
     'any.required': i18n.__('required-field', { field: i18n.__('breeder.fields.address.number') }),
     'number.min': i18n.__('breeder.errors.invalid-address-number')
   }),
+  latitude: Joi.number(),
+  longitude: Joi.number()
 })
 
 const mainVideoSchema = Joi.string()
