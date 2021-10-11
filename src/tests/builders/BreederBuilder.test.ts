@@ -33,11 +33,15 @@ describe('BreederBuilder', () => {
         .setName(breeder.name)
         .setDescription(breeder.description)
         .setAddress(breeder.address)
+        .setMainVideo(breeder.mainVideo)
+        .setProfileImageUrl(breeder.profileImageUrl)
 
       expect(await breederBuilder.build()).toMatchObject({
         name: breeder.name,
         description: breeder.description,
         address: breeder.address,
+        mainVideo: breeder.mainVideo,
+        profileImageUrl: breeder.profileImageUrl,
       })
     })
 

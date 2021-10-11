@@ -50,16 +50,20 @@ const addressSchema = Joi.object({
   }),
 })
 
+const mainVideoSchema = Joi.string()
+
 export const storeBreederSchema = Joi.object({
   name: nameSchema.required(),
   description: descriptionSchema,
   address: addressSchema,
   foundationDate: foundationDateSchema,
+  mainVideo: mainVideoSchema
 }).options({ abortEarly: false })
 
 export const updateBreederSchema = Joi.object({
   name: nameSchema,
   description: descriptionSchema,
   address: Joi.string(),
-  foundationDate: foundationDateSchema
+  foundationDate: foundationDateSchema,
+  mainVideo: mainVideoSchema
 }).options({ abortEarly: false })

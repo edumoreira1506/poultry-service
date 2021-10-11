@@ -10,7 +10,14 @@ export default class BreederBuilder {
   private _description = '';
   private _address: undefined | IBreederAddress;
   private _foundationDate: Date;
+  private _mainVideo: string;
   private _profileImageUrl = ''
+
+  setMainVideo(mainVideo: string) {
+    this._mainVideo = mainVideo
+
+    return this
+  }
 
   setProfileImageUrl(profileImageUrl: string) {
     this._profileImageUrl = profileImageUrl
@@ -65,6 +72,10 @@ export default class BreederBuilder {
     breeder.description = this._description
     breeder.foundationDate = this._foundationDate
     breeder.profileImageUrl = this._profileImageUrl
+
+    if (this._mainVideo) {
+      breeder.mainVideo = this._mainVideo
+    }
 
     if (this._address) {
       breeder.address = this._address

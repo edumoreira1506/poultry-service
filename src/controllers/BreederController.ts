@@ -25,6 +25,7 @@ class BreederController extends BaseController<Breeder, BreederRepository>  {
       .setDescription(req.body.description)
       .setAddress(req.body.address)
       .setFoundationDate(req.body.foundationDate)
+      .setMainVideo(req.body.mainVideo)
       .build()
 
     const breeder = await this.repository.save(breederDTO)
@@ -48,6 +49,7 @@ class BreederController extends BaseController<Breeder, BreederRepository>  {
       .setDescription(newBreeder.description)
       .setAddress(newBreeder.address)
       .setFoundationDate(newBreeder.foundationDate)
+      .setMainVideo(newBreeder.mainVideo)
       .build()
 
     await this.repository.updateById(newBreeder.id, {
