@@ -3,12 +3,20 @@ import { IPoultryColors, IPoultryVideos } from '@cig-platform/types'
 
 import Poultry from '@Entities/PoultryEntity'
 import PoultryTypeEnum from '@Enums/PoultryTypeEnum'
+import Breeder from '@Entities/BreederEntity'
 
 export default class PoultryBuilder {
   private _type: string;
   private _birthDate: Date;
   private _colors: IPoultryColors;
   private _videos: IPoultryVideos;
+  private _breeder: Breeder;
+
+  setBreeder(breeder: Breeder) {
+    this._breeder = breeder
+
+    return this
+  }
 
   setType(type: string) {
     this._type = type
@@ -51,6 +59,10 @@ export default class PoultryBuilder {
     poultry.birthDate = this._birthDate
     poultry.colors = this._colors
     poultry.videos = this._videos
+
+    if (this._breeder) {
+      poultry.breeder = this._breeder 
+    }
 
     return poultry
   }
