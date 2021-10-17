@@ -21,7 +21,7 @@ class PoultryController extends BaseController<Poultry, PoultryRepository>  {
 
     if (!breeder) throw new NotFoundError()
 
-    const poultryDTO = await new PoultryBuilder()
+    const poultryDTO = new PoultryBuilder()
       .setType(req.body.type)
       .setBirthDate(req.body.birthDate)
       .setColors(req.body.colors)
