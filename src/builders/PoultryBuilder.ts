@@ -4,6 +4,7 @@ import { IPoultryColors, IPoultryVideos } from '@cig-platform/types'
 import Poultry from '@Entities/PoultryEntity'
 import PoultryTypeEnum from '@Enums/PoultryTypeEnum'
 import Breeder from '@Entities/BreederEntity'
+import i18n from '@Configs/i18n'
 
 export default class PoultryBuilder {
   private _type: string;
@@ -50,7 +51,7 @@ export default class PoultryBuilder {
     }
   }
 
-  build = async (): Promise<Poultry> => {
+  build = (): Poultry => {
     this.validate()
 
     const poultry = new Poultry()
