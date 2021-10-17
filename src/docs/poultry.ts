@@ -8,6 +8,10 @@ const poultryDocs = {
       method: 'post',
       title: 'Register poultry',
       objectSchema: storePoultrySchema,
+    },
+    {
+      method: 'get',
+      title: 'Get poultries'
     }
   ], {
     pathVariables: [{ type: 'string', name: 'breederId' }]
