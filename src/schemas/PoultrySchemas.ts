@@ -1,5 +1,6 @@
 import Joi from 'joi'
 
+import i18n from '@Configs/i18n'
 import PoultryTypeEnum from '@Enums/PoultryTypeEnum'
 
 export const storePoultrySchema = Joi.object({
