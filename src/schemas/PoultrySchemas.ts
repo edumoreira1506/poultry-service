@@ -9,7 +9,7 @@ export const storePoultrySchema = Joi.object({
     'any.required': i18n.__('required-field', { field: i18n.__('poultry.fields.type') }),
     'any.only': i18n.__('poultry.errors.invalid-type')
   }),
-  birhtDate: Joi.date().messages({
+  birthDate: Joi.date().messages({
     'date.base': i18n.__('invalid-date', { field: i18n.__('poultry.fields.birth-date') })
   }),
   colors: Joi.object({
