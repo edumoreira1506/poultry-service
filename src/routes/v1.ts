@@ -1,15 +1,19 @@
 import express from 'express'
 import { withBodyValidation } from '@cig-platform/core'
 
-import BreederController from '@Controllers/BreederController'
-import BreederUserController from '@Controllers/BreederUserController'
-import { storeBreederSchema, updateBreederSchema } from '@Schemas/BreederSchemas'
-import { storeBreederUserSchema } from '@Schemas/BreederUserSchema'
 import withBreederParam from '@Middlewares/withBreederParam'
 import withFileSupport from '@Middlewares/withFileSupport'
 import { withFileUploadFactory } from '@Middlewares/withFileUpload'
-import BreederImageController from '@Controllers/BreederImageController'
 import withBreederImageParam from '@Middlewares/withBreederImageParam'
+
+import BreederController from '@Controllers/BreederController'
+import BreederUserController from '@Controllers/BreederUserController'
+import BreederImageController from '@Controllers/BreederImageController'
+import PoultryController from '@Controllers/PoultryController'
+
+import { storeBreederSchema, updateBreederSchema } from '@Schemas/BreederSchemas'
+import { storeBreederUserSchema } from '@Schemas/BreederUserSchema'
+import { storePoultrySchema } from '@Schemas/PoultrySchemas'
 
 const router = express.Router()
 
@@ -54,6 +58,13 @@ router.delete(
   withBreederParam,
   withBreederImageParam,
   BreederImageController.remove
+)
+
+router.post(
+  '/breeders/:breederId/poultries',
+  withBreederParam,
+  withBodyValidation(storePoultrySchema),
+  PoultryController.store
 )
 
 export default router
