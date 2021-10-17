@@ -30,7 +30,8 @@ module.exports = {
           "@Services": "./src/services",
           "@Schemas": "./src/schemas",
           "@Docs": "./src/docs",
-          "@Utils": "./src/utils"
+          "@Utils": "./src/utils",
+          "@Enums": "./src/enums"
         },
       },
     ],

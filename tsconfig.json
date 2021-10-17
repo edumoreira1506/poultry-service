@@ -62,6 +62,9 @@
       ],
       "@Utils/*": [
         "src/utils/*"
+      ],
+      "@Enums/*": [
+        "src/enums/*"
       ]
     }
   }

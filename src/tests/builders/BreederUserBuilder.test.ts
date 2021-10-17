@@ -14,7 +14,7 @@ describe('BreederUserBuilder', () => {
       const breeder = breederFactory()
       const breederUser = breederUserFactory({ breederId: breeder.id })
       const breederUserBuilder = await new BreederUserBuilder()
-        .setBreeder(breeder)
+        .setBreeder(breeder as any)
         .setUserId(breederUser.userId)
 
       expect(await breederUserBuilder.build()).toMatchObject({
@@ -32,7 +32,7 @@ describe('BreederUserBuilder', () => {
       const breeder = breederFactory()
       const breederUser = breederUserFactory({ breederId: breeder.id })
       const breederUserBuilder = await new BreederUserBuilder()
-        .setBreeder(breeder)
+        .setBreeder(breeder as any)
         .setUserId(breederUser.userId)
 
       await expect(breederUserBuilder.build).rejects.toThrow(i18n.__('breeder-user.errors.invalid-user'))
