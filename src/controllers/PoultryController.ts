@@ -13,6 +13,7 @@ class PoultryController extends BaseController<Poultry, PoultryRepository>  {
     super(repository)
 
     this.store = this.store.bind(this)
+    this.index = this.index.bind(this)
   }
 
   @BaseController.errorHandler()
@@ -32,6 +33,17 @@ class PoultryController extends BaseController<Poultry, PoultryRepository>  {
     const poultry = await this.repository.save(poultryDTO)
 
     return BaseController.successResponse(res, { poultry, message: i18n.__('messages.success') })
+  }
+
+  @BaseController.errorHandler()
+  async index(req: RequestWithBreeder, res: Response): Promise<Response> {
+    const breeder = req.breeder
+
+    if (!breeder) throw new NotFoundError()
+
+    const poultries = await this.repository.findByBreeder(breeder.id)
+
+    return BaseController.successResponse(res, { poultries })
   }
 }
 

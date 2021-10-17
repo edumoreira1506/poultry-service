@@ -4,6 +4,7 @@ import { breederFactory, poultryFactory } from '@cig-platform/factories'
 
 import App from '@Configs/server'
 import i18n from '@Configs/i18n'
+import PoultryController from '@Controllers/PoultryController'
 
 jest.mock('typeorm', () => ({
   createConnection: jest.fn().mockResolvedValue({}),
@@ -116,6 +117,32 @@ describe('Poultry actions', () => {
         videos: poultry.videos,
         type: poultry.type
       }))
+    })
+  })
+
+  describe('Index', () => {
+    it('send all poultries of breeder', async () => {
+      const poultries = [poultryFactory()]
+      const breeder = breederFactory()
+      const mockRepository: any = {
+        findById: jest.fn().mockResolvedValue(breeder),
+        findByBreeder: jest.fn().mockResolvedValue(poultries),
+      }
+
+      jest.spyOn(typeorm, 'getCustomRepository').mockReturnValue(mockRepository)
+      jest.spyOn(PoultryController, 'repository', 'get').mockReturnValue(mockRepository)
+
+      const response = await request(App).get(`/v1/breeders/${breeder.id}/poultries`)
+
+      expect(response.statusCode).toBe(200)
+      expect(response.body).toMatchObject({
+        ok: true,
+        poultries: poultries.map((poultry) => ({
+          ...poultry,
+          birthDate: poultry.birthDate.toISOString()
+        }))
+      })
+      expect(mockRepository.findByBreeder).toHaveBeenCalledWith(breeder.id)
     })
   })
 })

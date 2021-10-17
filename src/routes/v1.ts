@@ -67,4 +67,6 @@ router.post(
   PoultryController.store
 )
 
+router.get('/breeders/:breederId/poultries', withBreederParam, PoultryController.index)
+
 export default router
