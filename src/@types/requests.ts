@@ -2,9 +2,14 @@ import { Request } from 'express'
 
 import Breeder from '@Entities/BreederEntity'
 import BreederImage from '@Entities/BreederImageEntity'
+import Poultry from '@Entities/PoultryEntity'
 
 export interface RequestWithBreeder extends Request {
   breeder?: Breeder;
+}
+
+export interface RequestWithPoultryAndBreeder extends Request, RequestWithBreeder {
+  poultry?: Poultry;
 }
 
 export interface RequestWithFile extends Request {
