@@ -14,7 +14,7 @@ import PoultryController from '@Controllers/PoultryController'
 
 import { storeBreederSchema, updateBreederSchema } from '@Schemas/BreederSchemas'
 import { storeBreederUserSchema } from '@Schemas/BreederUserSchema'
-import { storePoultrySchema } from '@Schemas/PoultrySchemas'
+import { storePoultrySchema, updatePoultrySchema } from '@Schemas/PoultrySchemas'
 
 const router = express.Router()
 
@@ -71,5 +71,13 @@ router.post(
 router.get('/breeders/:breederId/poultries', withBreederParam, PoultryController.index)
 
 router.get('/breeders/:breederId/poultries/:poultryId', withBreederParam, withPoultryParam, PoultryController.show)
+
+router.patch(
+  '/breeders/:breederId/poultries/:poultryId',
+  withBreederParam,
+  withPoultryParam,
+  withBodyValidation(updatePoultrySchema),
+  PoultryController.update
+)
 
 export default router
