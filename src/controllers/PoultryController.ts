@@ -15,6 +15,7 @@ class PoultryController extends BaseController<Poultry, PoultryRepository>  {
     this.store = this.store.bind(this)
     this.index = this.index.bind(this)
     this.show = this.show.bind(this)
+    this.update = this.update.bind(this)
   }
 
   @BaseController.errorHandler()
@@ -54,6 +55,30 @@ class PoultryController extends BaseController<Poultry, PoultryRepository>  {
     if (!poultry) throw new NotFoundError()
 
     return BaseController.successResponse(res, { poultry })
+  }
+
+  @BaseController.errorHandler()
+  @BaseController.actionHandler(i18n.__('common.updated'))
+  async update(req: RequestWithPoultryAndBreeder): Promise<void> {
+    const poultry = req.poultry
+
+    if (!poultry) throw new NotFoundError()
+
+    const newPoultry = { ...poultry, ...req.body }
+
+    const poultryDTO = new PoultryBuilder()
+      .setType(newPoultry.type)
+      .setBirthDate(newPoultry.birthDate)
+      .setColors(newPoultry.colors)
+      .setVideos(newPoultry.videos)
+      .build()
+
+    await this.repository.updateById(poultry.id, {
+      type: poultryDTO.type,
+      birthDate: poultryDTO.birthDate,
+      colors: poultryDTO.colors,
+      videos: poultryDTO.videos,
+    })
   }
 }
 
