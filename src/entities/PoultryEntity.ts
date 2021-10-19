@@ -12,6 +12,9 @@ export default class Poultry {
   @Column('varchar')
   type: string;
 
+  @Column({ type: 'uuid', name: 'breeder_id'})
+  breederId: string;
+
   @Column({ name: 'birth_date', type: 'date' })
   birthDate: Date;
 

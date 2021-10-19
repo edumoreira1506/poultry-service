@@ -5,6 +5,7 @@ import withBreederParam from '@Middlewares/withBreederParam'
 import withFileSupport from '@Middlewares/withFileSupport'
 import { withFileUploadFactory } from '@Middlewares/withFileUpload'
 import withBreederImageParam from '@Middlewares/withBreederImageParam'
+import withPoultryParam from '@Middlewares/withPoultryParam'
 
 import BreederController from '@Controllers/BreederController'
 import BreederUserController from '@Controllers/BreederUserController'
@@ -68,5 +69,7 @@ router.post(
 )
 
 router.get('/breeders/:breederId/poultries', withBreederParam, PoultryController.index)
+
+router.get('/breeders/:breederId/poultries/:poultryId', withBreederParam, withPoultryParam, PoultryController.show)
 
 export default router

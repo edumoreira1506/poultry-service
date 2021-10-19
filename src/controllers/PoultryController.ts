@@ -6,7 +6,7 @@ import i18n from '@Configs/i18n'
 import PoultryRepository from '@Repositories/PoultryRepository'
 import Poultry from '@Entities/PoultryEntity'
 import PoultryBuilder from '@Builders/PoultryBuilder'
-import { RequestWithBreeder } from '@Types/requests'
+import { RequestWithBreeder, RequestWithPoultryAndBreeder } from '@Types/requests'
 
 class PoultryController extends BaseController<Poultry, PoultryRepository>  {
   constructor(repository: ObjectType<Poultry>) {
@@ -14,6 +14,7 @@ class PoultryController extends BaseController<Poultry, PoultryRepository>  {
 
     this.store = this.store.bind(this)
     this.index = this.index.bind(this)
+    this.show = this.show.bind(this)
   }
 
   @BaseController.errorHandler()
@@ -44,6 +45,15 @@ class PoultryController extends BaseController<Poultry, PoultryRepository>  {
     const poultries = await this.repository.findByBreeder(breeder.id)
 
     return BaseController.successResponse(res, { poultries })
+  }
+
+  @BaseController.errorHandler()
+  async show(req: RequestWithPoultryAndBreeder, res: Response): Promise<Response> {
+    const poultry = req.poultry
+
+    if (!poultry) throw new NotFoundError()
+
+    return BaseController.successResponse(res, { poultry })
   }
 }
 
