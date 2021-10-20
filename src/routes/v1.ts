@@ -10,11 +10,13 @@ import withPoultryParam from '@Middlewares/withPoultryParam'
 import BreederController from '@Controllers/BreederController'
 import BreederUserController from '@Controllers/BreederUserController'
 import BreederImageController from '@Controllers/BreederImageController'
+import BreederContactController from '@Controllers/BreederContactController'
 import PoultryController from '@Controllers/PoultryController'
 
 import { storeBreederSchema, updateBreederSchema } from '@Schemas/BreederSchemas'
 import { storeBreederUserSchema } from '@Schemas/BreederUserSchema'
 import { storePoultrySchema, updatePoultrySchema } from '@Schemas/PoultrySchemas'
+import { storeBreederContactSchema } from '@Schemas/BreederContactSchema'
 
 const router = express.Router()
 
@@ -42,6 +44,13 @@ router.post(
   withBreederParam,
   withBodyValidation(storeBreederUserSchema),
   BreederUserController.store
+)
+
+router.post(
+  '/breeders/:breederId/contacts',
+  withBreederParam,
+  withBodyValidation(storeBreederContactSchema),
+  BreederContactController.store
 )
 
 router.post(
