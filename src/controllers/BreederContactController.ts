@@ -4,7 +4,7 @@ import { BaseController, NotFoundError } from '@cig-platform/core'
 
 import BreederContactRepository from '@Repositories/BreederContactRepository'
 import BreederContact from '@Entities/BreederContactEntity'
-import { RequestWithBreeder, RequestWithBreederContact } from '@Types/requests'
+import { RequestWithBreeder, RequestWithBreederAndBreederContact, RequestWithBreederContact } from '@Types/requests'
 import BreederContactBuilder from '@Builders/BreederContactBuilder'
 import i18n from '@Configs/i18n'
 
@@ -15,6 +15,7 @@ class BreederContactController extends BaseController<BreederContact, BreederCon
     this.store = this.store.bind(this)
     this.index = this.index.bind(this)
     this.remove = this.remove.bind(this)
+    this.update = this.update.bind(this)
   }
 
   @BaseController.errorHandler()
@@ -32,6 +33,29 @@ class BreederContactController extends BaseController<BreederContact, BreederCon
     const contact = await this.repository.save(breederContactDTO)
 
     return BaseController.successResponse(res, { contact, message: i18n.__('messages.success') })
+  }
+
+  @BaseController.errorHandler()
+  @BaseController.actionHandler(i18n.__('common.updated'))
+  async update(req: RequestWithBreederAndBreederContact) {
+    const contact = req.breederContact
+    const breeder = req.breeder
+
+    if (!contact || !breeder) throw new NotFoundError()
+
+    const newContact = { ...contact, ...req.body }
+
+    const newContactDTO = new BreederContactBuilder()
+      .setType(newContact.type)
+      .setValue(newContact.value)
+      .setBreeder(breeder)
+      .build()
+
+    await this.repository.updateById(newContact.id, {
+      type: newContactDTO.type,
+      value: newContactDTO.value,
+      breeder,
+    })
   }
 
   @BaseController.errorHandler()

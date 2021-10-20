@@ -1,6 +1,6 @@
 import createDoc from '@cig-platform/docs/build/docs/createDoc'
 
-import { storeBreederContactSchema } from '@Schemas/BreederContactSchema'
+import { storeBreederContactSchema, updateBreederContactSchema } from '@Schemas/BreederContactSchema'
 
 const breederContactDocs = {
   ...createDoc('/breeders/{breederId}/contacts', ['Contacts'], [
@@ -19,7 +19,12 @@ const breederContactDocs = {
   ...createDoc('/breeders/{breederId}/contacts/{contactId}', ['Contacts'], [
     {
       method: 'delete',
-      title: 'Remove contact'
+      title: 'Remove contact',
+    },
+    {
+      method: 'patch',
+      title: 'Update contact',
+      objectSchema: updateBreederContactSchema
     }
   ], {
     pathVariables: [{ type: 'string', name: 'contactId' }, { type: 'string', name: 'breederId' }]
