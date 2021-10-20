@@ -8,6 +8,10 @@ const breederContactDocs = {
       method: 'post',
       title: 'Store contact',
       objectSchema: storeBreederContactSchema,
+    },
+    {
+      method: 'get',
+      title: 'Get contacts'
     }
   ], {
     pathVariables: [{ type: 'string', name: 'breederId' }]

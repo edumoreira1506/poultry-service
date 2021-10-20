@@ -53,6 +53,12 @@ router.post(
   BreederContactController.store
 )
 
+router.get(
+  '/breeders/:breederId/contacts',
+  withBreederParam,
+  BreederContactController.index
+)
+
 router.post(
   '/breeders/:breederId/images',
   withBreederParam,

@@ -13,6 +13,7 @@ class BreederContactController extends BaseController<BreederContact, BreederCon
     super(repository)
 
     this.store = this.store.bind(this)
+    this.index = this.index.bind(this)
   }
 
   @BaseController.errorHandler()
@@ -30,6 +31,17 @@ class BreederContactController extends BaseController<BreederContact, BreederCon
     const contact = await this.repository.save(breederContactDTO)
 
     return BaseController.successResponse(res, { contact, message: i18n.__('messages.success') })
+  }
+
+  @BaseController.errorHandler()
+  async index(req: RequestWithBreeder, res: Response) {
+    const breeder = req.breeder
+
+    if (!breeder) throw new NotFoundError()
+
+    const contacts = await this.repository.findByBreeder(breeder.id)
+
+    return BaseController.successResponse(res, { contacts })
   }
 }
 
