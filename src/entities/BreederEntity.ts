@@ -5,6 +5,7 @@ import { IBreederAddress } from '@cig-platform/types'
 import BreederUser from './BreederUserEntity'
 import BreederImage from './BreederImageEntity'
 import Poultry from './PoultryEntity'
+import BreederContact from './BreederContactEntity'
 
 @Entity('breeders')
 export default class Breeder {
@@ -40,4 +41,7 @@ export default class Breeder {
 
   @OneToMany(() => Poultry, poultry => poultry.breeder)
   poultries?: Poultry[];
+
+  @OneToMany(() => BreederContact, breederContact => breederContact.breeder)
+  contacts?: BreederContact[];
 }
