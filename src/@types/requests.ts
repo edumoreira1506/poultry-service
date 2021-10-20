@@ -13,6 +13,9 @@ export interface RequestWithPoultryAndBreeder extends Request, RequestWithBreede
   poultry?: Poultry;
 }
 
+export interface RequestWithPoultryAndBreederAndFile extends RequestWithPoultryAndBreeder, RequestWithFile {
+}
+
 export interface RequestWithFile extends Request {
   fileNames?: string[]
 }

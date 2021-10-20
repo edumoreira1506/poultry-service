@@ -12,6 +12,7 @@ import BreederUserController from '@Controllers/BreederUserController'
 import BreederImageController from '@Controllers/BreederImageController'
 import BreederContactController from '@Controllers/BreederContactController'
 import PoultryController from '@Controllers/PoultryController'
+import PoultryImageController from '@Controllers/PoultryImageController'
 
 import { storeBreederSchema, updateBreederSchema } from '@Schemas/BreederSchemas'
 import { storeBreederUserSchema } from '@Schemas/BreederUserSchema'
@@ -109,6 +110,15 @@ router.patch(
   withPoultryParam,
   withBodyValidation(updatePoultrySchema),
   PoultryController.update
+)
+
+router.post(
+  '/breeders/:breederId/poultries/:poultryId/images',
+  withBreederParam,
+  withPoultryParam,
+  withFileSupport,
+  withFileUploadFactory({ folder: 'poultries', subfolder: 'images' }),
+  PoultryImageController.store
 )
 
 export default router
