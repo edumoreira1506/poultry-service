@@ -15,6 +15,14 @@ const breederContactDocs = {
     }
   ], {
     pathVariables: [{ type: 'string', name: 'breederId' }]
+  }),
+  ...createDoc('/breeders/{breederId}/contacts/{contactId}', ['Contacts'], [
+    {
+      method: 'delete',
+      title: 'Remove contact'
+    }
+  ], {
+    pathVariables: [{ type: 'string', name: 'contactId' }, { type: 'string', name: 'breederId' }]
   })
 }
 
