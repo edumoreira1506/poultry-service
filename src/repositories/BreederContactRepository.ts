@@ -8,4 +8,8 @@ export default class BreederContactRepository extends BaseRepository<BreederCont
   findByBreeder(breederId: string) {
     return this.find({ breederId, active: true })
   }
+
+  deleteById(id: string) {
+    return this.updateById(id, { active: false })
+  }
 }

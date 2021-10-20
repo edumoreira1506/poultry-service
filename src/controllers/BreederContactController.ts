@@ -4,7 +4,7 @@ import { BaseController, NotFoundError } from '@cig-platform/core'
 
 import BreederContactRepository from '@Repositories/BreederContactRepository'
 import BreederContact from '@Entities/BreederContactEntity'
-import { RequestWithBreeder } from '@Types/requests'
+import { RequestWithBreeder, RequestWithBreederContact } from '@Types/requests'
 import BreederContactBuilder from '@Builders/BreederContactBuilder'
 import i18n from '@Configs/i18n'
 
@@ -14,6 +14,7 @@ class BreederContactController extends BaseController<BreederContact, BreederCon
 
     this.store = this.store.bind(this)
     this.index = this.index.bind(this)
+    this.remove = this.remove.bind(this)
   }
 
   @BaseController.errorHandler()
@@ -31,6 +32,16 @@ class BreederContactController extends BaseController<BreederContact, BreederCon
     const contact = await this.repository.save(breederContactDTO)
 
     return BaseController.successResponse(res, { contact, message: i18n.__('messages.success') })
+  }
+
+  @BaseController.errorHandler()
+  @BaseController.actionHandler(i18n.__('common.deleted'))
+  async remove(req: RequestWithBreederContact) {
+    const contact = req.breederContact
+
+    if (!contact) throw new NotFoundError()
+
+    await this.repository.deleteById(contact.id)
   }
 
   @BaseController.errorHandler()
