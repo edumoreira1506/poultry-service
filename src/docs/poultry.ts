@@ -28,6 +28,15 @@ const poultryDocs = {
     }
   ], {
     pathVariables: [{ type: 'string', name: 'breederId' }, { type: 'string', name: 'poultryId' }]
+  }),
+  ...createDoc('/breeders/{breederId}/poultries/{poultryId}/images', ['Poultry images'], [
+    {
+      method: 'post',
+      title: 'Register poultry image',
+      files: ['files']
+    }
+  ], {
+    pathVariables: [{ type: 'string', name: 'breederId' }, { type: 'string', name: 'poultryId' }]
   })
 }
 

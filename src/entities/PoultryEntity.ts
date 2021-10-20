@@ -1,8 +1,9 @@
 
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 import { IPoultryColors, IPoultryVideos } from '@cig-platform/types'
 
 import Breeder from './BreederEntity'
+import PoultryImage from './PoultryImageEntity'
 
 @Entity('poultries')
 export default class Poultry {
@@ -30,4 +31,7 @@ export default class Poultry {
   @ManyToOne(() => Breeder, breeder => breeder.poultries)
   @JoinColumn({ name: 'breeder_id' })
   breeder: Breeder;
+
+  @OneToMany(() => PoultryImage, poultryImage => poultryImage.poultry)
+  images?: PoultryImage[];
 }
