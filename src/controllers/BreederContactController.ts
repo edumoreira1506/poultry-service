@@ -14,6 +14,7 @@ class BreederContactController extends BaseController<BreederContact, BreederCon
 
     this.store = this.store.bind(this)
     this.index = this.index.bind(this)
+    this.remove = this.remove.bind(this)
   }
 
   @BaseController.errorHandler()
