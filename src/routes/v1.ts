@@ -121,4 +121,11 @@ router.post(
   PoultryImageController.store
 )
 
+router.get(
+  '/breeders/:breederId/poultries/:poultryId/images',
+  withBreederParam,
+  withPoultryParam,
+  PoultryImageController.index
+)
+
 export default router
