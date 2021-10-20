@@ -15,6 +15,7 @@ class BreederContactController extends BaseController<BreederContact, BreederCon
     this.store = this.store.bind(this)
     this.index = this.index.bind(this)
     this.remove = this.remove.bind(this)
+    this.update = this.update.bind(this)
   }
 
   @BaseController.errorHandler()
@@ -32,6 +33,23 @@ class BreederContactController extends BaseController<BreederContact, BreederCon
     const contact = await this.repository.save(breederContactDTO)
 
     return BaseController.successResponse(res, { contact, message: i18n.__('messages.success') })
+  }
+
+  @BaseController.errorHandler()
+  @BaseController.actionHandler(i18n.__('common.updated'))
+  async update(req: RequestWithBreederContact) {
+    const contact = req.breederContact
+
+    if (!contact) throw new NotFoundError()
+
+    const newContact = { ...contact, ...req.body }
+
+    const poultryDTO = new BreederContactBuilder()
+      .setType(newContact.type)
+      .setValue(newContact.value)
+      .build()
+
+    await this.repository.updateById(newContact.id, { type: poultryDTO.type, value: poultryDTO.value })
   }
 
   @BaseController.errorHandler()
