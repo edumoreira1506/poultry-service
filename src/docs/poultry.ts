@@ -34,6 +34,10 @@ const poultryDocs = {
       method: 'post',
       title: 'Register poultry image',
       files: ['files']
+    },
+    {
+      method: 'get',
+      title: 'Get poultry images',
     }
   ], {
     pathVariables: [{ type: 'string', name: 'breederId' }, { type: 'string', name: 'poultryId' }]

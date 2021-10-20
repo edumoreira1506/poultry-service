@@ -1,9 +1,10 @@
 import { ObjectType } from 'typeorm'
+import { Response } from 'express'
 import { BaseController, NotFoundError } from '@cig-platform/core'
 
 import PoultryImageRepository from '@Repositories/PoultryImageRepository'
 import PoultryImage from '@Entities/PoultryImageEntity'
-import { RequestWithPoultryAndBreederAndFile } from '@Types/requests'
+import { RequestWithPoultryAndBreeder, RequestWithPoultryAndBreederAndFile } from '@Types/requests'
 import i18n from '@Configs/i18n'
 
 class PoultryImageController extends BaseController<PoultryImage, PoultryImageRepository>  {
@@ -11,6 +12,7 @@ class PoultryImageController extends BaseController<PoultryImage, PoultryImageRe
     super(repository)
 
     this.store = this.store.bind(this)
+    this.index = this.index.bind(this)
   }
 
   @BaseController.errorHandler()
@@ -23,6 +25,17 @@ class PoultryImageController extends BaseController<PoultryImage, PoultryImageRe
     const fileNames = req.fileNames ?? []
 
     await this.repository.insertAll(fileNames, poultry.id)
+  }
+
+  @BaseController.errorHandler()
+  async index(req: RequestWithPoultryAndBreeder, res: Response) {
+    const poultry = req.poultry
+
+    if (!poultry) throw new NotFoundError()
+
+    const poultryImages = await this.repository.findByPoultry(poultry.id)
+
+    return BaseController.successResponse(res, { poultryImages })
   }
 }
 

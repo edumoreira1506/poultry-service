@@ -10,4 +10,8 @@ export default class PoultryImageRepository extends BaseRepository<PoultryImage>
 
     return this.insert(images)
   }
+
+  findByPoultry(poultryId: string) {
+    return this.find({ poultryId, active: true })
+  }
 }
