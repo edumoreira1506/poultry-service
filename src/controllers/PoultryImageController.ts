@@ -4,7 +4,7 @@ import { BaseController, NotFoundError } from '@cig-platform/core'
 
 import PoultryImageRepository from '@Repositories/PoultryImageRepository'
 import PoultryImage from '@Entities/PoultryImageEntity'
-import { RequestWithPoultryAndBreeder, RequestWithPoultryAndBreederAndFile } from '@Types/requests'
+import { RequestWithPoultryAndBreeder, RequestWithPoultryAndBreederAndFile, RequestWithPoultryImageAndPoultryAndBreeder } from '@Types/requests'
 import i18n from '@Configs/i18n'
 
 class PoultryImageController extends BaseController<PoultryImage, PoultryImageRepository>  {
@@ -13,6 +13,7 @@ class PoultryImageController extends BaseController<PoultryImage, PoultryImageRe
 
     this.store = this.store.bind(this)
     this.index = this.index.bind(this)
+    this.remove = this.remove.bind(this)
   }
 
   @BaseController.errorHandler()
@@ -36,6 +37,16 @@ class PoultryImageController extends BaseController<PoultryImage, PoultryImageRe
     const poultryImages = await this.repository.findByPoultry(poultry.id)
 
     return BaseController.successResponse(res, { poultryImages })
+  }
+
+  @BaseController.errorHandler()
+  @BaseController.actionHandler(i18n.__('common.deleted'))
+  async remove (req: RequestWithPoultryImageAndPoultryAndBreeder) {
+    const poultryImage = req.poultryImage
+
+    if (!poultryImage) throw new NotFoundError()
+
+    await this.repository.deleteById(poultryImage.id)
   }
 }
 

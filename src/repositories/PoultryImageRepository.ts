@@ -14,4 +14,8 @@ export default class PoultryImageRepository extends BaseRepository<PoultryImage>
   findByPoultry(poultryId: string) {
     return this.find({ poultryId, active: true })
   }
+
+  deleteById(id: string) {
+    return this.updateById(id, { active: false })
+  }
 }
