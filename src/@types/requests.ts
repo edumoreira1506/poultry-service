@@ -4,6 +4,7 @@ import Breeder from '@Entities/BreederEntity'
 import BreederImage from '@Entities/BreederImageEntity'
 import Poultry from '@Entities/PoultryEntity'
 import BreederContact from '@Entities/BreederContactEntity'
+import PoultryImage from '@Entities/PoultryImageEntity'
 
 export interface RequestWithBreeder extends Request {
   breeder?: Breeder;
@@ -11,6 +12,10 @@ export interface RequestWithBreeder extends Request {
 
 export interface RequestWithPoultryAndBreeder extends Request, RequestWithBreeder {
   poultry?: Poultry;
+}
+
+export interface RequestWithPoultryImageAndPoultryAndBreeder extends RequestWithPoultryAndBreeder {
+  poultryImage?: PoultryImage;
 }
 
 export interface RequestWithPoultryAndBreederAndFile extends RequestWithPoultryAndBreeder, RequestWithFile {

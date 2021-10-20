@@ -41,6 +41,18 @@ const poultryDocs = {
     }
   ], {
     pathVariables: [{ type: 'string', name: 'breederId' }, { type: 'string', name: 'poultryId' }]
+  }),
+  ...createDoc('/breeders/{breederId}/poultries/{poultryId}/images/{imageId}', ['Poultry images'], [
+    {
+      method: 'delete',
+      title: 'Remove poultry image',
+    },
+  ], {
+    pathVariables: [
+      { type: 'string', name: 'breederId' },
+      { type: 'string', name: 'poultryId' },
+      { type: 'string', name: 'imageId' }
+    ]
   })
 }
 

@@ -19,6 +19,7 @@ import { storeBreederUserSchema } from '@Schemas/BreederUserSchema'
 import { storePoultrySchema, updatePoultrySchema } from '@Schemas/PoultrySchemas'
 import { storeBreederContactSchema, updateBreederContactSchema } from '@Schemas/BreederContactSchema'
 import withBreederContactParam from '@Middlewares/withBreederContactParam'
+import withPoultryImageParam from '@Middlewares/withPoultryImageParam'
 
 const router = express.Router()
 
@@ -126,6 +127,14 @@ router.get(
   withBreederParam,
   withPoultryParam,
   PoultryImageController.index
+)
+
+router.delete(
+  '/breeders/:breederId/poultries/:poultryId/images/:imageId',
+  withBreederParam,
+  withPoultryParam,
+  withPoultryImageParam,
+  PoultryImageController.remove
 )
 
 export default router
