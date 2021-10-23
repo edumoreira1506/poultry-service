@@ -5,15 +5,15 @@ import PoultryBuilder from '@Builders/PoultryBuilder'
 
 describe('PoultryBuilder', () => {
   describe('.build', () => {
-    it('a valid poultry', () => {
+    it('a valid poultry', async () => {
       const poultry = poultryFactory()
-      const breederBuilder = new PoultryBuilder()
+      const breederBuilder = new PoultryBuilder({} as any)
         .setBirthDate(poultry.birthDate)
         .setColors(poultry.colors)
         .setType(poultry.type)
         .setVideos(poultry.videos)
 
-      expect(breederBuilder.build()).toMatchObject({
+      expect(await breederBuilder.build()).toMatchObject({
         birthDate: poultry.birthDate,
         colors: poultry.colors,
         type: poultry.type,
@@ -24,13 +24,13 @@ describe('PoultryBuilder', () => {
     it('throws an error when is an invalid type', () => {
       const invalidType = 'INVALID_TYPE'
       const poultry = poultryFactory()
-      const poutryBuilder = new PoultryBuilder()
+      const poutryBuilder = new PoultryBuilder({} as any)
         .setBirthDate(poultry.birthDate)
         .setColors(poultry.colors)
         .setType(invalidType)
         .setVideos(poultry.videos)
 
-      expect(poutryBuilder.build).toThrow(i18n.__('poultry.errors.invalid-type'))
+      expect(poutryBuilder.build).rejects.toThrow(i18n.__('poultry.errors.invalid-type'))
     })
   })
 })
