@@ -31,6 +31,7 @@ class PoultryController extends BaseController<Poultry, PoultryRepository>  {
       .setVideos(req.body.videos)
       .setGender(req.body.gender)
       .setName(req.body.name)
+      .setDewlap(req.body.dewlap)
       .setRegister(req.body.register)
       .setBreeder(breeder)
       .build()
@@ -77,6 +78,7 @@ class PoultryController extends BaseController<Poultry, PoultryRepository>  {
       .setVideos(newPoultry.videos)
       .setRegister(newPoultry.register)
       .setName(newPoultry.name)
+      .setDewlap(newPoultry.dewlap)
       .setId(newPoultry.id)
       .setBreeder(breeder)
       .build()
@@ -88,6 +90,7 @@ class PoultryController extends BaseController<Poultry, PoultryRepository>  {
       videos: poultryDTO.videos,
       name: poultryDTO.name,
       register: poultryDTO.register,
+      dewlap: poultryDTO.dewlap,
     })
   }
 }
