@@ -10,6 +10,6 @@ export default class PoultryRepository extends BaseRepository<Poultry> {
   }
 
   findByBreederAndRegister(breederId: string, register: string) {
-    return this.find({ breeder: { id: breederId }, active: true, register })
+    return this.findOne({ breeder: { id: breederId }, active: true, register })
   }
 }
