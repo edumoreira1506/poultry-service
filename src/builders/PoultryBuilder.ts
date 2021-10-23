@@ -14,6 +14,13 @@ export default class PoultryBuilder {
   private _breeder: Breeder;
   private _gender: string;
   private _name: string;
+  private _register: string;
+
+  setRegister(register: string) {
+    this._register = register
+
+    return this
+  }
 
   setName(name: string) {
     this._name = name
@@ -76,6 +83,7 @@ export default class PoultryBuilder {
     poultry.videos = this._videos
     poultry.gender = this._gender
     poultry.name = this._name
+    poultry.register = this._register
 
     if (this._breeder) {
       poultry.breeder = this._breeder 

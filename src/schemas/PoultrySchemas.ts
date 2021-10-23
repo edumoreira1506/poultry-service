@@ -4,6 +4,7 @@ import i18n from '@Configs/i18n'
 import PoultryTypeEnum from '@Enums/PoultryTypeEnum'
 import PoultryGenderEnum from '@Enums/PoultryGenderEnum'
 import { MAXIMUM_CHARACTERS_NAME, MINIMUM_CHARACTERS_NAME } from '@Constants/poultry'
+import { MAXIMUM_CHARACTERS_REGISTER, MINIMUM_CHARACTERS_REGISTER } from '@Constants/breeder'
 
 const typeSchema = Joi.string().valid(...Object.values(PoultryTypeEnum)).messages({
   'string.empty': i18n.__('empty-field', { field: i18n.__('poultry.fields.type') }),
@@ -56,6 +57,11 @@ const nameSchema = Joi.string().min(MINIMUM_CHARACTERS_NAME).max(MAXIMUM_CHARACT
   'any.required': i18n.__('required-field', { field: i18n.__('poultry.fields.name') })
 })
 
+const registerSchema = Joi.string().min(MINIMUM_CHARACTERS_REGISTER).max(MAXIMUM_CHARACTERS_REGISTER).messages({
+  'string.empty': i18n.__('empty-field', { field: i18n.__('poultry.fields.register') }),
+  'any.required': i18n.__('required-field', { field: i18n.__('poultry.fields.register') })
+})
+
 export const storePoultrySchema = Joi.object({
   type: typeSchema.required(),
   birthDate: birthDateSchema,
@@ -63,6 +69,7 @@ export const storePoultrySchema = Joi.object({
   videos: videosSchema,
   gender: genderSchema.required(),
   name: nameSchema,
+  register: registerSchema
 })
 
 export const updatePoultrySchema = Joi.object({
@@ -71,4 +78,5 @@ export const updatePoultrySchema = Joi.object({
   colors: colorsSchema,
   videos: videosSchema,
   name: nameSchema,
+  register: registerSchema
 })
