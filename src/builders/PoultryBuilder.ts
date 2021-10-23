@@ -20,10 +20,17 @@ export default class PoultryBuilder {
   private _dewlap: string;
   private _crest: string;
   private _tail: string;
+  private _description: string;
   private _repository: PoultryRepository;
 
   constructor(poutryRepository: PoultryRepository) {
     this._repository = poutryRepository
+  }
+
+  setDescription(description: string) {
+    this._description = description
+
+    return this
   }
 
   setTail(tail: string) {
@@ -120,6 +127,7 @@ export default class PoultryBuilder {
     const poultry = new Poultry()
 
     poultry.type = this._type
+    poultry.description = this._description
     poultry.birthDate = this._birthDate
     poultry.colors = this._colors
     poultry.videos = this._videos
