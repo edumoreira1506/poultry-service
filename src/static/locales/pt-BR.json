@@ -27,6 +27,7 @@
 	"poultry.fields.type": "Tipo",
 	"poultry.fields.gender": "Sexagem",
 	"poultry.fields.birth-date": "Data de nascimento",
+	"poultry.fields.name": "Nome",
 	"breeder.fields.colors.plumage": "Cor da plumagem",
 	"breeder.fields.colors.shins": "Cor da canela",
 	"breeder.fields.colors.eyes": "Cor dos olhos",
