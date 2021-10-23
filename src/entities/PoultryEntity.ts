@@ -13,6 +13,9 @@ export default class Poultry {
   @Column('varchar')
   type: string;
 
+  @Column('varchar')
+  gender: string;
+
   @Column({ type: 'uuid', name: 'breeder_id'})
   breederId: string;
 
