@@ -3,7 +3,12 @@ import Joi from 'joi'
 import i18n from '@Configs/i18n'
 import PoultryTypeEnum from '@Enums/PoultryTypeEnum'
 import PoultryGenderEnum from '@Enums/PoultryGenderEnum'
-import { MAXIMUM_CHARACTERS_NAME, MINIMUM_CHARACTERS_NAME } from '@Constants/poultry'
+import {
+  MAXIMUM_CHARACTERS_DESCRIPTION,
+  MAXIMUM_CHARACTERS_NAME,
+  MINIMUM_CHARACTERS_DESCRIPTION,
+  MINIMUM_CHARACTERS_NAME,
+} from '@Constants/poultry'
 import { MAXIMUM_CHARACTERS_REGISTER, MINIMUM_CHARACTERS_REGISTER } from '@Constants/breeder'
 import PoultryDewlapEnum from '@Enums/PoultryDewlapEnum'
 import PoultryCrestEnum from '@Enums/PoultryCrestEnum'
@@ -78,6 +83,11 @@ const nameSchema = Joi.string().min(MINIMUM_CHARACTERS_NAME).max(MAXIMUM_CHARACT
   'any.required': i18n.__('required-field', { field: i18n.__('poultry.fields.name') })
 })
 
+const descriptionSchema = Joi.string().min(MINIMUM_CHARACTERS_DESCRIPTION).max(MAXIMUM_CHARACTERS_DESCRIPTION).messages({
+  'string.empty': i18n.__('empty-field', { field: i18n.__('poultry.fields.description') }),
+  'any.required': i18n.__('required-field', { field: i18n.__('poultry.fields.description') })
+})
+
 const registerSchema = Joi.string().min(MINIMUM_CHARACTERS_REGISTER).max(MAXIMUM_CHARACTERS_REGISTER).messages({
   'string.empty': i18n.__('empty-field', { field: i18n.__('poultry.fields.register') }),
   'any.required': i18n.__('required-field', { field: i18n.__('poultry.fields.register') })
@@ -93,7 +103,8 @@ export const storePoultrySchema = Joi.object({
   name: nameSchema,
   register: registerSchema,
   dewlap: dewlapSchema,
-  crest: crestSchema
+  crest: crestSchema,
+  description: descriptionSchema
 })
 
 export const updatePoultrySchema = Joi.object({
@@ -106,4 +117,5 @@ export const updatePoultrySchema = Joi.object({
   dewlap: dewlapSchema,
   crest: crestSchema,
   tail: tailSchema,
+  description: descriptionSchema
 })

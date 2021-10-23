@@ -26,6 +26,7 @@ class PoultryController extends BaseController<Poultry, PoultryRepository>  {
 
     const poultryDTO = await new PoultryBuilder(this.repository)
       .setType(req.body.type)
+      .setDescription(req.body.description)
       .setBirthDate(req.body.birthDate)
       .setColors(req.body.colors)
       .setVideos(req.body.videos)
@@ -77,6 +78,7 @@ class PoultryController extends BaseController<Poultry, PoultryRepository>  {
       .setType(newPoultry.type)
       .setBirthDate(newPoultry.birthDate)
       .setColors(newPoultry.colors)
+      .setDescription(newPoultry.description)
       .setVideos(newPoultry.videos)
       .setRegister(newPoultry.register)
       .setName(newPoultry.name)
@@ -97,6 +99,7 @@ class PoultryController extends BaseController<Poultry, PoultryRepository>  {
       dewlap: poultryDTO.dewlap,
       crest: poultryDTO.crest,
       tail: poultryDTO.tail,
+      description: poultryDTO.description,
     })
   }
 }
