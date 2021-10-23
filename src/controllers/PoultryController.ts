@@ -24,13 +24,14 @@ class PoultryController extends BaseController<Poultry, PoultryRepository>  {
 
     if (!breeder) throw new NotFoundError()
 
-    const poultryDTO = new PoultryBuilder()
+    const poultryDTO = await new PoultryBuilder(this.repository)
       .setType(req.body.type)
       .setBirthDate(req.body.birthDate)
       .setColors(req.body.colors)
       .setVideos(req.body.videos)
       .setGender(req.body.gender)
       .setName(req.body.name)
+      .setRegister(req.body.register)
       .setBreeder(breeder)
       .build()
 
@@ -63,17 +64,21 @@ class PoultryController extends BaseController<Poultry, PoultryRepository>  {
   @BaseController.actionHandler(i18n.__('common.updated'))
   async update(req: RequestWithPoultryAndBreeder): Promise<void> {
     const poultry = req.poultry
+    const breeder = req.breeder
 
-    if (!poultry) throw new NotFoundError()
+    if (!poultry || !breeder) throw new NotFoundError()
 
     const newPoultry = { ...poultry, ...req.body }
 
-    const poultryDTO = new PoultryBuilder()
+    const poultryDTO = await new PoultryBuilder(this.repository)
       .setType(newPoultry.type)
       .setBirthDate(newPoultry.birthDate)
       .setColors(newPoultry.colors)
       .setVideos(newPoultry.videos)
+      .setRegister(newPoultry.register)
       .setName(newPoultry.name)
+      .setId(newPoultry.id)
+      .setBreeder(breeder)
       .build()
 
     await this.repository.updateById(poultry.id, {
@@ -82,6 +87,7 @@ class PoultryController extends BaseController<Poultry, PoultryRepository>  {
       colors: poultryDTO.colors,
       videos: poultryDTO.videos,
       name: poultryDTO.name,
+      register: poultryDTO.register,
     })
   }
 }
