@@ -54,6 +54,38 @@ describe('Poultry actions', () => {
         type: poultry.type
       }))
     })
+   
+    it('is an invalid poultry when register is dupliacted', async () => {
+      const mockSave = jest.fn()
+      const poultry = poultryFactory()
+      const breeder = breederFactory()
+      const register = 'fake register'
+
+      jest.spyOn(typeorm, 'getCustomRepository').mockReturnValue({
+        save: mockSave,
+        findById: jest.fn().mockResolvedValue(breeder),
+        findByBreederAndRegister: jest.fn().mockResolvedValue(poultryFactory())
+      })
+
+      const response = await request(App).post(`/v1/breeders/${breeder.id}/poultries`).send({
+        birthDate: poultry.birthDate,
+        colors: poultry.colors,
+        videos: poultry.videos,
+        type: poultry.type,
+        gender: PoultryGenderEnum.FemaleChicken,
+        register
+      })
+
+      expect(response.statusCode).toBe(400)
+      expect(response.body).toMatchObject({
+        ok: false,
+        error: {
+          name: 'ValidationError',
+          message: i18n.__('poultry.errors.duplicated-register')
+        }
+      })
+      expect(mockSave).not.toHaveBeenCalled()
+    })
 
     it('is an invalid poultry when does not send type', async () => {
       const mockSave = jest.fn()
