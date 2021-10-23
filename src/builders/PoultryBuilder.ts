@@ -16,10 +16,17 @@ export default class PoultryBuilder {
   private _gender: string;
   private _name: string;
   private _register: string;
+  private _id: string;
   private _repository: PoultryRepository;
 
   constructor(poutryRepository: PoultryRepository) {
     this._repository = poutryRepository
+  }
+
+  setId(id: string) {
+    this._id = id
+
+    return this
   }
 
   setRegister(register: string) {
@@ -78,7 +85,7 @@ export default class PoultryBuilder {
     }
 
     if (this._register && this._breeder) {
-      const poultryWithSameRegister = await this._repository.findByBreederAndRegister(this._breeder.id, this._register)
+      const poultryWithSameRegister = await this._repository.findByBreederAndRegister(this._breeder.id, this._register, this._id)
 
       if (poultryWithSameRegister) {
         throw new ValidationError(i18n.__('poultry.errors.duplicated-register'))

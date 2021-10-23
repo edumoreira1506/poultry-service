@@ -77,6 +77,7 @@ class PoultryController extends BaseController<Poultry, PoultryRepository>  {
       .setVideos(newPoultry.videos)
       .setRegister(newPoultry.register)
       .setName(newPoultry.name)
+      .setId(newPoultry.id)
       .setBreeder(breeder)
       .build()
 
