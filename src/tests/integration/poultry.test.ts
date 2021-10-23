@@ -5,6 +5,7 @@ import { breederFactory, poultryFactory } from '@cig-platform/factories'
 import App from '@Configs/server'
 import i18n from '@Configs/i18n'
 import PoultryController from '@Controllers/PoultryController'
+import PoultryGenderEnum from '@Enums/PoultryGenderEnum'
 
 jest.mock('typeorm', () => ({
   createConnection: jest.fn().mockResolvedValue({}),
@@ -37,7 +38,8 @@ describe('Poultry actions', () => {
         birthDate: poultry.birthDate,
         colors: poultry.colors,
         videos: poultry.videos,
-        type: poultry.type
+        type: poultry.type,
+        gender: PoultryGenderEnum.FemaleChicken
       })
 
       expect(response.statusCode).toBe(200)

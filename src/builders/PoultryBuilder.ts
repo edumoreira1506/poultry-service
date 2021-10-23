@@ -12,6 +12,13 @@ export default class PoultryBuilder {
   private _colors: IPoultryColors;
   private _videos: IPoultryVideos;
   private _breeder: Breeder;
+  private _gender: string;
+
+  setGender(gender: string) {
+    this._gender = gender
+
+    return this
+  }
 
   setBreeder(breeder: Breeder) {
     this._breeder = breeder
@@ -60,6 +67,7 @@ export default class PoultryBuilder {
     poultry.birthDate = this._birthDate
     poultry.colors = this._colors
     poultry.videos = this._videos
+    poultry.gender = this._gender
 
     if (this._breeder) {
       poultry.breeder = this._breeder 

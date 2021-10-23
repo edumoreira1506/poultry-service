@@ -29,6 +29,7 @@ class PoultryController extends BaseController<Poultry, PoultryRepository>  {
       .setBirthDate(req.body.birthDate)
       .setColors(req.body.colors)
       .setVideos(req.body.videos)
+      .setGender(req.body.gender)
       .setBreeder(breeder)
       .build()
 
