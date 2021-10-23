@@ -30,6 +30,7 @@ class PoultryController extends BaseController<Poultry, PoultryRepository>  {
       .setColors(req.body.colors)
       .setVideos(req.body.videos)
       .setGender(req.body.gender)
+      .setName(req.body.name)
       .setBreeder(breeder)
       .build()
 
@@ -72,6 +73,7 @@ class PoultryController extends BaseController<Poultry, PoultryRepository>  {
       .setBirthDate(newPoultry.birthDate)
       .setColors(newPoultry.colors)
       .setVideos(newPoultry.videos)
+      .setName(newPoultry.name)
       .build()
 
     await this.repository.updateById(poultry.id, {
@@ -79,6 +81,7 @@ class PoultryController extends BaseController<Poultry, PoultryRepository>  {
       birthDate: poultryDTO.birthDate,
       colors: poultryDTO.colors,
       videos: poultryDTO.videos,
+      name: poultryDTO.name,
     })
   }
 }
