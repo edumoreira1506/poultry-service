@@ -73,7 +73,7 @@ export const storeBreederSchema = Joi.object({
 export const updateBreederSchema = Joi.object({
   name: nameSchema,
   description: descriptionSchema,
-  address: Joi.string(),
+  address: addressSchema,
   foundationDate: foundationDateSchema,
   mainVideo: mainVideoSchema
 }).options({ abortEarly: false })
