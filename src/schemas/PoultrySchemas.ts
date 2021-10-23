@@ -44,6 +44,10 @@ const videosSchema = Joi.object({
     'string.empty': i18n.__('empty-field', { field: i18n.__('breeder.fields.videos.presentation') }),
     'any.required': i18n.__('required-field', { field: i18n.__('breeder.fields.videos.presentation') })
   }),
+  measurement: Joi.string().messages({
+    'string.empty': i18n.__('empty-field', { field: i18n.__('breeder.fields.videos.measurement') }),
+    'any.required': i18n.__('required-field', { field: i18n.__('breeder.fields.videos.measurement') })
+  }),
 })
 
 export const storePoultrySchema = Joi.object({
