@@ -26,7 +26,7 @@ describe('Poultry actions', () => {
   describe('Register', () => {
     it('is a valid poultry', async () => {
       const mockSave = jest.fn()
-      const poultry = poultryFactory()
+      const poultry = poultryFactory({ colors: {} })
       const breeder = breederFactory()
 
       jest.spyOn(typeorm, 'getCustomRepository').mockReturnValue({
@@ -57,14 +57,14 @@ describe('Poultry actions', () => {
    
     it('is an invalid poultry when register is dupliacted', async () => {
       const mockSave = jest.fn()
-      const poultry = poultryFactory()
+      const poultry = poultryFactory({ colors: {} })
       const breeder = breederFactory()
       const register = 'fake register'
 
       jest.spyOn(typeorm, 'getCustomRepository').mockReturnValue({
         save: mockSave,
         findById: jest.fn().mockResolvedValue(breeder),
-        findByBreederAndRegister: jest.fn().mockResolvedValue(poultryFactory())
+        findByBreederAndRegister: jest.fn().mockResolvedValue(poultryFactory({ colors: {} }))
       })
 
       const response = await request(App).post(`/v1/breeders/${breeder.id}/poultries`).send({
@@ -89,7 +89,7 @@ describe('Poultry actions', () => {
 
     it('is an invalid poultry when does not send type', async () => {
       const mockSave = jest.fn()
-      const poultry = poultryFactory()
+      const poultry = poultryFactory({ colors: {} })
       const breeder = breederFactory()
 
       jest.spyOn(typeorm, 'getCustomRepository').mockReturnValue({
@@ -122,7 +122,7 @@ describe('Poultry actions', () => {
     it('is an invalid poultry when is an invalid type', async () => {
       const invalidType = 'INVALID_TYPE'
       const mockSave = jest.fn()
-      const poultry = poultryFactory()
+      const poultry = poultryFactory({ colors: {} })
       const breeder = breederFactory()
 
       jest.spyOn(typeorm, 'getCustomRepository').mockReturnValue({
@@ -156,7 +156,7 @@ describe('Poultry actions', () => {
 
   describe('Index', () => {
     it('send all poultries of breeder', async () => {
-      const poultries = [poultryFactory()]
+      const poultries = [poultryFactory({ colors: {} })]
       const breeder = breederFactory()
       const mockRepository: any = {
         findById: jest.fn().mockResolvedValue(breeder),

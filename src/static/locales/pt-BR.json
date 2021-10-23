@@ -27,6 +27,7 @@
 	"poultry.errors.invalid-tail": "Tipo de rabo inválido da ave",
 	"poultry.errors.invalid-dewlap": "Barbela inválida da ave",
 	"poultry.errors.invalid-gender": "Sexagem inválida de ave",
+	"poultry.errors.invalid-color": "Cor inválida",
 	"poultry.errors.duplicated-register": "Código já registrado nesse criatório",
 	"poultry.fields.type": "Tipo",
 	"poultry.fields.tail": "Rabo",

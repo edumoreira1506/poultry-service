@@ -13,6 +13,7 @@ import { MAXIMUM_CHARACTERS_REGISTER, MINIMUM_CHARACTERS_REGISTER } from '@Const
 import PoultryDewlapEnum from '@Enums/PoultryDewlapEnum'
 import PoultryCrestEnum from '@Enums/PoultryCrestEnum'
 import PoultryTailEnum from '@Enums/PoultryTailEnum'
+import PoultryColorEnum from '@Enums/PoultryColorEnum'
 
 const typeSchema = Joi.string().valid(...Object.values(PoultryTypeEnum)).messages({
   'string.empty': i18n.__('empty-field', { field: i18n.__('poultry.fields.type') }),
@@ -49,17 +50,20 @@ const birthDateSchema = Joi.date().messages({
 })
 
 const colorsSchema = Joi.object({
-  plumage: Joi.string().messages({
+  plumage: Joi.string().valid(...Object.values(PoultryColorEnum)).messages({
     'string.empty': i18n.__('empty-field', { field: i18n.__('breeder.fields.colors.plumage') }),
-    'any.required': i18n.__('required-field', { field: i18n.__('breeder.fields.colors.plumage') })
+    'any.required': i18n.__('required-field', { field: i18n.__('breeder.fields.colors.plumage') }),
+    'any.only': i18n.__('poultry.errors.invalid-color')
   }),
-  shins: Joi.string().messages({
+  shins: Joi.string().valid(...Object.values(PoultryColorEnum)).messages({
     'string.empty': i18n.__('empty-field', { field: i18n.__('breeder.fields.colors.shins') }),
-    'any.required': i18n.__('required-field', { field: i18n.__('breeder.fields.colors.shins') })
+    'any.required': i18n.__('required-field', { field: i18n.__('breeder.fields.colors.shins') }),
+    'any.only': i18n.__('poultry.errors.invalid-color')
   }),
-  eyes: Joi.string().messages({
+  eyes: Joi.string().valid(...Object.values(PoultryColorEnum)).messages({
     'string.empty': i18n.__('empty-field', { field: i18n.__('breeder.fields.colors.eyes') }),
-    'any.required': i18n.__('required-field', { field: i18n.__('breeder.fields.colors.eyes') })
+    'any.required': i18n.__('required-field', { field: i18n.__('breeder.fields.colors.eyes') }),
+    'any.only': i18n.__('poultry.errors.invalid-color')
   }),
 })
 
