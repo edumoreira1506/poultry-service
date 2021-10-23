@@ -13,6 +13,9 @@ export default class Breeder {
   id: string;
 
   @Column('varchar')
+  code: string;
+
+  @Column('varchar')
   name: string;
 
   @Column('json')

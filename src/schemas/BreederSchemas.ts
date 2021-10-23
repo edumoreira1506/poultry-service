@@ -3,8 +3,10 @@ import Joi from 'joi'
 import i18n from '@Configs/i18n'
 import {
   AVAILABLE_PROVINCES,
+  MAXIMUM_CHARACTERS_CODE,
   MAXIMUM_CHARACTERS_DESCRIPTION,
   MAXIMUM_CHARACTERS_NAME,
+  MINIMUM_CHARACTERS_CODE,
   MINIMUM_CHARACTERS_DESCRIPTION,
   MINIMUM_CHARACTERS_NAME,
 } from '@Constants/breeder'
@@ -14,6 +16,11 @@ const CEP_REGEX = new RegExp(/^\d{5}-\d{3}$/)
 const nameSchema = Joi.string().min(MINIMUM_CHARACTERS_NAME).max(MAXIMUM_CHARACTERS_NAME).messages({
   'string.empty': i18n.__('empty-field', { field: i18n.__('breeder.fields.name') }),
   'any.required': i18n.__('required-field', { field: i18n.__('breeder.fields.name') })
+})
+
+const codeSchema = Joi.string().min(MINIMUM_CHARACTERS_CODE).max(MAXIMUM_CHARACTERS_CODE).messages({
+  'string.empty': i18n.__('empty-field', { field: i18n.__('breeder.fields.code') }),
+  'any.required': i18n.__('required-field', { field: i18n.__('breeder.fields.code') })
 })
 
 const descriptionSchema = Joi.string().min(MINIMUM_CHARACTERS_DESCRIPTION).max(MAXIMUM_CHARACTERS_DESCRIPTION).messages({
@@ -59,13 +66,14 @@ export const storeBreederSchema = Joi.object({
   description: descriptionSchema,
   address: addressSchema,
   foundationDate: foundationDateSchema,
-  mainVideo: mainVideoSchema
+  mainVideo: mainVideoSchema,
+  code: codeSchema.required()
 }).options({ abortEarly: false })
 
 export const updateBreederSchema = Joi.object({
   name: nameSchema,
   description: descriptionSchema,
-  address: Joi.string(),
+  address: addressSchema,
   foundationDate: foundationDateSchema,
   mainVideo: mainVideoSchema
 }).options({ abortEarly: false })

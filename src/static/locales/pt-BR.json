@@ -9,6 +9,7 @@
 	"app.description": "Documentação da API",
 	"breeder.fields.foundation-date": "Data de fundação",
 	"breeder.fields.name": "Nome",
+	"breeder.fields.code": "Código",
 	"breeder.fields.address.city": "Cidade",
 	"breeder.fields.address.province": "Estado",
 	"breeder.fields.address.street": "Rua",

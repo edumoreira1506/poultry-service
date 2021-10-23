@@ -49,7 +49,8 @@ describe('Breeder actions', () => {
         name: breeder.name,
         description: breeder.description,
         address: breeder.address,
-        foundationDate: breeder.foundationDate
+        foundationDate: breeder.foundationDate,
+        code: 'ABC'
       })
 
       expect(response.statusCode).toBe(200)
@@ -63,6 +64,43 @@ describe('Breeder actions', () => {
         address: breeder.address,
         foundationDate: breeder.foundationDate.toISOString(),
       }))
+    })
+
+    it('is an invalid breeder when the code is not sent', async () => {
+      const mockSave = jest.fn()
+      const breeder = breederFactory()
+
+      jest.spyOn(typeorm, 'getCustomRepository').mockReturnValue({
+        save: mockSave,
+      })
+      jest.spyOn(CepService, 'getInfo').mockResolvedValue({
+        cep: '01001-000',
+        logradouro: 'Another city',
+        complemento: 'lado ímpar',
+        bairro: 'Sé',
+        localidade: breeder.address.city,
+        uf: 'SP',
+        ibge: '3550308',
+        gia: '1004',
+        ddd: '11',
+        siafi: '7107'
+      })
+
+      const response = await request(App).post('/v1/breeders').send({
+        name: breeder.name,
+        description: breeder.description,
+        address: breeder.address,
+        foundationDate: breeder.foundationDate,
+      })
+
+      expect(response.statusCode).toBe(400)
+      expect(response.body).toMatchObject({
+        ok: false,
+        error: {
+          name: 'ValidationError',
+        }
+      })
+      expect(mockSave).not.toHaveBeenCalled()
     })
 
     it('is an invalid breeder when the name is too big', async () => {
@@ -90,6 +128,7 @@ describe('Breeder actions', () => {
         name: breeder.name,
         description: breeder.description,
         address: breeder.address,
+        code: 'ABC'
       })
 
       expect(response.statusCode).toBe(400)
@@ -105,7 +144,7 @@ describe('Breeder actions', () => {
     it('is an invalid breeder when the description is too big', async () => {
       const mockSave = jest.fn()
       const bigDescription = faker.lorem.paragraph(100)
-      const breeder = breederFactory({ id: '', name: faker.name.findName(), address: breederAddressFactory(), description: bigDescription })
+      const breeder = breederFactory({ address: breederAddressFactory(), description: bigDescription })
 
       jest.spyOn(typeorm, 'getCustomRepository').mockReturnValue({
         save: mockSave,
@@ -127,6 +166,7 @@ describe('Breeder actions', () => {
         name: breeder.name,
         description: breeder.description,
         address: breeder.address,
+        code: 'ABC'
       })
 
       expect(response.statusCode).toBe(400)
@@ -164,7 +204,8 @@ describe('Breeder actions', () => {
         name: breeder.name,
         description: breeder.description,
         address: breeder.address,
-        mainVideo
+        mainVideo,
+        code: 'ABC'
       })
 
       expect(response.statusCode).toBe(400)
@@ -184,7 +225,7 @@ describe('Breeder actions', () => {
         province: 'invalid province'
       }
 
-      const breeder = breederFactory({ id: '', name: faker.name.findName(), address: mockAddress, description: faker.lorem.sentence(2) })
+      const breeder = breederFactory({ address: mockAddress })
 
       jest.spyOn(typeorm, 'getCustomRepository').mockReturnValue({
         save: mockSave,
@@ -206,6 +247,7 @@ describe('Breeder actions', () => {
         name: breeder.name,
         description: breeder.description,
         address: breeder.address,
+        code: 'ABC'
       })
 
       expect(response.statusCode).toBe(400)
@@ -225,7 +267,7 @@ describe('Breeder actions', () => {
         ...breederAddressFactory(),
         zipcode: 'invalid zip code'
       }
-      const breeder = breederFactory({ id: '', name: faker.name.findName(), address: mockAddress, description: faker.lorem.sentence(2) })
+      const breeder = breederFactory({ address: mockAddress })
 
       jest.spyOn(typeorm, 'getCustomRepository').mockReturnValue({
         save: mockSave,
@@ -247,6 +289,7 @@ describe('Breeder actions', () => {
         name: breeder.name,
         description: breeder.description,
         address: breeder.address,
+        code: 'ABC'
       })
 
       expect(response.statusCode).toBe(400)
@@ -268,7 +311,8 @@ describe('Breeder actions', () => {
         name: breeder.name,
         description: breeder.description,
         address: breeder.address,
-        foundationDate
+        foundationDate,
+        code: 'ABC'
       })
 
       expect(response.statusCode).toBe(400)
@@ -388,7 +432,7 @@ describe('Breeder actions', () => {
     it('is an invalid breeder update when the description is too big', async () => {
       const mockUpdate = jest.fn()
       const bigDescription = faker.lorem.paragraph(100)
-      const breeder = breederFactory({ id: '', name: faker.name.findName(), address: breederAddressFactory(), description: bigDescription })
+      const breeder = breederFactory({ address: breederAddressFactory(), description: bigDescription })
       const mockBreederRepository: any = {
         findById: jest.fn().mockResolvedValue(breeder),
         updateById: mockUpdate,
@@ -431,7 +475,7 @@ describe('Breeder actions', () => {
         province: 'invalid province'
       }
 
-      const breeder = breederFactory({ id: '', name: faker.name.findName(), address: mockAddress, description: faker.lorem.sentence(2) })
+      const breeder = breederFactory({ address: mockAddress })
 
       const mockBreederRepository: any = {
         findById: jest.fn().mockResolvedValue(breeder),
@@ -439,6 +483,7 @@ describe('Breeder actions', () => {
       }
 
       jest.spyOn(typeorm, 'getCustomRepository').mockReturnValue(mockBreederRepository)
+      jest.spyOn(BreederController, 'repository', 'get').mockReturnValue(mockBreederRepository)
       jest.spyOn(CepService, 'getInfo').mockResolvedValue({
         cep: '01001-000',
         logradouro: 'Another city',
@@ -452,7 +497,7 @@ describe('Breeder actions', () => {
         siafi: '7107'
       })
 
-      const response = await request(App).post('/v1/breeders').send({
+      const response = await request(App).patch(`/v1/breeders/${breeder.id}`).send({
         name: breeder.name,
         description: breeder.description,
         address: breeder.address,
@@ -475,7 +520,7 @@ describe('Breeder actions', () => {
         ...breederAddressFactory(),
         zipcode: 'invalid zip code'
       }
-      const breeder = breederFactory({ id: '', name: faker.name.findName(), address: mockAddress, description: faker.lorem.sentence(2) })
+      const breeder = breederFactory({ address: mockAddress })
       const mockBreederRepository: any = {
         findById: jest.fn().mockResolvedValue(breeder),
         updateById: mockUpdate,
@@ -495,7 +540,7 @@ describe('Breeder actions', () => {
         siafi: '7107'
       })
 
-      const response = await request(App).post('/v1/breeders').send({
+      const response = await request(App).patch(`/v1/breeders/${breeder.id}`).send({
         name: breeder.name,
         description: breeder.description,
         address: breeder.address,
