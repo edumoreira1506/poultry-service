@@ -1,0 +1,2 @@
+export const MINIMUM_CHARACTERS_NAME = 3
+export const MAXIMUM_CHARACTERS_NAME = 200
