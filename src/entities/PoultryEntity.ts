@@ -11,6 +11,9 @@ export default class Poultry {
   id: string;
 
   @Column('varchar')
+  tail: string;
+
+  @Column('varchar')
   crest: string;
 
   @Column('varchar')

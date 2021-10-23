@@ -7,11 +7,18 @@ import { MAXIMUM_CHARACTERS_NAME, MINIMUM_CHARACTERS_NAME } from '@Constants/pou
 import { MAXIMUM_CHARACTERS_REGISTER, MINIMUM_CHARACTERS_REGISTER } from '@Constants/breeder'
 import PoultryDewlapEnum from '@Enums/PoultryDewlapEnum'
 import PoultryCrestEnum from '@Enums/PoultryCrestEnum'
+import PoultryTailEnum from '@Enums/PoultryTailEnum'
 
 const typeSchema = Joi.string().valid(...Object.values(PoultryTypeEnum)).messages({
   'string.empty': i18n.__('empty-field', { field: i18n.__('poultry.fields.type') }),
   'any.required': i18n.__('required-field', { field: i18n.__('poultry.fields.type') }),
   'any.only': i18n.__('poultry.errors.invalid-type')
+})
+
+const tailSchema = Joi.string().valid(...Object.values(PoultryTailEnum)).messages({
+  'string.empty': i18n.__('empty-field', { field: i18n.__('poultry.fields.tail') }),
+  'any.required': i18n.__('required-field', { field: i18n.__('poultry.fields.tail') }),
+  'any.only': i18n.__('poultry.errors.invalid-tail')
 })
 
 const crestSchema = Joi.string().valid(...Object.values(PoultryCrestEnum)).messages({
@@ -78,6 +85,7 @@ const registerSchema = Joi.string().min(MINIMUM_CHARACTERS_REGISTER).max(MAXIMUM
 
 export const storePoultrySchema = Joi.object({
   type: typeSchema.required(),
+  tail: tailSchema,
   birthDate: birthDateSchema,
   colors: colorsSchema,
   videos: videosSchema,
@@ -96,5 +104,6 @@ export const updatePoultrySchema = Joi.object({
   name: nameSchema,
   register: registerSchema,
   dewlap: dewlapSchema,
-  crest: crestSchema
+  crest: crestSchema,
+  tail: tailSchema,
 })
