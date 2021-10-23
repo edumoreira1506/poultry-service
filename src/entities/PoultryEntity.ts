@@ -11,6 +11,9 @@ export default class Poultry {
   id: string;
 
   @Column('varchar')
+  dewlap: string;
+
+  @Column('varchar')
   register: string;
 
   @Column('varchar')
