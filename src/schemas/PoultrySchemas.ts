@@ -6,11 +6,18 @@ import PoultryGenderEnum from '@Enums/PoultryGenderEnum'
 import { MAXIMUM_CHARACTERS_NAME, MINIMUM_CHARACTERS_NAME } from '@Constants/poultry'
 import { MAXIMUM_CHARACTERS_REGISTER, MINIMUM_CHARACTERS_REGISTER } from '@Constants/breeder'
 import PoultryDewlapEnum from '@Enums/PoultryDewlapEnum'
+import PoultryCrestEnum from '@Enums/PoultryCrestEnum'
 
 const typeSchema = Joi.string().valid(...Object.values(PoultryTypeEnum)).messages({
   'string.empty': i18n.__('empty-field', { field: i18n.__('poultry.fields.type') }),
   'any.required': i18n.__('required-field', { field: i18n.__('poultry.fields.type') }),
   'any.only': i18n.__('poultry.errors.invalid-type')
+})
+
+const crestSchema = Joi.string().valid(...Object.values(PoultryCrestEnum)).messages({
+  'string.empty': i18n.__('empty-field', { field: i18n.__('poultry.fields.crest') }),
+  'any.required': i18n.__('required-field', { field: i18n.__('poultry.fields.crest') }),
+  'any.only': i18n.__('poultry.errors.invalid-crest')
 })
 
 const dewlapSchema = Joi.string().valid(...Object.values(PoultryDewlapEnum)).messages({
@@ -77,7 +84,8 @@ export const storePoultrySchema = Joi.object({
   gender: genderSchema.required(),
   name: nameSchema,
   register: registerSchema,
-  dewlap: dewlapSchema
+  dewlap: dewlapSchema,
+  crest: crestSchema
 })
 
 export const updatePoultrySchema = Joi.object({
@@ -87,5 +95,6 @@ export const updatePoultrySchema = Joi.object({
   videos: videosSchema,
   name: nameSchema,
   register: registerSchema,
-  dewlap: dewlapSchema
+  dewlap: dewlapSchema,
+  crest: crestSchema
 })

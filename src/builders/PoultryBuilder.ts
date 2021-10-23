@@ -18,10 +18,17 @@ export default class PoultryBuilder {
   private _register: string;
   private _id: string;
   private _dewlap: string;
+  private _crest: string;
   private _repository: PoultryRepository;
 
   constructor(poutryRepository: PoultryRepository) {
     this._repository = poutryRepository
+  }
+
+  setCrest(crest: string) {
+    this._crest = crest
+
+    return this
   }
 
   setDewlap(dewlap: string) {
@@ -113,6 +120,7 @@ export default class PoultryBuilder {
     poultry.name = this._name
     poultry.register = this._register
     poultry.dewlap = this._dewlap
+    poultry.crest = this._crest
 
     if (this._breeder) {
       poultry.breeder = this._breeder 

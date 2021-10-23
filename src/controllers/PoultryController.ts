@@ -33,6 +33,7 @@ class PoultryController extends BaseController<Poultry, PoultryRepository>  {
       .setName(req.body.name)
       .setDewlap(req.body.dewlap)
       .setRegister(req.body.register)
+      .setCrest(req.body.crest)
       .setBreeder(breeder)
       .build()
 
@@ -80,6 +81,7 @@ class PoultryController extends BaseController<Poultry, PoultryRepository>  {
       .setName(newPoultry.name)
       .setDewlap(newPoultry.dewlap)
       .setId(newPoultry.id)
+      .setCrest(newPoultry.crest)
       .setBreeder(breeder)
       .build()
 
@@ -91,6 +93,7 @@ class PoultryController extends BaseController<Poultry, PoultryRepository>  {
       name: poultryDTO.name,
       register: poultryDTO.register,
       dewlap: poultryDTO.dewlap,
+      crest: poultryDTO.crest,
     })
   }
 }
