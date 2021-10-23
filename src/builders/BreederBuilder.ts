@@ -11,7 +11,14 @@ export default class BreederBuilder {
   private _address: undefined | IBreederAddress;
   private _foundationDate: Date;
   private _mainVideo: string;
+  private _code: string;
   private _profileImageUrl = ''
+
+  setCode(code: string) {
+    this._code = code
+
+    return this
+  }
 
   setMainVideo(mainVideo: string) {
     this._mainVideo = mainVideo
@@ -72,6 +79,7 @@ export default class BreederBuilder {
     breeder.description = this._description
     breeder.foundationDate = this._foundationDate
     breeder.profileImageUrl = this._profileImageUrl
+    breeder.code = this._code
 
     if (this._mainVideo) {
       breeder.mainVideo = this._mainVideo
