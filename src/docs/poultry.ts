@@ -11,7 +11,8 @@ const poultryDocs = {
     },
     {
       method: 'get',
-      title: 'Get poultries'
+      title: 'Get poultries',
+      queryParams: [{ type: 'string', name: 'gender' }]
     }
   ], {
     pathVariables: [{ type: 'string', name: 'breederId' }]

@@ -176,7 +176,7 @@ describe('Poultry actions', () => {
           birthDate: poultry.birthDate.toISOString()
         }))
       })
-      expect(mockRepository.findByBreeder).toHaveBeenCalledWith(breeder.id)
+      expect(mockRepository.findByBreeder).toHaveBeenCalledWith(breeder.id, { gender: '' })
     })
   })
 })
