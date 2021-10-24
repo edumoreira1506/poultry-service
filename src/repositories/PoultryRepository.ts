@@ -5,11 +5,12 @@ import Poultry from '@Entities/PoultryEntity'
 
 @EntityRepository(Poultry)
 export default class PoultryRepository extends BaseRepository<Poultry> {
-  findByBreeder(breederId: string) {
+  findByBreeder(breederId: string, { gender }: { gender?: string; } = {}) {
     return this.find({
       where: {
         breeder: { id: breederId },
         active: true,
+        ...(gender ? ({ gender }) : ({}))
       },
       relations: ['images']
     })
