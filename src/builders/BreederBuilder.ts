@@ -3,6 +3,7 @@ import { IBreederAddress } from '@cig-platform/types'
 
 import i18n from '@Configs/i18n'
 import Breeder from '@Entities/BreederEntity'
+import BreederRepository from '@Repositories/BreederRepository'
 import CepService from '@Services/CepService'
 
 export default class BreederBuilder {
@@ -13,6 +14,11 @@ export default class BreederBuilder {
   private _mainVideo: string;
   private _code: string;
   private _profileImageUrl = ''
+  private _repository: BreederRepository;
+
+  constructor(breederRepository: BreederRepository) {
+    this._repository = breederRepository
+  }
 
   setCode(code: string) {
     this._code = code
@@ -66,6 +72,12 @@ export default class BreederBuilder {
       const cepCity = cepInfo.localidade
 
       if (city.trim().toLocaleLowerCase() !== cepCity.trim().toLocaleLowerCase()) throw new ValidationError(i18n.__('breeder.errors.invalid-address-city'))
+    }
+
+    if (this._code) {
+      const breederWithSameCode = await this._repository.findByCode(this._code)
+
+      if (breederWithSameCode)  throw new ValidationError(i18n.__('breeder.errors.duplicated-code'))
     }
   }
 
