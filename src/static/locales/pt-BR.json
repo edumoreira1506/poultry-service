@@ -20,6 +20,7 @@
 	"breeder.errors.invalid-address-province": "Estado inválido",
 	"breeder.errors.invalid-address-zipcode": "CEP inválido",
 	"breeder.errors.invalid-address-city": "Cidade inválida",
+	"breeder.errors.duplicated-code": "Código duplicado",
 	"breeder-user.errors.invalid-user": "Usuário inválido",
 	"breeder-user.fields.user-id": "ID do usuário",
 	"breeder-user.fields.breeder-id": "ID do criatório",

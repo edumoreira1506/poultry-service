@@ -20,7 +20,7 @@ class BreederController extends BaseController<Breeder, BreederRepository>  {
 
   @BaseController.errorHandler()
   async store(req: Request, res: Response): Promise<Response> {
-    const breederDTO = await new BreederBuilder()
+    const breederDTO = await new BreederBuilder(this.repository)
       .setName(req.body.name)
       .setDescription(req.body.description)
       .setAddress(req.body.address)
@@ -44,7 +44,7 @@ class BreederController extends BaseController<Breeder, BreederRepository>  {
     const address = req.body.address ? JSON.parse(req.body.address) : breeder.address
     const profileImageUrl = req.fileNames?.[0] || breeder.profileImageUrl
     const newBreeder = { ...breeder, ...req.body, address }
-    const breederDTO = await new BreederBuilder()
+    const breederDTO = await new BreederBuilder(this.repository)
       .setName(newBreeder.name)
       .setProfileImageUrl(profileImageUrl)
       .setDescription(newBreeder.description)
