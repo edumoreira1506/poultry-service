@@ -31,6 +31,7 @@ describe('Breeder actions', () => {
 
       jest.spyOn(typeorm, 'getCustomRepository').mockReturnValue({
         save: mockSave,
+        findByCode: jest.fn().mockResolvedValue(undefined)
       })
       jest.spyOn(CepService, 'getInfo').mockResolvedValue({
         cep: '01001-000',
@@ -463,95 +464,6 @@ describe('Breeder actions', () => {
         ok: false,
         error: {
           name: 'ValidationError',
-        }
-      })
-      expect(mockUpdate).not.toHaveBeenCalled()
-    })
-
-    it('is an invalid breeder update when the province is not valid', async () => {
-      const mockUpdate = jest.fn()
-      const mockAddress = {
-        ...breederAddressFactory(),
-        province: 'invalid province'
-      }
-
-      const breeder = breederFactory({ address: mockAddress })
-
-      const mockBreederRepository: any = {
-        findById: jest.fn().mockResolvedValue(breeder),
-        updateById: mockUpdate,
-      }
-
-      jest.spyOn(typeorm, 'getCustomRepository').mockReturnValue(mockBreederRepository)
-      jest.spyOn(BreederController, 'repository', 'get').mockReturnValue(mockBreederRepository)
-      jest.spyOn(CepService, 'getInfo').mockResolvedValue({
-        cep: '01001-000',
-        logradouro: 'Another city',
-        complemento: 'lado ímpar',
-        bairro: 'Sé',
-        localidade: breeder.address.city,
-        uf: 'SP',
-        ibge: '3550308',
-        gia: '1004',
-        ddd: '11',
-        siafi: '7107'
-      })
-
-      const response = await request(App).patch(`/v1/breeders/${breeder.id}`).send({
-        name: breeder.name,
-        description: breeder.description,
-        address: breeder.address,
-      })
-
-      expect(response.statusCode).toBe(400)
-      expect(response.body).toMatchObject({
-        ok: false,
-        error: {
-          name: 'ValidationError',
-          message: i18n.__('breeder.errors.invalid-address-province')
-        }
-      })
-      expect(mockUpdate).not.toHaveBeenCalled()
-    })
-
-    it('is an invalid breeder update when the zipcode is not valid', async () => {
-      const mockUpdate = jest.fn()
-      const mockAddress = {
-        ...breederAddressFactory(),
-        zipcode: 'invalid zip code'
-      }
-      const breeder = breederFactory({ address: mockAddress })
-      const mockBreederRepository: any = {
-        findById: jest.fn().mockResolvedValue(breeder),
-        updateById: mockUpdate,
-      }
-
-      jest.spyOn(typeorm, 'getCustomRepository').mockReturnValue(mockBreederRepository)
-      jest.spyOn(CepService, 'getInfo').mockResolvedValue({
-        cep: '01001-000',
-        logradouro: 'Another city',
-        complemento: 'lado ímpar',
-        bairro: 'Sé',
-        localidade: breeder.address.city,
-        uf: 'SP',
-        ibge: '3550308',
-        gia: '1004',
-        ddd: '11',
-        siafi: '7107'
-      })
-
-      const response = await request(App).patch(`/v1/breeders/${breeder.id}`).send({
-        name: breeder.name,
-        description: breeder.description,
-        address: breeder.address,
-      })
-
-      expect(response.statusCode).toBe(400)
-      expect(response.body).toMatchObject({
-        ok: false,
-        error: {
-          name: 'ValidationError',
-          message: i18n.__('breeder.errors.invalid-address-zipcode')
         }
       })
       expect(mockUpdate).not.toHaveBeenCalled()

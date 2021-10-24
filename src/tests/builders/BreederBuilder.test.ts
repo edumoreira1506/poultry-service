@@ -32,7 +32,7 @@ describe('BreederBuilder', () => {
       })
 
       const breeder = breederFactory({ address: mockAddress, id: '', name: 'mock name', description: 'mock description' })
-      const breederBuilder = await new BreederBuilder()
+      const breederBuilder = await new BreederBuilder({} as any)
         .setName(breeder.name)
         .setDescription(breeder.description)
         .setAddress(breeder.address)
@@ -52,7 +52,7 @@ describe('BreederBuilder', () => {
       jest.spyOn(CepService, 'getInfo').mockResolvedValue(null)
 
       const breeder = breederFactory()
-      const breederBuilder = await new BreederBuilder()
+      const breederBuilder = await new BreederBuilder({} as any)
         .setName(breeder.name)
         .setDescription(breeder.description)
         .setAddress(breeder.address)
@@ -83,7 +83,7 @@ describe('BreederBuilder', () => {
       })
 
       const breeder = breederFactory()
-      const breederBuilder = await new BreederBuilder()
+      const breederBuilder = await new BreederBuilder({} as any)
         .setName(breeder.name)
         .setDescription(breeder.description)
         .setAddress(breeder.address)
