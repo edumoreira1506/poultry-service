@@ -67,6 +67,46 @@ describe('Breeder actions', () => {
       }))
     })
 
+    it('is an invalid breeder when code was already taken', async () => {
+      const mockSave = jest.fn()
+      const breeder = breederFactory()
+
+      jest.spyOn(typeorm, 'getCustomRepository').mockReturnValue({
+        save: mockSave,
+        findByCode: jest.fn().mockResolvedValue(breederFactory())
+      })
+      jest.spyOn(CepService, 'getInfo').mockResolvedValue({
+        cep: '01001-000',
+        logradouro: 'Another city',
+        complemento: 'lado ímpar',
+        bairro: 'Sé',
+        localidade: breeder.address.city,
+        uf: 'SP',
+        ibge: '3550308',
+        gia: '1004',
+        ddd: '11',
+        siafi: '7107'
+      })
+
+      const response = await request(App).post('/v1/breeders').send({
+        name: breeder.name,
+        description: breeder.description,
+        address: breeder.address,
+        foundationDate: breeder.foundationDate,
+        code: 'ABC'
+      })
+
+      expect(response.statusCode).toBe(400)
+      expect(response.body).toMatchObject({
+        ok: false,
+        error: {
+          name: 'ValidationError',
+          message: i18n.__('breeder.errors.duplicated-code')
+        }
+      })
+      expect(mockSave).not.toHaveBeenCalled()
+    })
+
     it('is an invalid breeder when the code is not sent', async () => {
       const mockSave = jest.fn()
       const breeder = breederFactory()
