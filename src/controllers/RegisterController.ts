@@ -22,7 +22,6 @@ class RegisterController extends BaseController<Register, RegisterRepository>  {
 
     const registerDTO = new RegisterBuilder()
       .setDescription(req.body.description)
-      .setDate(req.body.date)
       .setPoultry(poultry)
       .setType(req.body.type)
       .build()
