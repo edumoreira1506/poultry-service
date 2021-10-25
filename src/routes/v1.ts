@@ -6,6 +6,8 @@ import withFileSupport from '@Middlewares/withFileSupport'
 import { withFileUploadFactory } from '@Middlewares/withFileUpload'
 import withBreederImageParam from '@Middlewares/withBreederImageParam'
 import withPoultryParam from '@Middlewares/withPoultryParam'
+import withBreederContactParam from '@Middlewares/withBreederContactParam'
+import withPoultryImageParam from '@Middlewares/withPoultryImageParam'
 
 import BreederController from '@Controllers/BreederController'
 import BreederUserController from '@Controllers/BreederUserController'
@@ -18,8 +20,7 @@ import { storeBreederSchema, updateBreederSchema } from '@Schemas/BreederSchemas
 import { storeBreederUserSchema } from '@Schemas/BreederUserSchema'
 import { storePoultrySchema, updatePoultrySchema } from '@Schemas/PoultrySchemas'
 import { storeBreederContactSchema, updateBreederContactSchema } from '@Schemas/BreederContactSchema'
-import withBreederContactParam from '@Middlewares/withBreederContactParam'
-import withPoultryImageParam from '@Middlewares/withPoultryImageParam'
+import { storeRegisterSchema } from '@Schemas/RegisterSchemas'
 
 const router = express.Router()
 
@@ -135,6 +136,16 @@ router.delete(
   withPoultryParam,
   withPoultryImageParam,
   PoultryImageController.remove
+)
+
+router.post(
+  '/breeders/:breederId/poultries/:poultryId/registers',
+  withBreederParam,
+  withPoultryParam,
+  withFileSupport,
+  withFileUploadFactory({ folder: 'poultries', subfolder: 'registers' }),
+  withBodyValidation(storeRegisterSchema),
+  PoultryImageController.store
 )
 
 export default router
