@@ -15,6 +15,7 @@ import BreederImageController from '@Controllers/BreederImageController'
 import BreederContactController from '@Controllers/BreederContactController'
 import PoultryController from '@Controllers/PoultryController'
 import PoultryImageController from '@Controllers/PoultryImageController'
+import RegisterController from '@Controllers/RegisterController'
 
 import { storeBreederSchema, updateBreederSchema } from '@Schemas/BreederSchemas'
 import { storeBreederUserSchema } from '@Schemas/BreederUserSchema'
@@ -145,7 +146,7 @@ router.post(
   withFileSupport,
   withFileUploadFactory({ folder: 'poultries', subfolder: 'registers' }),
   withBodyValidation(storeRegisterSchema),
-  PoultryImageController.store
+  RegisterController.store
 )
 
 export default router
