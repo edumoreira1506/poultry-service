@@ -1,7 +1,8 @@
 
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 
 import Poultry from './PoultryEntity'
+import RegisterFile from './RegisterFileEntity'
 
 @Entity('registers')
 export default class Register {
@@ -26,4 +27,7 @@ export default class Register {
   @ManyToOne(() => Poultry, poultry => poultry.registers)
   @JoinColumn({ name: 'poultry_id' })
   poultry: Poultry;
+
+  @OneToMany(() => RegisterFile, registerFile => registerFile.register)
+  files?: RegisterFile[];
 }
