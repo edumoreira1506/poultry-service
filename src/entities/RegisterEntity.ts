@@ -3,7 +3,7 @@ import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 't
 
 import Poultry from './PoultryEntity'
 
-@Entity('register')
+@Entity('registers')
 export default class Register {
   @PrimaryGeneratedColumn('uuid')
   id: string;
