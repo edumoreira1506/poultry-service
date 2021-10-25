@@ -4,7 +4,7 @@ import { BaseController, NotFoundError } from '@cig-platform/core'
 
 import RegisterRepository from '@Repositories/RegisterRepository'
 import Register from '@Entities/RegisterEntity'
-import { RequestWithPoultryAndBreederAndFile } from '@Types/requests'
+import { RequestWithPoultryAndBreeder, RequestWithPoultryAndBreederAndFile } from '@Types/requests'
 import RegisterBuilder from '@Builders/RegisterBuilder'
 import RegisterFileRepository from '@Repositories/RegisterFileRepository'
 import RegisterFile from '@Entities/RegisterFileEntity'
@@ -18,6 +18,7 @@ class RegisterController extends BaseController<Register, RegisterRepository>  {
     this._fileEntity = registerFile
 
     this.store = this.store.bind(this)
+    this.index = this.index.bind(this)
   }
 
   get registerFileRepository() {
@@ -45,6 +46,17 @@ class RegisterController extends BaseController<Register, RegisterRepository>  {
     await this.registerFileRepository.insertAll(fileNames, register.id)
 
     return BaseController.successResponse(res, { register })
+  }
+
+  @BaseController.errorHandler()
+  async index(req: RequestWithPoultryAndBreeder, res: Response) {
+    const poultry = req.poultry
+
+    if (!poultry) throw new NotFoundError()
+
+    const registers = await this.repository.findByPoultry(poultry.id)
+
+    return BaseController.successResponse(res, { registers })
   }
 }
 

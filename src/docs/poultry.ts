@@ -63,6 +63,10 @@ const poultryDocs = {
       files: ['files'],
       objectSchema: storeRegisterSchema
     },
+    {
+      method: 'get',
+      title: 'Get poultry registers',
+    }
   ], {
     pathVariables: [{ type: 'string', name: 'breederId' }, { type: 'string', name: 'poultryId' }]
   }),
