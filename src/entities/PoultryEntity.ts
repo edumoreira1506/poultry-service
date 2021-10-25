@@ -4,6 +4,7 @@ import { IPoultryColors, IPoultryVideos } from '@cig-platform/types'
 
 import Breeder from './BreederEntity'
 import PoultryImage from './PoultryImageEntity'
+import Register from './RegisterEntity'
 
 @Entity('poultries')
 export default class Poultry {
@@ -55,4 +56,7 @@ export default class Poultry {
 
   @OneToMany(() => PoultryImage, poultryImage => poultryImage.poultry)
   images?: PoultryImage[];
+
+  @OneToMany(() => Register, register => register.poultry)
+  registers?: Register[];
 }
