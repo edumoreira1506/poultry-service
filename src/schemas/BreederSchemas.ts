@@ -3,10 +3,9 @@ import Joi from 'joi'
 import i18n from '@Configs/i18n'
 import {
   AVAILABLE_PROVINCES,
-  MAXIMUM_CHARACTERS_CODE,
+  CHARACTERS_CODE,
   MAXIMUM_CHARACTERS_DESCRIPTION,
   MAXIMUM_CHARACTERS_NAME,
-  MINIMUM_CHARACTERS_CODE,
   MINIMUM_CHARACTERS_DESCRIPTION,
   MINIMUM_CHARACTERS_NAME,
 } from '@Constants/breeder'
@@ -18,7 +17,7 @@ const nameSchema = Joi.string().min(MINIMUM_CHARACTERS_NAME).max(MAXIMUM_CHARACT
   'any.required': i18n.__('required-field', { field: i18n.__('breeder.fields.name') })
 })
 
-const codeSchema = Joi.string().min(MINIMUM_CHARACTERS_CODE).max(MAXIMUM_CHARACTERS_CODE).messages({
+const codeSchema = Joi.string().length(CHARACTERS_CODE).messages({
   'string.empty': i18n.__('empty-field', { field: i18n.__('breeder.fields.code') }),
   'any.required': i18n.__('required-field', { field: i18n.__('breeder.fields.code') })
 })
