@@ -51,7 +51,7 @@ describe('Breeder actions', () => {
         description: breeder.description,
         address: breeder.address,
         foundationDate: breeder.foundationDate,
-        code: 'ABC'
+        code: 'ABCD'
       })
 
       expect(response.statusCode).toBe(200)
@@ -93,7 +93,7 @@ describe('Breeder actions', () => {
         description: breeder.description,
         address: breeder.address,
         foundationDate: breeder.foundationDate,
-        code: 'ABC'
+        code: 'ABCD'
       })
 
       expect(response.statusCode).toBe(400)
@@ -169,7 +169,7 @@ describe('Breeder actions', () => {
         name: breeder.name,
         description: breeder.description,
         address: breeder.address,
-        code: 'ABC'
+        code: 'ABCD'
       })
 
       expect(response.statusCode).toBe(400)
@@ -207,7 +207,7 @@ describe('Breeder actions', () => {
         name: breeder.name,
         description: breeder.description,
         address: breeder.address,
-        code: 'ABC'
+        code: 'ABCD'
       })
 
       expect(response.statusCode).toBe(400)
@@ -246,7 +246,7 @@ describe('Breeder actions', () => {
         description: breeder.description,
         address: breeder.address,
         mainVideo,
-        code: 'ABC'
+        code: 'ABCD'
       })
 
       expect(response.statusCode).toBe(400)
@@ -288,7 +288,7 @@ describe('Breeder actions', () => {
         name: breeder.name,
         description: breeder.description,
         address: breeder.address,
-        code: 'ABC'
+        code: 'ABCD'
       })
 
       expect(response.statusCode).toBe(400)
@@ -330,7 +330,7 @@ describe('Breeder actions', () => {
         name: breeder.name,
         description: breeder.description,
         address: breeder.address,
-        code: 'ABC'
+        code: 'ABCD'
       })
 
       expect(response.statusCode).toBe(400)
@@ -353,7 +353,7 @@ describe('Breeder actions', () => {
         description: breeder.description,
         address: breeder.address,
         foundationDate,
-        code: 'ABC'
+        code: 'ABCD'
       })
 
       expect(response.statusCode).toBe(400)
