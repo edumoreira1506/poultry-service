@@ -14,6 +14,7 @@ import PoultryDewlapEnum from '@Enums/PoultryDewlapEnum'
 import PoultryCrestEnum from '@Enums/PoultryCrestEnum'
 import PoultryTailEnum from '@Enums/PoultryTailEnum'
 import PoultryColorEnum from '@Enums/PoultryColorEnum'
+import PoultryGenderCategoryEnum from '@Enums/PoultryGenderCategoryEnum'
 
 const typeSchema = Joi.string().valid(...Object.values(PoultryTypeEnum)).messages({
   'string.empty': i18n.__('empty-field', { field: i18n.__('poultry.fields.type') }),
@@ -43,6 +44,12 @@ const genderSchema = Joi.string().valid(...Object.values(PoultryGenderEnum)).mes
   'string.empty': i18n.__('empty-field', { field: i18n.__('poultry.fields.gender') }),
   'any.required': i18n.__('required-field', { field: i18n.__('poultry.fields.gender') }),
   'any.only': i18n.__('poultry.errors.invalid-gender')
+})
+
+const genderCategorySchema = Joi.string().valid(...Object.values(PoultryGenderCategoryEnum)).messages({
+  'string.empty': i18n.__('empty-field', { field: i18n.__('poultry.fields.gender-category') }),
+  'any.required': i18n.__('required-field', { field: i18n.__('poultry.fields.gender-category') }),
+  'any.only': i18n.__('poultry.errors.invalid-gender-category')
 })
 
 const birthDateSchema = Joi.date().messages({
@@ -104,6 +111,7 @@ export const storePoultrySchema = Joi.object({
   colors: colorsSchema,
   videos: videosSchema,
   gender: genderSchema.required(),
+  genderCategory: genderCategorySchema.required(),
   name: nameSchema,
   register: registerSchema,
   dewlap: dewlapSchema,
@@ -117,6 +125,7 @@ export const updatePoultrySchema = Joi.object({
   colors: colorsSchema,
   videos: videosSchema,
   name: nameSchema,
+  genderCategory: genderCategorySchema,
   register: registerSchema,
   dewlap: dewlapSchema,
   crest: crestSchema,

@@ -3,6 +3,8 @@ import { IPoultryColors, IPoultryVideos } from '@cig-platform/types'
 
 import Poultry from '@Entities/PoultryEntity'
 import PoultryTypeEnum from '@Enums/PoultryTypeEnum'
+import PoultryGenderEnum from '@Enums/PoultryGenderEnum'
+import PoultryGenderCategoryEnum from '@Enums/PoultryGenderCategoryEnum'
 import Breeder from '@Entities/BreederEntity'
 import i18n from '@Configs/i18n'
 import PoultryRepository from '@Repositories/PoultryRepository'
@@ -14,6 +16,7 @@ export default class PoultryBuilder {
   private _videos: IPoultryVideos;
   private _breeder: Breeder;
   private _gender: string;
+  private _genderCategory: string;
   private _name: string;
   private _register: string;
   private _id: string;
@@ -75,6 +78,12 @@ export default class PoultryBuilder {
     return this
   }
 
+  setGenderCategory(genderCategory: string) {
+    this._genderCategory = genderCategory
+
+    return this
+  }
+
   setBreeder(breeder: Breeder) {
     this._breeder = breeder
 
@@ -111,6 +120,14 @@ export default class PoultryBuilder {
     if (!allowedTypes.includes(this._type)) {
       throw new ValidationError(i18n.__('poultry.errors.invalid-type'))
     }
+
+    const isMale = this._gender === PoultryGenderEnum.Male
+    const isFemale = this._gender === PoultryGenderEnum.Female
+    const isMaleCategory = ([PoultryGenderCategoryEnum.MaleChicken, PoultryGenderCategoryEnum.Reproductive] as string[]).includes(this._genderCategory)
+    const isFemaleCategory = ([PoultryGenderCategoryEnum.FemaleChicken, PoultryGenderCategoryEnum.Matrix] as string[]).includes(this._genderCategory)
+
+    if (isMale && !isMaleCategory) throw new ValidationError(i18n.__('poultry.errors.invalid-gender-category'))
+    if (isFemale && !isFemaleCategory) throw new ValidationError(i18n.__('poultry.errors.invalid-gender-category'))
 
     if (this._register && this._breeder) {
       const poultryWithSameRegister = await this._repository.findByBreederAndRegister(this._breeder.id, this._register, this._id)

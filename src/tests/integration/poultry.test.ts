@@ -39,7 +39,7 @@ describe('Poultry actions', () => {
         colors: poultry.colors,
         videos: poultry.videos,
         type: poultry.type,
-        gender: PoultryGenderEnum.FemaleChicken
+        gender: PoultryGenderEnum.Female
       })
 
       expect(response.statusCode).toBe(200)
@@ -72,7 +72,7 @@ describe('Poultry actions', () => {
         colors: poultry.colors,
         videos: poultry.videos,
         type: poultry.type,
-        gender: PoultryGenderEnum.FemaleChicken,
+        gender: PoultryGenderEnum.Female,
         register
       })
 
