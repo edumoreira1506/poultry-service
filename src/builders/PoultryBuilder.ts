@@ -154,6 +154,7 @@ export default class PoultryBuilder {
     poultry.dewlap = this._dewlap
     poultry.crest = this._crest
     poultry.tail = this._tail
+    poultry.genderCategory = this._genderCategory
 
     if (this._breeder) {
       poultry.breeder = this._breeder 
