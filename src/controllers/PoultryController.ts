@@ -52,7 +52,11 @@ class PoultryController extends BaseController<Poultry, PoultryRepository>  {
     if (!breeder) throw new NotFoundError()
 
     const genderQueryParam = req.query?.gender
-    const poultries = await this.repository.findByBreeder(breeder.id, { gender: genderQueryParam?.toString() ?? '' })
+    const genderCategoryQueryParam = req?.query?.genderCategory
+    const poultries = await this.repository.findByBreeder(breeder.id, {
+      gender: genderQueryParam?.toString(),
+      genderCategory: genderCategoryQueryParam?.toString(),
+    })
     const formattedPoultries = poultries.map(poultry => ({
       ...poultry,
       mainImage: poultry.images?.[0]?.imageUrl
