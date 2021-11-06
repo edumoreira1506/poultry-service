@@ -1,8 +1,6 @@
 enum PoultryGenderEnum {
-  Reproductive = 'REPRODUTOR',
-  Matrix = 'MATRIZ',
-  MaleChicken = 'FRANGO',
-  FemaleChicken = 'FRANGA'
+  Male = 'MACHO',
+  Female = 'FEMEA',
 }
 
 export default PoultryGenderEnum

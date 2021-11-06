@@ -2,6 +2,8 @@ import { poultryFactory } from '@cig-platform/factories'
 
 import i18n from '@Configs/i18n'
 import PoultryBuilder from '@Builders/PoultryBuilder'
+import PoultryGenderEnum from '@Enums/PoultryGenderEnum'
+import PoultryGenderCategoryEnum from '@Enums/PoultryGenderCategoryEnum'
 
 describe('PoultryBuilder', () => {
   describe('.build', () => {
@@ -31,6 +33,34 @@ describe('PoultryBuilder', () => {
         .setVideos(poultry.videos)
 
       expect(poutryBuilder.build).rejects.toThrow(i18n.__('poultry.errors.invalid-type'))
+    })
+
+    const invalidGenderAndGenderCategoryCombinations = [
+      {
+        gender: PoultryGenderEnum.Female,
+        categories: [PoultryGenderCategoryEnum.MaleChicken, PoultryGenderCategoryEnum.Reproductive]
+      },
+      {
+        gender: PoultryGenderEnum.Male,
+        categories: [PoultryGenderCategoryEnum.FemaleChicken, PoultryGenderCategoryEnum.Matrix]
+      }
+    ]
+
+    invalidGenderAndGenderCategoryCombinations.forEach(({ gender, categories }) => {
+      categories.forEach((category) => {
+        it(`throws an error when gender is ${gender} and gender category is ${category}`, async () => {
+          const poultry = poultryFactory()
+          const poultryBuilder = new PoultryBuilder({} as any)
+            .setBirthDate(poultry.birthDate)
+            .setColors(poultry.colors)
+            .setType(poultry.type)
+            .setVideos(poultry.videos)
+            .setGender(gender)
+            .setGenderCategory(category)
+
+          expect(poultryBuilder.build).rejects.toThrow(i18n.__('poultry.errors.invalid-gender-category'))
+        })
+      })
     })
   })
 })
