@@ -136,6 +136,19 @@ export default class PoultryBuilder {
         throw new ValidationError(i18n.__('poultry.errors.duplicated-register'))
       }
     }
+
+    if (this._id) {
+      const poultry = await this._repository.findById(this._id)
+
+      if (poultry?.gender) {
+        const isAdult = poultry.genderCategory === PoultryGenderCategoryEnum.Matrix ||  poultry.genderCategory === PoultryGenderCategoryEnum.Reproductive
+        const isChangingToAdult = this._genderCategory === PoultryGenderCategoryEnum.Matrix ||  this._genderCategory === PoultryGenderCategoryEnum.Reproductive
+
+        if (isAdult && !isChangingToAdult) {
+          throw new ValidationError(i18n.__('poultry.errors.gender-category-not-allowed'))
+        }
+      }
+    }
   }
 
   build = async (): Promise<Poultry> => {
