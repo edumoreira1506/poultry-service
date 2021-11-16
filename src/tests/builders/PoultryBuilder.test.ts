@@ -23,6 +23,25 @@ describe('PoultryBuilder', () => {
       })
     })
 
+    const notAdultGenderCategories = [PoultryGenderCategoryEnum.FemaleChicken, PoultryGenderCategoryEnum.MaleChicken]
+
+    notAdultGenderCategories.forEach((genderCategory) => {
+      it(`throws an error when is changing to ${genderCategory} and is adult`, async () => {
+        const poultry = poultryFactory()
+        const mockPoutryRepository: any = {
+          findById: jest.fn().mockReturnValue({ ...poultry, genderCategory: PoultryGenderCategoryEnum.Matrix })
+        }
+        const poultryBuilder = new PoultryBuilder(mockPoutryRepository)
+          .setBirthDate(poultry.birthDate)
+          .setColors(poultry.colors)
+          .setType(poultry.type)
+          .setVideos(poultry.videos)
+          .setGenderCategory(genderCategory)
+
+        expect(poultryBuilder.build).rejects.toThrow(i18n.__('poultry.errors.gender-category-not-allowed'))
+      })
+    })
+
     it('throws an error when is an invalid type', () => {
       const invalidType = 'INVALID_TYPE'
       const poultry = poultryFactory()
