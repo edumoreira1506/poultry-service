@@ -61,5 +61,6 @@
 	"errors.not-found": "Recurso não encontrado",
 	"invalid-date": "{{field}} precisa ser uma data",
 	"auth.errors.invalid-login": "Operação não permitida",
-	"rollback.errors.expired": "Tempo do rollback ultrapassado"
+	"rollback.errors.expired": "Tempo do rollback ultrapassado",
+	"messages.removed": "Excluído com sucesso"
 }
