@@ -59,7 +59,7 @@ router.post(
 )
 
 router.post(
-  '/breeders/:breederId/users/:breederUserId',
+  '/breeders/:breederId/users/:breederUserId/rollback',
   withBreederParam,
   withBreederUserParam,
   BreederUserController.rollback
