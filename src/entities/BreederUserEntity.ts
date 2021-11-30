@@ -1,5 +1,5 @@
 
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, CreateDateColumn } from 'typeorm'
 
 import Breeder from './BreederEntity'
 
@@ -20,4 +20,7 @@ export default class BreederUser {
   @ManyToOne(() => Breeder, breeder => breeder.users)
   @JoinColumn({ name: 'breeder_id' })
   breeder: Breeder;
+
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: Date;
 }
