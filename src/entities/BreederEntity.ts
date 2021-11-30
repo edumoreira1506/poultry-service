@@ -1,5 +1,5 @@
 
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn, CreateDateColumn } from 'typeorm'
 import { IBreederAddress } from '@cig-platform/types'
 
 import BreederUser from './BreederUserEntity'
@@ -47,4 +47,7 @@ export default class Breeder {
 
   @OneToMany(() => BreederContact, breederContact => breederContact.breeder)
   contacts?: BreederContact[];
+
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: Date;
 }

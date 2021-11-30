@@ -22,6 +22,7 @@ import { storeBreederUserSchema } from '@Schemas/BreederUserSchema'
 import { storePoultrySchema, updatePoultrySchema } from '@Schemas/PoultrySchemas'
 import { storeBreederContactSchema, updateBreederContactSchema } from '@Schemas/BreederContactSchema'
 import { storeRegisterSchema } from '@Schemas/RegisterSchemas'
+import withBreederUserParam from '@Middlewares/withBreederUserParam'
 
 const router = express.Router()
 
@@ -45,10 +46,23 @@ router.get(
 )
 
 router.post(
+  '/breeders/:breederId/rollback',
+  withBreederParam,
+  BreederController.rollback
+)
+
+router.post(
   '/breeders/:breederId/users',
   withBreederParam,
   withBodyValidation(storeBreederUserSchema),
   BreederUserController.store
+)
+
+router.post(
+  '/breeders/:breederId/users/:breederUserId/rollback',
+  withBreederParam,
+  withBreederUserParam,
+  BreederUserController.rollback
 )
 
 router.post(

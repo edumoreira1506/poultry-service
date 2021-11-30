@@ -28,6 +28,14 @@ const breederDocs = {
     }
   ], {
     pathVariables: [{ type: 'string', name: 'breederId' }]
+  }),
+  ...createDoc('/breeders/{breederId}/rollback', ['Breeders'], [
+    {
+      method: 'post',
+      title: 'Rollback breeder register',
+    },
+  ], {
+    pathVariables: [{ type: 'string', name: 'breederId' }]
   })
 }
 

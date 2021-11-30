@@ -11,6 +11,14 @@ const breederUserDocs = {
     },
   ], {
     pathVariables: [{ type: 'string', name: 'breederId' }]
+  }),
+  ...createDoc('/breeders/{breederId}/users/{userId}/rollback', ['Breeder users'], [
+    {
+      method: 'post',
+      title: 'Rollback breeder user register',
+    },
+  ], {
+    pathVariables: [{ type: 'string', name: 'breederId' }, { type: 'string', name: 'userId' }]
   })
 }
 
