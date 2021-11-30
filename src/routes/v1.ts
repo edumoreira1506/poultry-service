@@ -45,6 +45,12 @@ router.get(
 )
 
 router.post(
+  '/breeders/:breederId/rollback',
+  withBreederParam,
+  BreederController.rollback
+)
+
+router.post(
   '/breeders/:breederId/users',
   withBreederParam,
   withBodyValidation(storeBreederUserSchema),

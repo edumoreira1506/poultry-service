@@ -60,5 +60,6 @@
 	"errors.invalid-file": "Tipo de arquivo inválido",
 	"errors.not-found": "Recurso não encontrado",
 	"invalid-date": "{{field}} precisa ser uma data",
-	"auth.errors.invalid-login": "Operação não permitida"
+	"auth.errors.invalid-login": "Operação não permitida",
+	"rollback.errors.expired": "Tempo do rollback ultrapassado"
 }

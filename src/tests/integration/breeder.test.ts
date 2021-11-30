@@ -13,6 +13,7 @@ jest.mock('typeorm', () => ({
   Column: jest.fn(),
   Entity: jest.fn(),
   PrimaryGeneratedColumn: jest.fn(),
+  CreateDateColumn: jest.fn(),
   EntityRepository: jest.fn(),
   Repository: jest.fn(),
   getCustomRepository: jest.fn().mockReturnValue({
