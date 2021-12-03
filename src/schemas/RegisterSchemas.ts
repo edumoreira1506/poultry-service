@@ -15,7 +15,10 @@ const typeSchema = Joi.string().required().valid(...Object.values(RegisterTypeEn
   'any.only': i18n.__('register.errors.invalid-type')
 })
 
+const metadataSchema = Joi.string()
+
 export const storeRegisterSchema = Joi.object({
   description: descriptionSchema,
-  type: typeSchema
+  type: typeSchema,
+  metadata: metadataSchema
 })
