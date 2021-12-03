@@ -2,7 +2,8 @@ enum RegisterTypeEnum {
   Images = 'IMAGENS',
   Measurement = 'MEDIÇÃO',
   Weighing = 'PESAGEM',
-  Vaccination = 'VACINAÇÃO'
+  Vaccination = 'VACINAÇÃO',
+  Advertising = 'ANÚNCIO'
 }
 
 export default RegisterTypeEnum
