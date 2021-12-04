@@ -37,6 +37,7 @@ class RegisterController extends BaseController<Register, RegisterRepository>  {
       .setDescription(req.body.description)
       .setPoultry(poultry)
       .setType(req.body.type)
+      .setMetadata(JSON.parse(req.body.metadata || '{}'))
       .build()
 
     const register = await this.repository.save(registerDTO)

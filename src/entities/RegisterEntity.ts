@@ -15,6 +15,9 @@ export default class Register {
   @Column('varchar')
   description: string;
 
+  @Column('json')
+  metadata: Record<string, any>;
+  
   @Column('timestamp')
   date: Date;
 
