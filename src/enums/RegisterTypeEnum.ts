@@ -3,7 +3,8 @@ enum RegisterTypeEnum {
   Measurement = 'MEDIÇÃO',
   Weighing = 'PESAGEM',
   Vaccination = 'VACINAÇÃO',
-  Advertising = 'ANÚNCIO'
+  Advertising = 'ANÚNCIO',
+  RemoveAdvertising = 'REMOÇÃO DE ANÚNCIO'
 }
 
 export default RegisterTypeEnum
