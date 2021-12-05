@@ -119,6 +119,10 @@ export const storePoultrySchema = Joi.object({
   description: descriptionSchema
 })
 
+export const transferPoultrySchema = Joi.object({
+  breederId: Joi.string().required()
+})
+
 export const updatePoultrySchema = Joi.object({
   type: typeSchema,
   birthDate: birthDateSchema,

@@ -16,6 +16,7 @@ class PoultryController extends BaseController<Poultry, PoultryRepository>  {
     this.index = this.index.bind(this)
     this.show = this.show.bind(this)
     this.update = this.update.bind(this)
+    this.transfer = this.transfer.bind(this)
   }
 
   @BaseController.errorHandler()
@@ -112,6 +113,19 @@ class PoultryController extends BaseController<Poultry, PoultryRepository>  {
       crest: poultryDTO.crest,
       tail: poultryDTO.tail,
       description: poultryDTO.description,
+    })
+  }
+
+  @BaseController.errorHandler()
+  @BaseController.actionHandler(i18n.__('common.updated'))
+  async transfer(req: RequestWithPoultryAndBreeder): Promise<void> {
+    const poultry = req.poultry
+    const breeder = req.breeder
+
+    if (!poultry || !breeder) throw new NotFoundError()
+
+    await this.repository.updateById(poultry.id, {
+      breederId: req.body.breederId
     })
   }
 }
