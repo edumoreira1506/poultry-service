@@ -45,6 +45,12 @@ router.get(
   BreederController.show
 )
 
+router.delete(
+  '/breeders/:breederId',
+  withBreederParam,
+  BreederController.remove
+)
+
 router.post(
   '/breeders/:breederId/rollback',
   withBreederParam,

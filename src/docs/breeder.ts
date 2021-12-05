@@ -25,6 +25,10 @@ const breederDocs = {
       title: 'Update breeder',
       objectSchema: updateBreederSchema,
       files: ['files']
+    },
+    {
+      method: 'delete',
+      title: 'Remove breeder'
     }
   ], {
     pathVariables: [{ type: 'string', name: 'breederId' }]

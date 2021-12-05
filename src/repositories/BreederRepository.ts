@@ -15,12 +15,16 @@ export default class BreederRepository extends BaseRepository<Breeder> {
         },
       },
       where: (qb: any) => {
-        qb.where('users.userId = :userId', { userId })
+        qb.where('users.userId = :userId AND breeder.active = true', { userId })
       },
     })
   }
 
   findByCode(code: string) {
-    return this.findOne({ code })
+    return this.findOne({ code, active: true })
+  }
+
+  deleteById(id: string) {
+    return this.updateById(id, { active: false })
   }
 }
