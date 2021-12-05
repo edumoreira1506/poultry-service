@@ -89,7 +89,7 @@ class BreederController extends BaseController<Breeder, BreederRepository>  {
     const userIdQueryParam = req.query?.userId
     const breeders = userIdQueryParam
       ? await this.repository.findByUser(String(userIdQueryParam))
-      : await this.repository.all()
+      : await this.repository.all({ where: { active: true } })
 
     return BaseController.successResponse(res, { breeders })
   }
