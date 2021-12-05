@@ -1,6 +1,6 @@
 import createDoc from '@cig-platform/docs/build/docs/createDoc'
 
-import { storePoultrySchema, updatePoultrySchema } from '@Schemas/PoultrySchemas'
+import { storePoultrySchema, transferPoultrySchema, updatePoultrySchema } from '@Schemas/PoultrySchemas'
 import { storeRegisterSchema } from '@Schemas/RegisterSchemas'
 
 const poultryDocs = {
@@ -67,6 +67,15 @@ const poultryDocs = {
       method: 'get',
       title: 'Get poultry registers',
     }
+  ], {
+    pathVariables: [{ type: 'string', name: 'breederId' }, { type: 'string', name: 'poultryId' }]
+  }),
+  ...createDoc('/breeders/{breederId}/poultries/{poultryId}/transfer', ['Poultry transfer'], [
+    {
+      method: 'post',
+      title: 'Transfer poultry',
+      objectSchema: transferPoultrySchema
+    },
   ], {
     pathVariables: [{ type: 'string', name: 'breederId' }, { type: 'string', name: 'poultryId' }]
   }),

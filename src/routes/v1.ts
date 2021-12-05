@@ -19,7 +19,7 @@ import RegisterController from '@Controllers/RegisterController'
 
 import { storeBreederSchema, updateBreederSchema } from '@Schemas/BreederSchemas'
 import { storeBreederUserSchema } from '@Schemas/BreederUserSchema'
-import { storePoultrySchema, updatePoultrySchema } from '@Schemas/PoultrySchemas'
+import { storePoultrySchema, transferPoultrySchema, updatePoultrySchema } from '@Schemas/PoultrySchemas'
 import { storeBreederContactSchema, updateBreederContactSchema } from '@Schemas/BreederContactSchema'
 import { storeRegisterSchema } from '@Schemas/RegisterSchemas'
 import withBreederUserParam from '@Middlewares/withBreederUserParam'
@@ -133,6 +133,14 @@ router.patch(
   withPoultryParam,
   withBodyValidation(updatePoultrySchema),
   PoultryController.update
+)
+
+router.post(
+  '/breeders/:breederId/poultries/:poultryId/transfer',
+  withBreederParam,
+  withPoultryParam,
+  withBodyValidation(transferPoultrySchema),
+  PoultryController.transfer
 )
 
 router.post(
