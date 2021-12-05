@@ -23,4 +23,8 @@ export default class BreederRepository extends BaseRepository<Breeder> {
   findByCode(code: string) {
     return this.findOne({ code })
   }
+
+  deleteById(id: string) {
+    return this.updateById(id, { active: false })
+  }
 }

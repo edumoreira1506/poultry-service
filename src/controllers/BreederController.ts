@@ -17,6 +17,17 @@ class BreederController extends BaseController<Breeder, BreederRepository>  {
     this.show = this.show.bind(this)
     this.index = this.index.bind(this)
     this.rollback = this.rollback.bind(this)
+    this.remove = this.remove.bind(this)
+  }
+
+  @BaseController.errorHandler()
+  @BaseController.actionHandler(i18n.__('common.deleted'))
+  async remove(req: RequestWithBreeder) {
+    const breeder = req.breeder
+
+    if (!breeder) throw new NotFoundError()
+
+    await this.repository.deleteById(breeder.id)
   }
 
   @BaseController.errorHandler()
