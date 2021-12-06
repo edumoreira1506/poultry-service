@@ -12,7 +12,7 @@ const breederDocs = {
     {
       method: 'get',
       title: 'Get breeders',
-      queryParams: [{ type: 'string', name: 'userId' }]
+      queryParams: [{ type: 'string', name: 'userId' }, { type: 'string', name: 'keyword' }]
     }
   ]),
   ...createDoc('/breeders/{breederId}', ['Breeders'], [

@@ -1,4 +1,4 @@
-import { EntityRepository } from 'typeorm'
+import { EntityRepository, Like } from 'typeorm'
 import { BaseRepository } from '@cig-platform/core'
 import { IUser } from '@cig-platform/types'
 
@@ -6,7 +6,16 @@ import Breeder from '@Entities/BreederEntity'
 
 @EntityRepository(Breeder)
 export default class BreederRepository extends BaseRepository<Breeder> {
-  findByUser(userId: IUser['id']) {
+  search(keyword = '') {
+    return this.find({
+      where: {
+        name: Like(`%${keyword}%`),
+        active: true
+      }
+    })
+  }
+
+  findByUser(userId: IUser['id'], keyword = '') {
     return this.find({
       join: {
         alias: 'breeder',
@@ -15,7 +24,7 @@ export default class BreederRepository extends BaseRepository<Breeder> {
         },
       },
       where: (qb: any) => {
-        qb.where('users.userId = :userId AND breeder.active = true', { userId })
+        qb.where('users.userId = :userId AND breeder.active = true AND breeder.name LIKE :keyword', { userId, keyword: `%${keyword}%` })
       },
     })
   }
