@@ -86,10 +86,11 @@ class BreederController extends BaseController<Breeder, BreederRepository>  {
 
   @BaseController.errorHandler()
   async index(req: Request, res: Response): Promise<Response> {
-    const userIdQueryParam = req.query?.userId
+    const userIdQueryParam = String(req.query?.userId ?? '')
+    const keywordQueryParam = String(req.query?.keyword ?? '')
     const breeders = userIdQueryParam
-      ? await this.repository.findByUser(String(userIdQueryParam))
-      : await this.repository.all({ where: { active: true } })
+      ? await this.repository.findByUser(userIdQueryParam, keywordQueryParam)
+      : await this.repository.search(keywordQueryParam)
 
     return BaseController.successResponse(res, { breeders })
   }
