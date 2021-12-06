@@ -581,13 +581,14 @@ describe('Breeder actions', () => {
   describe('Index', () => {
     it('sends all breeders as the response', async () => {
       const breeders = Array(10).fill({ description: 'description' }).map(breederFactory)
+      const keyword = faker.datatype.string()
       const mockBreederRepository: any = {
-        all: jest.fn().mockResolvedValue(breeders),
+        search: jest.fn().mockResolvedValue(breeders),
       }
 
       jest.spyOn(BreederController, 'repository', 'get').mockReturnValue(mockBreederRepository)
 
-      const response = await request(App).get('/v1/breeders')
+      const response = await request(App).get(`/v1/breeders?keyword=${keyword}`)
 
       expect(response.statusCode).toBe(200)
       expect(response.body).toMatchObject({
@@ -597,19 +598,20 @@ describe('Breeder actions', () => {
           foundationDate: breeder.foundationDate.toISOString()
         }))
       })
-      expect(mockBreederRepository.all).toHaveBeenCalled()
+      expect(mockBreederRepository.search).toHaveBeenCalledWith(keyword)
     })
 
     it('sends the breeders of the user as the response', async () => {
       const breeders = Array(10).fill({ description: 'description' }).map(breederFactory)
       const userId = faker.datatype.uuid()
+      const keyword = faker.datatype.string()
       const mockBreederRepository: any = {
         findByUser: jest.fn().mockResolvedValue(breeders),
       }
 
       jest.spyOn(BreederController, 'repository', 'get').mockReturnValue(mockBreederRepository)
 
-      const response = await request(App).get(`/v1/breeders?userId=${userId}`)
+      const response = await request(App).get(`/v1/breeders?userId=${userId}&keyword=${keyword}`)
 
       expect(response.statusCode).toBe(200)
       expect(response.body).toMatchObject({
@@ -619,7 +621,7 @@ describe('Breeder actions', () => {
           foundationDate: breeder.foundationDate.toISOString()
         }))
       })
-      expect(mockBreederRepository.findByUser).toHaveBeenCalledWith(userId)
+      expect(mockBreederRepository.findByUser).toHaveBeenCalledWith(userId, keyword)
     })
   })
 })
