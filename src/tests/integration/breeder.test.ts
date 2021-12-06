@@ -581,7 +581,7 @@ describe('Breeder actions', () => {
   describe('Index', () => {
     it('sends all breeders as the response', async () => {
       const breeders = Array(10).fill({ description: 'description' }).map(breederFactory)
-      const keyword = faker.datatype.string()
+      const keyword = 'keyword'
       const mockBreederRepository: any = {
         search: jest.fn().mockResolvedValue(breeders),
       }
@@ -604,7 +604,7 @@ describe('Breeder actions', () => {
     it('sends the breeders of the user as the response', async () => {
       const breeders = Array(10).fill({ description: 'description' }).map(breederFactory)
       const userId = faker.datatype.uuid()
-      const keyword = faker.datatype.string()
+      const keyword = 'keyword'
       const mockBreederRepository: any = {
         findByUser: jest.fn().mockResolvedValue(breeders),
       }
