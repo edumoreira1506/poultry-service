@@ -50,6 +50,7 @@
 	"breeder.fields.videos.presentation": "Vídeo de apresentação",
 	"breeder.fields.videos.measurement": "Vídeo de medição",
 	"register.fields.description": "Descrição",
+	"register.fields.date": "Data",
 	"register.fields.type": "Tipo",
 	"register.errors.invalid-type": "Tipo de registro inválido",
 	"register.errors.invalid-metadata": "Metadata não permitido nesse tipo de registro",
