@@ -37,6 +37,7 @@ class RegisterController extends BaseController<Register, RegisterRepository>  {
       .setDescription(req.body.description)
       .setPoultry(poultry)
       .setType(req.body.type)
+      .setDate(req.body.date)
       .setMetadata(JSON.parse(req.body.metadata || '{}'))
       .build()
 

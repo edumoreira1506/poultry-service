@@ -11,6 +11,13 @@ export default class RegisterBuilder {
   private _type: string;
   private _description: string;
   private _metadata: Record<string, any>;
+  private _date: Date;
+
+  setDate(date: string) {
+    this._date = new Date(date)
+
+    return this
+  }
 
   setMetadata(metadata: Record<string, any>) {
     this._metadata = metadata
@@ -56,6 +63,10 @@ export default class RegisterBuilder {
     register.description = this._description
     register.poultry = this._poultry 
     register.metadata = this._metadata
+
+    if (this._date) {
+      register.date = this._date
+    }
 
     return register
   }
