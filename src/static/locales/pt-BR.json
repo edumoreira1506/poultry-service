@@ -49,6 +49,7 @@
 	"breeder.fields.videos.walking": "Vídeo andando",
 	"breeder.fields.videos.presentation": "Vídeo de apresentação",
 	"breeder.fields.videos.measurement": "Vídeo de medição",
+	"register.fields.metadata.vaccination-name": "Nome da vacina",
 	"register.fields.description": "Descrição",
 	"register.fields.date": "Data",
 	"register.fields.type": "Tipo",

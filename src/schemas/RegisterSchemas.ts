@@ -28,3 +28,16 @@ export const storeRegisterSchema = Joi.object({
   metadata: metadataSchema,
   date: dateSchema,
 })
+
+export const vaccinationRegisterSchema = Joi.object({
+  name: Joi.string().messages({
+    'string.empty': i18n.__('empty-field', { field: i18n.__('register.fields.metadata.vaccination-name') }),
+    'any.required': i18n.__('required-field', { field: i18n.__('register.fields.metadata.vaccination-name') }),
+  }),
+  dose: Joi.number(),
+})
+
+export const measurementMeasurementAndWeighingRegisterSchema = Joi.object({
+  measurement: Joi.number(),
+  weight: Joi.number(),
+})

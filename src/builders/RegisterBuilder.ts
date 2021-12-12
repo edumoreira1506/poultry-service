@@ -5,6 +5,11 @@ import { TYPES_WITH_METADATA } from '@Constants/register'
 import Poultry from '@Entities/PoultryEntity'
 import Register from '@Entities/RegisterEntity'
 import RegisterTypeEnum from '@Enums/RegisterTypeEnum'
+import { vaccinationRegisterSchema } from '@Schemas/RegisterSchemas'
+
+const metadataSchemas: Record<string, any> = {
+  [RegisterTypeEnum.Vaccination]: vaccinationRegisterSchema,
+}
 
 export default class RegisterBuilder {
   private _poultry: Poultry;
@@ -45,6 +50,20 @@ export default class RegisterBuilder {
     return this
   }
 
+  validateMetadata() {
+    const metadata = this._metadata
+    const type = this._type
+    const schema = metadataSchemas?.[type]
+
+    const { error } = schema?.validate(metadata) ?? { error: undefined }
+
+    if (error) {
+      const errorMessage = error.message.toString()
+
+      throw new ValidationError(errorMessage)
+    }
+  }
+
   validate() {
     const type = this._type as RegisterTypeEnum
     const metadata = this._metadata
@@ -53,6 +72,10 @@ export default class RegisterBuilder {
 
     if (!typeHasMetadata && hasMetadata) {
       throw new ValidationError(i18n.__('register.errors.invalid-metadata'))
+    }
+
+    if (hasMetadata && typeHasMetadata) {
+      this.validateMetadata()
     }
   }
 
