@@ -7,5 +7,6 @@ export const TYPES_WITH_METADATA = [
   RegisterTypeEnum.Advertising,
   RegisterTypeEnum.RemoveAdvertising,
   RegisterTypeEnum.Transfer,
-  RegisterTypeEnum.Vaccination
+  RegisterTypeEnum.Vaccination,
+  RegisterTypeEnum.MeasurementAndWeighing
 ]
