@@ -14,7 +14,9 @@ export default class RegisterBuilder {
   private _date: Date;
 
   setDate(date: string) {
-    this._date = new Date(date)
+    if (date) {
+      this._date = new Date(date)
+    }
 
     return this
   }
