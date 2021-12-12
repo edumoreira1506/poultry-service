@@ -6,5 +6,6 @@ export const MAXIMUM_CHARACTERS_DESCRIPTION = 200
 export const TYPES_WITH_METADATA = [
   RegisterTypeEnum.Advertising,
   RegisterTypeEnum.RemoveAdvertising,
-  RegisterTypeEnum.Transfer
+  RegisterTypeEnum.Transfer,
+  RegisterTypeEnum.Vaccination
 ]
