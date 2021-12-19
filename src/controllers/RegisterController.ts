@@ -53,10 +53,11 @@ class RegisterController extends BaseController<Register, RegisterRepository>  {
   @BaseController.errorHandler()
   async index(req: RequestWithPoultryAndBreeder, res: Response) {
     const poultry = req.poultry
+    const registerType = String(req.query?.registerType ?? '')
 
     if (!poultry) throw new NotFoundError()
 
-    const registers = await this.repository.findByPoultry(poultry.id)
+    const registers = await this.repository.findByPoultry(poultry.id, registerType)
 
     return BaseController.successResponse(res, { registers })
   }

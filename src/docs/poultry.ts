@@ -66,6 +66,7 @@ const poultryDocs = {
     {
       method: 'get',
       title: 'Get poultry registers',
+      queryParams: [{ type: 'string', name: 'registerType' }]
     }
   ], {
     pathVariables: [{ type: 'string', name: 'breederId' }, { type: 'string', name: 'poultryId' }]
