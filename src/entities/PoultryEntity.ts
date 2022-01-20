@@ -11,6 +11,9 @@ export default class Poultry {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
+  @Column('int')
+  number: number;
+
   @Column('varchar')
   description: string;
 
