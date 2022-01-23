@@ -54,7 +54,7 @@ class PoultryController extends BaseController<Poultry, PoultryRepository>  {
 
     const genderQueryParam = req.query?.gender
     const genderCategoryQueryParam = req?.query?.genderCategory
-    const poultryIds = (req?.query?.poultryIds?.toString() ?? '').split(',')
+    const poultryIds = (req?.query?.poultryIds?.toString() ?? '').split(',').filter(Boolean)
     const poultries = await this.repository.findByBreeder(breeder.id, {
       gender: genderQueryParam?.toString(),
       genderCategory: genderCategoryQueryParam?.toString(),

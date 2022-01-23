@@ -1,4 +1,4 @@
-import { EntityRepository, Not } from 'typeorm'
+import { EntityRepository, Not, In } from 'typeorm'
 import { BaseRepository } from '@cig-platform/core'
 
 import Poultry from '@Entities/PoultryEntity'
@@ -23,7 +23,7 @@ export default class PoultryRepository extends BaseRepository<Poultry> {
         active: true,
         ...(gender ? ({ gender }) : ({})),
         ...(genderCategory ? ({ genderCategory }) : ({})),
-        ...(poultryIds.length ? ({ id: poultryIds }) : ({  }))
+        ...(poultryIds.length ? ({ id: In(poultryIds) }) : ({  }))
       },
       relations: ['images']
     })
