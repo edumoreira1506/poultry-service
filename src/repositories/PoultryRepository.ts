@@ -1,17 +1,29 @@
-import { EntityRepository, Not } from 'typeorm'
+import { EntityRepository, Not, In } from 'typeorm'
 import { BaseRepository } from '@cig-platform/core'
 
 import Poultry from '@Entities/PoultryEntity'
 
 @EntityRepository(Poultry)
 export default class PoultryRepository extends BaseRepository<Poultry> {
-  findByBreeder(breederId: string, { gender, genderCategory }: { gender?: string; genderCategory?: string } = {}) {
+  findByBreeder(
+    breederId: string,
+    {
+      gender,
+      genderCategory,
+      poultryIds = []
+    }: {
+      gender?: string;
+      genderCategory?: string;
+      poultryIds?: string[]
+    } = {}
+  ) {
     return this.find({
       where: {
         breeder: { id: breederId },
         active: true,
         ...(gender ? ({ gender }) : ({})),
-        ...(genderCategory ? ({ genderCategory }) : ({}))
+        ...(genderCategory ? ({ genderCategory }) : ({})),
+        ...(poultryIds.length ? ({ id: In(poultryIds) }) : ({  }))
       },
       relations: ['images']
     })
