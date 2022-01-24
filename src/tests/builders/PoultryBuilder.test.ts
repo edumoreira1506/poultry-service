@@ -1,9 +1,8 @@
 import { poultryFactory } from '@cig-platform/factories'
+import { PoultryGenderCategoryEnum, PoultryGenderEnum } from '@cig-platform/enums'
 
 import i18n from '@Configs/i18n'
 import PoultryBuilder from '@Builders/PoultryBuilder'
-import PoultryGenderEnum from '@Enums/PoultryGenderEnum'
-import PoultryGenderCategoryEnum from '@Enums/PoultryGenderCategoryEnum'
 
 describe('PoultryBuilder', () => {
   describe('.build', () => {

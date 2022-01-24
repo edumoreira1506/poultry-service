@@ -1,11 +1,11 @@
 import { ValidationError } from '@cig-platform/core'
 import { ObjectPropertiesSchema } from 'joi'
+import { RegisterTypeEnum } from '@cig-platform/enums'
 
 import i18n from '@Configs/i18n'
 import { TYPES_WITH_METADATA } from '@Constants/register'
 import Poultry from '@Entities/PoultryEntity'
 import Register from '@Entities/RegisterEntity'
-import RegisterTypeEnum from '@Enums/RegisterTypeEnum'
 import { vaccinationRegisterSchema, measurementMeasurementAndWeighingRegisterSchema } from '@Schemas/RegisterSchemas'
 
 const metadataSchemas: Record<string, ObjectPropertiesSchema<any>> = {

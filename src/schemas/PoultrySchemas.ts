@@ -1,8 +1,15 @@
 import Joi from 'joi'
+import {
+  PoultryTypeEnum,
+  PoultryDewlapEnum,
+  PoultryCrestEnum,
+  PoultryTailEnum,
+  PoultryColorEnum,
+  PoultryGenderCategoryEnum,
+  PoultryGenderEnum
+} from '@cig-platform/enums'
 
 import i18n from '@Configs/i18n'
-import PoultryTypeEnum from '@Enums/PoultryTypeEnum'
-import PoultryGenderEnum from '@Enums/PoultryGenderEnum'
 import {
   MAXIMUM_CHARACTERS_DESCRIPTION,
   MAXIMUM_CHARACTERS_NAME,
@@ -10,11 +17,6 @@ import {
   MINIMUM_CHARACTERS_NAME,
 } from '@Constants/poultry'
 import { MAXIMUM_CHARACTERS_REGISTER, MINIMUM_CHARACTERS_REGISTER } from '@Constants/breeder'
-import PoultryDewlapEnum from '@Enums/PoultryDewlapEnum'
-import PoultryCrestEnum from '@Enums/PoultryCrestEnum'
-import PoultryTailEnum from '@Enums/PoultryTailEnum'
-import PoultryColorEnum from '@Enums/PoultryColorEnum'
-import PoultryGenderCategoryEnum from '@Enums/PoultryGenderCategoryEnum'
 
 const typeSchema = Joi.string().valid(...Object.values(PoultryTypeEnum)).messages({
   'string.empty': i18n.__('empty-field', { field: i18n.__('poultry.fields.type') }),

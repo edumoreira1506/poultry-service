@@ -1,8 +1,8 @@
 import { poultryRegisterFactory } from '@cig-platform/factories'
+import { RegisterTypeEnum } from '@cig-platform/enums'
 
 import RegisterBuilder from '@Builders/RegisterBuilder'
 import { TYPES_WITH_METADATA } from '@Constants/register'
-import RegisterTypeEnum from '@Enums/RegisterTypeEnum'
 import i18n from '@Configs/i18n'
 
 describe('RegisterBuilder', () => {

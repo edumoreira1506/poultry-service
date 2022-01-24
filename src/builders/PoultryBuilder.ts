@@ -1,10 +1,8 @@
 import { ValidationError } from '@cig-platform/core'
 import { IPoultryColors, IPoultryVideos } from '@cig-platform/types'
+import { PoultryTypeEnum, PoultryGenderEnum, PoultryGenderCategoryEnum } from '@cig-platform/enums'
 
 import Poultry from '@Entities/PoultryEntity'
-import PoultryTypeEnum from '@Enums/PoultryTypeEnum'
-import PoultryGenderEnum from '@Enums/PoultryGenderEnum'
-import PoultryGenderCategoryEnum from '@Enums/PoultryGenderCategoryEnum'
 import Breeder from '@Entities/BreederEntity'
 import i18n from '@Configs/i18n'
 import PoultryRepository from '@Repositories/PoultryRepository'
