@@ -1,12 +1,11 @@
 import typeorm from 'typeorm'
 import request from 'supertest'
 import { breederFactory, poultryFactory } from '@cig-platform/factories'
+import { PoultryGenderEnum, PoultryGenderCategoryEnum } from '@cig-platform/enums'
 
 import App from '@Configs/server'
 import i18n from '@Configs/i18n'
 import PoultryController from '@Controllers/PoultryController'
-import PoultryGenderEnum from '@Enums/PoultryGenderEnum'
-import PoultryGenderCategoryEnum from '@Enums/PoultryGenderCategoryEnum'
 
 jest.mock('typeorm', () => ({
   createConnection: jest.fn().mockResolvedValue({}),

@@ -1,6 +1,6 @@
 import Joi from 'joi'
+import { BreederContactTypeEnum } from '@cig-platform/enums'
 
-import BreederContactTypeEnum from '@Enums/BreederContactTypeEnum'
 import i18n from '@Configs/i18n'
 
 const typeSchema = Joi.string().required().valid(...Object.values(BreederContactTypeEnum)) .messages({
