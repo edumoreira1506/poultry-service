@@ -3,6 +3,7 @@ import { PoultryGenderCategoryEnum, PoultryGenderEnum } from '@cig-platform/enum
 
 import i18n from '@Configs/i18n'
 import PoultryBuilder from '@Builders/PoultryBuilder'
+import { YEAR } from '@Constants/time'
 
 describe('PoultryBuilder', () => {
   describe('.build', () => {
@@ -19,6 +20,24 @@ describe('PoultryBuilder', () => {
         colors: poultry.colors,
         type: poultry.type,
         videos: poultry.videos,
+      })
+    })
+
+    const chickenGenderCategories = [PoultryGenderCategoryEnum.FemaleChicken, PoultryGenderCategoryEnum.MaleChicken]
+
+    chickenGenderCategories.forEach(genderCategory => {
+      it(`throws an error and gender category is ${genderCategory} and the birth date is of adult`, () => {
+        const poultry = poultryFactory()
+        const nowDate = new Date()
+        const twoYearsAgoDate = new Date(nowDate.getTime() - (2 * YEAR))
+        const poultryBuilder = new PoultryBuilder({} as any)
+          .setBirthDate(twoYearsAgoDate)
+          .setColors(poultry.colors)
+          .setGenderCategory(genderCategory)
+          .setType(poultry.type)
+          .setVideos(poultry.videos)
+  
+        expect(poultryBuilder.build).rejects.toThrow(i18n.__('poultry.errors.gender-category-not-allowed'))
       })
     })
 
