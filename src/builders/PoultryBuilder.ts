@@ -124,7 +124,8 @@ export default class PoultryBuilder {
     const birthDate = new Date(this._birthDate)
     const now = new Date()
     const poultryTimeInMonths = Math.floor((now.getTime() - birthDate.getTime()) / MONTH)
-    const canBeMaleOrFemaleChicken = poultryTimeInMonths <= Number((MAX_MONTHS_CHILDREN as Record<string, number>)?.[this._gender])
+    const maxMonthsChildren = Number((MAX_MONTHS_CHILDREN as Record<string, number>)?.[this._gender])
+    const canBeMaleOrFemaleChicken = poultryTimeInMonths <= maxMonthsChildren
 
     const isMaleOrFemaleChicken = this._genderCategory === PoultryGenderCategoryEnum.FemaleChicken || this._genderCategory === PoultryGenderCategoryEnum.MaleChicken
     const isMale = this._gender === PoultryGenderEnum.Male
@@ -133,7 +134,7 @@ export default class PoultryBuilder {
     const isFemaleCategory = ([PoultryGenderCategoryEnum.FemaleChicken, PoultryGenderCategoryEnum.Matrix] as string[]).includes(this._genderCategory)
 
     if (this._birthDate && this._gender && isMaleOrFemaleChicken && !canBeMaleOrFemaleChicken) {
-      throw new ValidationError(i18n.__('poultry.errors.invalid-gender-category'))
+      throw new ValidationError(i18n.__('poultry.errors.invalid-male-or-female', { months: maxMonthsChildren.toString() }))
     }
 
     if (isMale && !isMaleCategory) throw new ValidationError(i18n.__('poultry.errors.invalid-gender-category'))
