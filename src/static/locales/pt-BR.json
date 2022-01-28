@@ -30,6 +30,7 @@
 	"poultry.errors.invalid-dewlap": "Barbela inválida da ave",
 	"poultry.errors.invalid-gender": "Gênero inválida de ave",
 	"poultry.errors.invalid-gender-category": "Sexagem inválida de ave",
+	"poultry.errors.invalid-male-or-female": "Ave precisa ter menos que {{months}} meses para ser um frango (a) ",
 	"poultry.errors.gender-category-not-allowed": "Sexagem não permitida",
 	"poultry.errors.invalid-color": "Cor inválida",
 	"poultry.errors.duplicated-register": "Código já registrado nesse criatório",
