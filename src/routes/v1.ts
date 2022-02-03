@@ -5,7 +5,7 @@ import withBreederParam from '@Middlewares/withBreederParam'
 import withFileSupport from '@Middlewares/withFileSupport'
 import { withFileUploadFactory } from '@Middlewares/withFileUpload'
 import withBreederImageParam from '@Middlewares/withBreederImageParam'
-import withPoultryParam from '@Middlewares/withPoultryParam'
+import withPoultryParam, { withJustPoultryParam } from '@Middlewares/withPoultryParam'
 import withBreederContactParam from '@Middlewares/withBreederContactParam'
 import withPoultryImageParam from '@Middlewares/withPoultryImageParam'
 
@@ -25,6 +25,8 @@ import { storeRegisterSchema } from '@Schemas/RegisterSchemas'
 import withBreederUserParam from '@Middlewares/withBreederUserParam'
 
 const router = express.Router()
+
+router.get('/poultries/:poultryId', withJustPoultryParam, PoultryController.show)
 
 router.post('/breeders', withBodyValidation(storeBreederSchema), BreederController.store)
 
