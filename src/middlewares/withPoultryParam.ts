@@ -22,3 +22,5 @@ export const withPoultryParamParamFactory =
     }
 
 export default withPoultryParamParamFactory(BaseController.errorResponse)
+
+export const withJustPoultryParam = withRequestParam<PoultryRepository, Poultry>('poultryId', 'poultry', PoultryController, BaseController.errorResponse)
