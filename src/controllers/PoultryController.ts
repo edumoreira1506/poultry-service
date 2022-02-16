@@ -60,10 +60,14 @@ class PoultryController extends BaseController<Poultry, PoultryRepository>  {
       genderCategory: genderCategoryQueryParam?.toString(),
       poultryIds
     })
-    const formattedPoultries = poultries.map(poultry => ({
-      ...poultry,
-      mainImage: poultry.images?.[0]?.imageUrl
-    }))
+    const formattedPoultries = poultries.map(poultry => {
+      const images = poultry.images?.filter(image => image.active)
+
+      return {
+        ...poultry,
+        mainImage: images?.[0]?.imageUrl
+      }
+    })
 
     return BaseController.successResponse(res, { poultries: formattedPoultries })
   }
