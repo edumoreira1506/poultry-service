@@ -53,6 +53,9 @@ export default class Poultry {
   @Column('json')
   videos: IPoultryVideos;
 
+  @Column({ name: 'for_sale', type: 'boolean' })
+  forSale: boolean;
+
   @Column('boolean')
   active: boolean;
 

@@ -106,6 +106,10 @@ const registerSchema = Joi.string().min(MINIMUM_CHARACTERS_REGISTER).max(MAXIMUM
   'any.required': i18n.__('required-field', { field: i18n.__('poultry.fields.register') })
 })
 
+const forSaleSchema = Joi.boolean().messages({
+  'any.required': i18n.__('required-field', { field: i18n.__('poultry.fields.for-sale') })
+})
+
 export const storePoultrySchema = Joi.object({
   type: typeSchema.required(),
   tail: tailSchema,
@@ -136,5 +140,6 @@ export const updatePoultrySchema = Joi.object({
   dewlap: dewlapSchema,
   crest: crestSchema,
   tail: tailSchema,
-  description: descriptionSchema
+  description: descriptionSchema,
+  forSale: forSaleSchema
 })

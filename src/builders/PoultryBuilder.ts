@@ -25,9 +25,16 @@ export default class PoultryBuilder {
   private _tail: string;
   private _description: string;
   private _repository: PoultryRepository;
+  private _forSale = false
 
   constructor(poutryRepository: PoultryRepository) {
     this._repository = poutryRepository
+  }
+
+  setForSale(forSale: boolean) {
+    this._forSale = forSale
+
+    return this
   }
 
   setDescription(description: string) {
@@ -179,6 +186,7 @@ export default class PoultryBuilder {
     poultry.crest = this._crest
     poultry.tail = this._tail
     poultry.genderCategory = this._genderCategory
+    poultry.forSale = this._forSale
 
     if (this._breeder) {
       poultry.breeder = this._breeder 
