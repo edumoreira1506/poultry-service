@@ -44,6 +44,7 @@
 	"poultry.fields.name": "Nome",
 	"poultry.fields.description": "Descrição",
 	"poultry.fields.register": "Nº Anilha interna",
+	"poultry.fields.for-sale": "À Venda",
 	"breeder.fields.colors.plumage": "Cor da plumagem",
 	"breeder.fields.colors.shins": "Cor da canela",
 	"breeder.fields.colors.eyes": "Cor dos olhos",
