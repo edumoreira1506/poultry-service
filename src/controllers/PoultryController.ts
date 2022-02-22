@@ -1,4 +1,4 @@
-import { Response } from 'express'
+import { Response, Request } from 'express'
 import { ObjectType } from 'typeorm'
 import { BaseController, NotFoundError } from '@cig-platform/core'
 
@@ -17,6 +17,7 @@ class PoultryController extends BaseController<Poultry, PoultryRepository>  {
     this.show = this.show.bind(this)
     this.update = this.update.bind(this)
     this.transfer = this.transfer.bind(this)
+    this.search = this.search.bind(this)
   }
 
   @BaseController.errorHandler()
@@ -59,6 +60,42 @@ class PoultryController extends BaseController<Poultry, PoultryRepository>  {
       gender: genderQueryParam?.toString(),
       genderCategory: genderCategoryQueryParam?.toString(),
       poultryIds
+    })
+    const formattedPoultries = poultries.map(poultry => {
+      const images = poultry.images?.filter(image => image.active)
+
+      return {
+        ...poultry,
+        mainImage: images?.[0]?.imageUrl
+      }
+    })
+
+    return BaseController.successResponse(res, { poultries: formattedPoultries })
+  }
+
+  @BaseController.errorHandler()
+  async search(req: Request, res: Response): Promise<Response> {
+    const gender = req.query?.gender?.toString()
+    const type = req.query?.type?.toString()
+    const tail = req.query?.tail?.toString()
+    const dewlap = req.query?.dewlap?.toString()
+    const crest = req.query?.crest?.toString()
+    const description = req.query?.description?.toString()
+    const name = req.query?.name?.toString()
+    const genderCategory = req?.query?.genderCategory?.toString()
+    const forSale = req?.query?.forSale ? Boolean(req?.query?.forSale === 'true') : undefined
+    const poultryIds = (req?.query?.poultryIds?.toString() ?? '').split(',').filter(Boolean)
+    const poultries = await this.repository.search({
+      gender,
+      genderCategory,
+      poultryIds,
+      forSale,
+      type,
+      tail,
+      dewlap,
+      crest,
+      description,
+      name,
     })
     const formattedPoultries = poultries.map(poultry => {
       const images = poultry.images?.filter(image => image.active)

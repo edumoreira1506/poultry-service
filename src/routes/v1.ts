@@ -26,6 +26,8 @@ import withBreederUserParam from '@Middlewares/withBreederUserParam'
 
 const router = express.Router()
 
+router.get('/poultries', PoultryController.search)
+
 router.get('/poultries/:poultryId', withJustPoultryParam, PoultryController.show)
 
 router.post('/breeders', withBodyValidation(storeBreederSchema), BreederController.store)
