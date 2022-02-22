@@ -88,6 +88,24 @@ const poultryDocs = {
   ], {
     pathVariables: [{ type: 'string', name: 'breederId' }, { type: 'string', name: 'poultryId' }]
   }),
+  ...createDoc('/poultries', ['Poultries'], [
+    {
+      method: 'get',
+      title: 'Search poultries',
+      queryParams: [
+        { type: 'string', name: 'gender' },
+        { type: 'string', name: 'poultryIds' },
+        { type: 'string', name: 'genderCategory' },
+        { type: 'string', name: 'type' },
+        { type: 'string', name: 'tail' },
+        { type: 'string', name: 'dewlap' },
+        { type: 'string', name: 'crest' },
+        { type: 'string', name: 'description' },
+        { type: 'string', name: 'name' },
+        { type: 'string', name: 'forSale' },
+      ]
+    }
+  ]),
 }
 
 export default poultryDocs
