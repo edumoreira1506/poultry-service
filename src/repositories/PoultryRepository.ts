@@ -1,4 +1,4 @@
-import { EntityRepository, Not, In } from 'typeorm'
+import { EntityRepository, Not, In, Like } from 'typeorm'
 import { BaseRepository } from '@cig-platform/core'
 
 import Poultry from '@Entities/PoultryEntity'
@@ -39,8 +39,8 @@ export default class PoultryRepository extends BaseRepository<Poultry> {
         ...(crest ? { crest } : {}),
         ...(dewlap ? { dewlap } : {}),
         ...(tail ? { tail } : {}),
-        ...(name ? { name } : {}),
-        ...(description ? { description } : {}),
+        ...(name ? { name: Like(`%${name}%`) } : {}),
+        ...(description ? { description: Like(`%${description}%`) } : {}),
       },
       relations: ['images'],
     })
