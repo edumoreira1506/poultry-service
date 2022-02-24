@@ -30,19 +30,19 @@ export default class PoultryRepository extends BaseRepository<Poultry> {
   } = {}) {
     const commonQueryParams = {
       active: true,
+      ...(gender ? { gender } : {}),
+      ...(genderCategory ? { genderCategory } : {}),
+      ...(poultryIds.length ? { id: In(poultryIds) } : {}),
+      ...(type ? { type } : {}),
+      ...(crest ? { crest } : {}),
+      ...(dewlap ? { dewlap } : {}),
+      ...(tail ? { tail } : {}),
       ...(typeof forSale === 'boolean' ? { forSale } : {}),
     }
     const queryParams = [
-      (gender ? { gender, ...commonQueryParams } : undefined),
-      (genderCategory ? { genderCategory, ...commonQueryParams } : undefined),
-      (poultryIds.length ? { id: In(poultryIds), ...commonQueryParams } : undefined),
-      (type ? { type, ...commonQueryParams } : undefined),
-      (crest ? { crest, ...commonQueryParams } : undefined),
-      (dewlap ? { dewlap, ...commonQueryParams } : undefined),
-      (tail ? { tail, ...commonQueryParams } : undefined),
       (name ? { name: Like(`%${name}%`), ...commonQueryParams } : undefined),
       (description ? { description: Like(`%${description}%`), ...commonQueryParams } : undefined),
-      commonQueryParams
+      (!name && !description ? commonQueryParams : undefined)
     ].filter(Boolean)
 
     return this.find({
