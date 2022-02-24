@@ -28,12 +28,14 @@ export default class PoultryRepository extends BaseRepository<Poultry> {
     description?: string;
     name?: string;
   } = {}) {
-    const commonQueryParams = { active: true }
+    const commonQueryParams = {
+      active: true,
+      ...(typeof forSale === 'boolean' ? { forSale } : {}),
+    }
     const queryParams = [
       (gender ? { gender, ...commonQueryParams } : undefined),
       (genderCategory ? { genderCategory, ...commonQueryParams } : undefined),
       (poultryIds.length ? { id: In(poultryIds), ...commonQueryParams } : undefined),
-      (typeof forSale === 'boolean' ? { forSale, ...commonQueryParams } : undefined),
       (type ? { type, ...commonQueryParams } : undefined),
       (crest ? { crest, ...commonQueryParams } : undefined),
       (dewlap ? { dewlap, ...commonQueryParams } : undefined),
