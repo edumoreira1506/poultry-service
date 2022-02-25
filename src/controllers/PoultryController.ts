@@ -75,14 +75,14 @@ class PoultryController extends BaseController<Poultry, PoultryRepository>  {
 
   @BaseController.errorHandler()
   async search(req: Request, res: Response): Promise<Response> {
-    const gender = req.query?.gender?.toString()
-    const type = req.query?.type?.toString()
-    const tail = req.query?.tail?.toString()
-    const dewlap = req.query?.dewlap?.toString()
-    const crest = req.query?.crest?.toString()
+    const gender = req.query?.gender?.toString()?.split(',') ?? []
+    const type = req.query?.type?.toString().split(',') ?? []
+    const tail = req.query?.tail?.toString().split(',') ?? []
+    const dewlap = req.query?.dewlap?.toString().split(',') ?? []
+    const crest = req.query?.crest?.toString().split(',') ?? []
     const description = req.query?.description?.toString()
     const name = req.query?.name?.toString()
-    const genderCategory = req?.query?.genderCategory?.toString()
+    const genderCategory = req?.query?.genderCategory?.toString()?.split(',') ?? []
     const forSale = req?.query?.forSale ? Boolean(req?.query?.forSale === 'true') : undefined
     const poultryIds = (req?.query?.poultryIds?.toString() ?? '').split(',').filter(Boolean)
     const poultries = await this.repository.search({
