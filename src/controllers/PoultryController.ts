@@ -55,7 +55,7 @@ class PoultryController extends BaseController<Poultry, PoultryRepository>  {
 
     const genderQueryParam = req.query?.gender
     const genderCategoryQueryParam = req?.query?.genderCategory
-    const poultryIds = (req?.query?.poultryIds?.toString() ?? '').split(',').filter(Boolean)
+    const poultryIds = (req?.query?.poultryIds?.toString() ?? '').split(',').filter(Boolean).filter(Boolean)
     const poultries = await this.repository.findByBreeder(breeder.id, {
       gender: genderQueryParam?.toString(),
       genderCategory: genderCategoryQueryParam?.toString(),
@@ -75,14 +75,14 @@ class PoultryController extends BaseController<Poultry, PoultryRepository>  {
 
   @BaseController.errorHandler()
   async search(req: Request, res: Response): Promise<Response> {
-    const gender = req.query?.gender?.toString()?.split(',') ?? []
-    const type = req.query?.type?.toString().split(',') ?? []
-    const tail = req.query?.tail?.toString().split(',') ?? []
-    const dewlap = req.query?.dewlap?.toString().split(',') ?? []
-    const crest = req.query?.crest?.toString().split(',') ?? []
+    const gender = req.query?.gender?.toString()?.split(',').filter(Boolean) ?? []
+    const type = req.query?.type?.toString().split(',').filter(Boolean) ?? []
+    const tail = req.query?.tail?.toString().split(',').filter(Boolean) ?? []
+    const dewlap = req.query?.dewlap?.toString().split(',').filter(Boolean) ?? []
+    const crest = req.query?.crest?.toString().split(',').filter(Boolean) ?? []
     const description = req.query?.description?.toString()
     const name = req.query?.name?.toString()
-    const genderCategory = req?.query?.genderCategory?.toString()?.split(',') ?? []
+    const genderCategory = req?.query?.genderCategory?.toString()?.split(',').filter(Boolean) ?? []
     const forSale = req?.query?.forSale ? Boolean(req?.query?.forSale === 'true') : undefined
     const poultryIds = (req?.query?.poultryIds?.toString() ?? '').split(',').filter(Boolean)
     const poultries = await this.repository.search({
