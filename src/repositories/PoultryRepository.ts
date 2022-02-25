@@ -30,13 +30,13 @@ export default class PoultryRepository extends BaseRepository<Poultry> {
   } = {}) {
     const commonQueryParams = {
       active: true,
-      ...(gender ? { gender: In(gender) } : {}),
-      ...(genderCategory ? { genderCategory: In(genderCategory) } : {}),
+      ...(gender?.length ? { gender: In(gender) } : {}),
+      ...(genderCategory?.length ? { genderCategory: In(genderCategory) } : {}),
       ...(poultryIds.length ? { id: In(poultryIds) } : {}),
-      ...(type ? { type: In(type) } : {}),
-      ...(crest ? { crest: In(crest) } : {}),
-      ...(dewlap ? { dewlap: In(dewlap) } : {}),
-      ...(tail ? { tail: In(tail) } : {}),
+      ...(type?.length ? { type: In(type) } : {}),
+      ...(crest?.length ? { crest: In(crest) } : {}),
+      ...(dewlap?.length ? { dewlap: In(dewlap) } : {}),
+      ...(tail?.length ? { tail: In(tail) } : {}),
       ...(typeof forSale === 'boolean' ? { forSale } : {}),
     }
     const queryParams = [
