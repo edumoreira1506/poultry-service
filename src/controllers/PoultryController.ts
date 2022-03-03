@@ -103,6 +103,19 @@ class PoultryController extends BaseController<Poultry, PoultryRepository>  {
       sort,
       page
     })
+    const pages = await this.repository.countPages({
+      gender,
+      genderCategory,
+      poultryIds,
+      forSale,
+      type,
+      tail,
+      dewlap,
+      crest,
+      description,
+      name,
+      prices,
+    })
     const formattedPoultries = poultries.map(poultry => {
       const images = poultry.images?.filter(image => image.active)
 
@@ -112,7 +125,7 @@ class PoultryController extends BaseController<Poultry, PoultryRepository>  {
       }
     })
 
-    return BaseController.successResponse(res, { poultries: formattedPoultries })
+    return BaseController.successResponse(res, { pages, poultries: formattedPoultries })
   }
 
   @BaseController.errorHandler()
