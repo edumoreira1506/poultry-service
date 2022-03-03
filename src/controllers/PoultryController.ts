@@ -87,6 +87,7 @@ class PoultryController extends BaseController<Poultry, PoultryRepository>  {
     const poultryIds = (req?.query?.poultryIds?.toString() ?? '').split(',').filter(Boolean)
     const prices = req?.query?.prices && JSON.parse(req.query.prices.toString())
     const sort = req?.query?.sort?.toString()
+    const page = Number(req?.query?.page ?? 0)
     const poultries = await this.repository.search({
       gender,
       genderCategory,
@@ -99,7 +100,8 @@ class PoultryController extends BaseController<Poultry, PoultryRepository>  {
       description,
       name,
       prices,
-      sort
+      sort,
+      page
     })
     const formattedPoultries = poultries.map(poultry => {
       const images = poultry.images?.filter(image => image.active)
