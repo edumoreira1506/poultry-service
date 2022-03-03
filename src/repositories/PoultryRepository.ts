@@ -7,6 +7,54 @@ const ITEMS_PER_PAGE = 30
 
 @EntityRepository(Poultry)
 export default class PoultryRepository extends BaseRepository<Poultry> {
+  static createFilters({
+    gender,
+    genderCategory,
+    poultryIds = [],
+    forSale,
+    type,
+    crest,
+    dewlap,
+    tail,
+    description,
+    name,
+    prices,
+  }: {
+    gender?: string[];
+    genderCategory?: string[];
+    poultryIds?: string[];
+    forSale?: boolean;
+    type?: string[];
+    crest?: string[];
+    dewlap?: string[];
+    tail?: string[];
+    description?: string;
+    name?: string;
+    prices?: { min?: number; max?: number };
+  } = {}) {
+    const commonQueryParams = {
+      active: true,
+      ...(gender?.length ? { gender: In(gender) } : {}),
+      ...(genderCategory?.length ? { genderCategory: In(genderCategory) } : {}),
+      ...(poultryIds.length ? { id: In(poultryIds) } : {}),
+      ...(type?.length ? { type: In(type) } : {}),
+      ...(crest?.length ? { crest: In(crest) } : {}),
+      ...(dewlap?.length ? { dewlap: In(dewlap) } : {}),
+      ...(tail?.length ? { tail: In(tail) } : {}),
+      ...(typeof forSale === 'boolean' ? { forSale } : {}),
+      ...(typeof prices?.min === 'number' && typeof prices?.max === 'number' ? {
+        currentAdvertisingPrice: Between(prices.min, prices.max)
+      } : {})
+    }
+    const queryParams = [
+      (name ? { name: Like(`%${name}%`), ...commonQueryParams } : undefined),
+      (description ? { description: Like(`%${description}%`), ...commonQueryParams } : undefined),
+      (!name && !description ? commonQueryParams : undefined)
+    ].filter(Boolean)
+
+    return queryParams
+  }
+
   search({
     gender,
     genderCategory,
@@ -36,25 +84,19 @@ export default class PoultryRepository extends BaseRepository<Poultry> {
     sort?: string;
     page?: number;
   } = {}) {
-    const commonQueryParams = {
-      active: true,
-      ...(gender?.length ? { gender: In(gender) } : {}),
-      ...(genderCategory?.length ? { genderCategory: In(genderCategory) } : {}),
-      ...(poultryIds.length ? { id: In(poultryIds) } : {}),
-      ...(type?.length ? { type: In(type) } : {}),
-      ...(crest?.length ? { crest: In(crest) } : {}),
-      ...(dewlap?.length ? { dewlap: In(dewlap) } : {}),
-      ...(tail?.length ? { tail: In(tail) } : {}),
-      ...(typeof forSale === 'boolean' ? { forSale } : {}),
-      ...(typeof prices?.min === 'number' && typeof prices?.max === 'number' ? {
-        currentAdvertisingPrice: Between(prices.min, prices.max)
-      } : {})
-    }
-    const queryParams = [
-      (name ? { name: Like(`%${name}%`), ...commonQueryParams } : undefined),
-      (description ? { description: Like(`%${description}%`), ...commonQueryParams } : undefined),
-      (!name && !description ? commonQueryParams : undefined)
-    ].filter(Boolean)
+    const queryParams = PoultryRepository.createFilters({
+      gender,
+      genderCategory,
+      poultryIds,
+      forSale,
+      type,
+      crest,
+      dewlap,
+      tail,
+      description,
+      name,
+      prices,
+    })
 
     return this.find({
       where: queryParams,
@@ -93,25 +135,19 @@ export default class PoultryRepository extends BaseRepository<Poultry> {
     name?: string;
     prices?: { min?: number; max?: number };
   } = {}) {
-    const commonQueryParams = {
-      active: true,
-      ...(gender?.length ? { gender: In(gender) } : {}),
-      ...(genderCategory?.length ? { genderCategory: In(genderCategory) } : {}),
-      ...(poultryIds.length ? { id: In(poultryIds) } : {}),
-      ...(type?.length ? { type: In(type) } : {}),
-      ...(crest?.length ? { crest: In(crest) } : {}),
-      ...(dewlap?.length ? { dewlap: In(dewlap) } : {}),
-      ...(tail?.length ? { tail: In(tail) } : {}),
-      ...(typeof forSale === 'boolean' ? { forSale } : {}),
-      ...(typeof prices?.min === 'number' && typeof prices?.max === 'number' ? {
-        currentAdvertisingPrice: Between(prices.min, prices.max)
-      } : {})
-    }
-    const queryParams = [
-      (name ? { name: Like(`%${name}%`), ...commonQueryParams } : undefined),
-      (description ? { description: Like(`%${description}%`), ...commonQueryParams } : undefined),
-      (!name && !description ? commonQueryParams : undefined)
-    ].filter(Boolean)
+    const queryParams = PoultryRepository.createFilters({
+      gender,
+      genderCategory,
+      poultryIds,
+      forSale,
+      type,
+      crest,
+      dewlap,
+      tail,
+      description,
+      name,
+      prices,
+    })
 
     const poultriesAmount = await this.count({
       where: queryParams
