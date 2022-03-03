@@ -105,7 +105,7 @@ export default class PoultryRepository extends BaseRepository<Poultry> {
         ...(sort === 'MAX_TO_MIN' ? { currentAdvertisingPrice: 'DESC' } : {}),
         ...(sort === 'MIN_TO_MAX' ? { currentAdvertisingPrice: 'ASC' } : {}),
       },
-      skip: page,
+      skip: page * ITEMS_PER_PAGE,
       take: ITEMS_PER_PAGE
     })
   }
