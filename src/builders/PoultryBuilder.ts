@@ -26,9 +26,16 @@ export default class PoultryBuilder {
   private _description: string;
   private _repository: PoultryRepository;
   private _forSale = false
+  private _currentAdvertisingPrice: number;
 
   constructor(poutryRepository: PoultryRepository) {
     this._repository = poutryRepository
+  }
+
+  setCurrentAdvertisingPrice(currentAdvertisingPrice: number) {
+    this._currentAdvertisingPrice = currentAdvertisingPrice
+
+    return this
   }
 
   setForSale(forSale: boolean) {
@@ -187,6 +194,10 @@ export default class PoultryBuilder {
     poultry.tail = this._tail
     poultry.genderCategory = this._genderCategory
     poultry.forSale = this._forSale
+    
+    if (this._currentAdvertisingPrice) {
+      poultry.currentAdvertisingPrice = this._currentAdvertisingPrice
+    }
 
     if (this._breeder) {
       poultry.breeder = this._breeder 

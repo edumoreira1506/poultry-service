@@ -41,6 +41,9 @@ export default class Poultry {
   @Column({ type: 'varchar', name: 'gender_category' })
   genderCategory: string;
 
+  @Column({ type: 'int', name: 'current_advertising_price' })
+  currentAdvertisingPrice: number;
+
   @Column({ type: 'uuid', name: 'breeder_id'})
   breederId: string;
 

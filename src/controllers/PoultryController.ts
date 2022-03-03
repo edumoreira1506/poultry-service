@@ -142,6 +142,7 @@ class PoultryController extends BaseController<Poultry, PoultryRepository>  {
       .setTail(newPoultry.tail)
       .setGenderCategory(newPoultry.genderCategory)
       .setForSale(newPoultry.forSale)
+      .setCurrentAdvertisingPrice(newPoultry.currentAdvertisingPrice)
       .setBreeder(breeder)
       .build()
 
@@ -157,7 +158,8 @@ class PoultryController extends BaseController<Poultry, PoultryRepository>  {
       crest: poultryDTO.crest,
       tail: poultryDTO.tail,
       description: poultryDTO.description,
-      forSale: poultryDTO.forSale
+      forSale: poultryDTO.forSale,
+      currentAdvertisingPrice: poultryDTO.currentAdvertisingPrice
     })
   }
 
