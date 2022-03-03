@@ -85,6 +85,7 @@ class PoultryController extends BaseController<Poultry, PoultryRepository>  {
     const genderCategory = req?.query?.genderCategory?.toString()?.split(',').filter(Boolean) ?? []
     const forSale = req?.query?.forSale ? Boolean(req?.query?.forSale === 'true') : undefined
     const poultryIds = (req?.query?.poultryIds?.toString() ?? '').split(',').filter(Boolean)
+    const prices = req?.query?.prices && JSON.parse(req.query.prices.toString())
     const poultries = await this.repository.search({
       gender,
       genderCategory,
@@ -96,6 +97,7 @@ class PoultryController extends BaseController<Poultry, PoultryRepository>  {
       crest,
       description,
       name,
+      prices,
     })
     const formattedPoultries = poultries.map(poultry => {
       const images = poultry.images?.filter(image => image.active)

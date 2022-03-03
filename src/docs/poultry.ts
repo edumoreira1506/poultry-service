@@ -103,6 +103,7 @@ const poultryDocs = {
         { type: 'string', name: 'description' },
         { type: 'string', name: 'name' },
         { type: 'string', name: 'forSale' },
+        { type: 'string', name: 'prices' },
       ]
     }
   ]),

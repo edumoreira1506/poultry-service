@@ -1,4 +1,4 @@
-import { EntityRepository, Not, In, Like } from 'typeorm'
+import { EntityRepository, Not, In, Like, Between } from 'typeorm'
 import { BaseRepository } from '@cig-platform/core'
 
 import Poultry from '@Entities/PoultryEntity'
@@ -15,7 +15,8 @@ export default class PoultryRepository extends BaseRepository<Poultry> {
     dewlap,
     tail,
     description,
-    name
+    name,
+    prices
   }: {
     gender?: string[];
     genderCategory?: string[];
@@ -27,6 +28,7 @@ export default class PoultryRepository extends BaseRepository<Poultry> {
     tail?: string[];
     description?: string;
     name?: string;
+    prices?: { min?: number; max?: number };
   } = {}) {
     const commonQueryParams = {
       active: true,
@@ -38,6 +40,9 @@ export default class PoultryRepository extends BaseRepository<Poultry> {
       ...(dewlap?.length ? { dewlap: In(dewlap) } : {}),
       ...(tail?.length ? { tail: In(tail) } : {}),
       ...(typeof forSale === 'boolean' ? { forSale } : {}),
+      ...(typeof prices?.min === 'number' && typeof prices?.max === 'number' ? {
+        currentAdvertisingPrice: Between(prices.min, prices.max)
+      } : {})
     }
     const queryParams = [
       (name ? { name: Like(`%${name}%`), ...commonQueryParams } : undefined),
