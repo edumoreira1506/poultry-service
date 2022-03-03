@@ -17,7 +17,8 @@ export default class PoultryRepository extends BaseRepository<Poultry> {
     description,
     name,
     prices,
-    sort
+    sort,
+    page = 0
   }: {
     gender?: string[];
     genderCategory?: string[];
@@ -31,6 +32,7 @@ export default class PoultryRepository extends BaseRepository<Poultry> {
     name?: string;
     prices?: { min?: number; max?: number };
     sort?: string;
+    page?: number;
   } = {}) {
     const commonQueryParams = {
       active: true,
@@ -58,7 +60,9 @@ export default class PoultryRepository extends BaseRepository<Poultry> {
       order: {
         ...(sort === 'MAX_TO_MIN' ? { currentAdvertisingPrice: 'DESC' } : {}),
         ...(sort === 'MIN_TO_MAX' ? { currentAdvertisingPrice: 'ASC' } : {}),
-      }
+      },
+      skip: page,
+      take: 30
     })
   }
 
