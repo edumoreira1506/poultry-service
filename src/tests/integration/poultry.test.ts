@@ -219,10 +219,12 @@ describe('Poultry actions', () => {
   describe('Index', () => {
     it('send all poultries of breeder', async () => {
       const poultries = [poultryFactory({ colors: {} })]
+      const pages = 1
       const breeder = breederFactory()
       const mockRepository: any = {
         findById: jest.fn().mockResolvedValue(breeder),
         findByBreeder: jest.fn().mockResolvedValue(poultries),
+        countPages: jest.fn().mockResolvedValue(pages)
       }
 
       jest.spyOn(typeorm, 'getCustomRepository').mockReturnValue(mockRepository)
@@ -233,6 +235,7 @@ describe('Poultry actions', () => {
       expect(response.statusCode).toBe(200)
       expect(response.body).toMatchObject({
         ok: true,
+        pages,
         poultries: poultries.map((poultry) => ({
           ...poultry,
           birthDate: poultry.birthDate.toISOString()
@@ -243,6 +246,12 @@ describe('Poultry actions', () => {
         genderCategory: undefined,
         poultryIds: [],
         page: 0
+      })
+      expect(mockRepository.countPages).toHaveBeenCalledWith({
+        gender: [],
+        genderCategory: [],
+        poultryIds: [],
+        breederId: breeder.id
       })
     })
   })

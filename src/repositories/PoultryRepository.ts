@@ -19,6 +19,7 @@ export default class PoultryRepository extends BaseRepository<Poultry> {
     description,
     name,
     prices,
+    breederId
   }: {
     gender?: string[];
     genderCategory?: string[];
@@ -31,6 +32,7 @@ export default class PoultryRepository extends BaseRepository<Poultry> {
     description?: string;
     name?: string;
     prices?: { min?: number; max?: number };
+    breederId?: string;
   } = {}) {
     const commonQueryParams = {
       active: true,
@@ -42,6 +44,7 @@ export default class PoultryRepository extends BaseRepository<Poultry> {
       ...(dewlap?.length ? { dewlap: In(dewlap) } : {}),
       ...(tail?.length ? { tail: In(tail) } : {}),
       ...(typeof forSale === 'boolean' ? { forSale } : {}),
+      ...(breederId ? { breederId } : {}),
       ...(typeof prices?.min === 'number' && typeof prices?.max === 'number' ? {
         currentAdvertisingPrice: Between(prices.min, prices.max)
       } : {})
@@ -122,6 +125,7 @@ export default class PoultryRepository extends BaseRepository<Poultry> {
     description,
     name,
     prices,
+    breederId
   }: {
     gender?: string[];
     genderCategory?: string[];
@@ -134,6 +138,7 @@ export default class PoultryRepository extends BaseRepository<Poultry> {
     description?: string;
     name?: string;
     prices?: { min?: number; max?: number };
+    breederId?: string;
   } = {}) {
     const queryParams = PoultryRepository.createFilters({
       gender,
@@ -147,6 +152,7 @@ export default class PoultryRepository extends BaseRepository<Poultry> {
       description,
       name,
       prices,
+      breederId
     })
 
     const poultriesAmount = await this.count({
@@ -170,14 +176,15 @@ export default class PoultryRepository extends BaseRepository<Poultry> {
       page?: number;
     } = {}
   ) {
+    const where = PoultryRepository.createFilters({
+      gender: [gender].filter(Boolean) as string[],
+      genderCategory: [genderCategory].filter(Boolean) as string[],
+      poultryIds,
+      breederId
+    })
+
     return this.find({
-      where: {
-        breeder: { id: breederId },
-        active: true,
-        ...(gender ? { gender } : {}),
-        ...(genderCategory ? { genderCategory } : {}),
-        ...(poultryIds.length ? { id: In(poultryIds) } : {}),
-      },
+      where,
       relations: ['images'],
       skip: page * ITEMS_PER_PAGE,
       take: ITEMS_PER_PAGE
