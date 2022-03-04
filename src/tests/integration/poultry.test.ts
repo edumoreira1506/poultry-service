@@ -241,7 +241,8 @@ describe('Poultry actions', () => {
       expect(mockRepository.findByBreeder).toHaveBeenCalledWith(breeder.id, {
         gender: undefined,
         genderCategory: undefined,
-        poultryIds: []
+        poultryIds: [],
+        page: 0
       })
     })
   })

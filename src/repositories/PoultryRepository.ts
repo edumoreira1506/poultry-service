@@ -162,10 +162,12 @@ export default class PoultryRepository extends BaseRepository<Poultry> {
       gender,
       genderCategory,
       poultryIds = [],
+      page = 0,
     }: {
       gender?: string;
       genderCategory?: string;
       poultryIds?: string[];
+      page?: number;
     } = {}
   ) {
     return this.find({
@@ -177,6 +179,8 @@ export default class PoultryRepository extends BaseRepository<Poultry> {
         ...(poultryIds.length ? { id: In(poultryIds) } : {}),
       },
       relations: ['images'],
+      skip: page * ITEMS_PER_PAGE,
+      take: ITEMS_PER_PAGE
     })
   }
 
