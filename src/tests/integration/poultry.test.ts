@@ -217,7 +217,7 @@ describe('Poultry actions', () => {
   })
 
   describe('Index', () => {
-    it.only('send all poultries of breeder', async () => {
+    it('send all poultries of breeder', async () => {
       const poultries = [poultryFactory({ colors: {} })]
       const pages = 1
       const breeder = breederFactory()
