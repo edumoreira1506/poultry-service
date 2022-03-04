@@ -13,7 +13,11 @@ const poultryDocs = {
     {
       method: 'get',
       title: 'Get poultries',
-      queryParams: [{ type: 'string', name: 'gender' }, { type: 'string', name: 'poultryIds' }]
+      queryParams: [
+        { type: 'string', name: 'gender' },
+        { type: 'string', name: 'poultryIds' },
+        { type: 'string', name: 'page' }
+      ]
     }
   ], {
     pathVariables: [{ type: 'string', name: 'breederId' }]
