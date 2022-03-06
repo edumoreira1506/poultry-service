@@ -3,7 +3,6 @@ import { PoultryGenderCategoryEnum, PoultryGenderEnum } from '@cig-platform/enum
 
 import i18n from '@Configs/i18n'
 import PoultryBuilder from '@Builders/PoultryBuilder'
-import { YEAR } from '@Constants/time'
 
 describe('PoultryBuilder', () => {
   describe('.build', () => {
