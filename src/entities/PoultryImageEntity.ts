@@ -6,18 +6,18 @@ import Poultry from './PoultryEntity'
 @Entity('poultry_images')
 export default class PoultryImage {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+    id: string
 
   @Column({ type: 'uuid', name: 'poultry_id'})
-  poultryId: string;
+    poultryId: string
 
   @Column('boolean')
-  active: boolean;
+    active: boolean
 
   @Column({ type: 'varchar', name: 'image_url' })
-  imageUrl: string;
+    imageUrl: string
 
   @ManyToOne(() => Poultry, poultry => poultry.images)
   @JoinColumn({ name: 'poultry_id' })
-  poultry: Poultry;
+    poultry: Poultry
 }

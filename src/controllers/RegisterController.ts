@@ -10,7 +10,7 @@ import RegisterFileRepository from '@Repositories/RegisterFileRepository'
 import RegisterFile from '@Entities/RegisterFileEntity'
 
 class RegisterController extends BaseController<Register, RegisterRepository>  {
-  private _fileEntity: ObjectType<RegisterFile>;
+  private _fileEntity: ObjectType<RegisterFile>
 
   constructor(repository: ObjectType<Register>, registerFile: ObjectType<RegisterFile>) {
     super(repository)

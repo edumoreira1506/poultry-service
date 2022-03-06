@@ -10,23 +10,23 @@ import { MONTH } from '@Constants/time'
 import { MAX_MONTHS_CHILDREN } from '@Constants/poultry'
 
 export default class PoultryBuilder {
-  private _type: string;
-  private _birthDate: Date;
-  private _colors: IPoultryColors;
-  private _videos: IPoultryVideos;
-  private _breeder: Breeder;
-  private _gender: string;
-  private _genderCategory: string;
-  private _name: string;
-  private _register: string;
-  private _id: string;
-  private _dewlap: string;
-  private _crest: string;
-  private _tail: string;
-  private _description: string;
-  private _repository: PoultryRepository;
+  private _type: string
+  private _birthDate: Date
+  private _colors: IPoultryColors
+  private _videos: IPoultryVideos
+  private _breeder: Breeder
+  private _gender: string
+  private _genderCategory: string
+  private _name: string
+  private _register: string
+  private _id: string
+  private _dewlap: string
+  private _crest: string
+  private _tail: string
+  private _description: string
+  private _repository: PoultryRepository
   private _forSale = false
-  private _currentAdvertisingPrice: number;
+  private _currentAdvertisingPrice: number
 
   constructor(poutryRepository: PoultryRepository) {
     this._repository = poutryRepository

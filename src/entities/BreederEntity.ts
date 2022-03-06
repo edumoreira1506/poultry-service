@@ -10,44 +10,44 @@ import BreederContact from './BreederContactEntity'
 @Entity('breeders')
 export default class Breeder {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+    id: string
 
   @Column('varchar')
-  code: string;
+    code: string
 
   @Column('varchar')
-  name: string;
+    name: string
 
   @Column('json')
-  address: IBreederAddress;
+    address: IBreederAddress
 
   @Column('varchar')
-  description: string;
+    description: string
 
   @Column('boolean')
-  active: boolean;
+    active: boolean
 
   @Column({ name: 'foundation_date', type: 'date' })
-  foundationDate: Date;
+    foundationDate: Date
 
   @Column({ name: 'profile_image_url', type: 'varchar' })
-  profileImageUrl: string;
+    profileImageUrl: string
 
   @Column({ name: 'main_video', type: 'varchar' })
-  mainVideo: string;
+    mainVideo: string
 
   @OneToMany(() => BreederUser, breederUser => breederUser.breeder)
-  users?: BreederUser[];
+    users?: BreederUser[]
 
   @OneToMany(() => BreederImage, breederImage => breederImage.breeder)
-  images?: BreederImage[];
+    images?: BreederImage[]
 
   @OneToMany(() => Poultry, poultry => poultry.breeder)
-  poultries?: Poultry[];
+    poultries?: Poultry[]
 
   @OneToMany(() => BreederContact, breederContact => breederContact.breeder)
-  contacts?: BreederContact[];
+    contacts?: BreederContact[]
 
   @CreateDateColumn({ name: 'created_at' })
-  createdAt: Date;
+    createdAt: Date
 }
