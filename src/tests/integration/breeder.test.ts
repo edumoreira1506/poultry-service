@@ -550,7 +550,8 @@ describe('Breeder actions', () => {
         ok: true,
         breeder: {
           ...breeder,
-          foundationDate: breeder.foundationDate.toISOString()
+          foundationDate: breeder.foundationDate.toISOString(),
+          createdAt: breeder.createdAt.toISOString(),
         }
       })
       expect(mockBreederRepository.findById).toHaveBeenCalledWith(breeder.id)
@@ -595,7 +596,8 @@ describe('Breeder actions', () => {
         ok: true,
         breeders: breeders.map((breeder) => ({
           ...breeder,
-          foundationDate: breeder.foundationDate.toISOString()
+          foundationDate: breeder.foundationDate.toISOString(),
+          createdAt: breeder.createdAt.toISOString(),
         }))
       })
       expect(mockBreederRepository.search).toHaveBeenCalledWith(keyword)
@@ -618,7 +620,8 @@ describe('Breeder actions', () => {
         ok: true,
         breeders: breeders.map((breeder) => ({
           ...breeder,
-          foundationDate: breeder.foundationDate.toISOString()
+          foundationDate: breeder.foundationDate.toISOString(),
+          createdAt: breeder.createdAt.toISOString(),
         }))
       })
       expect(mockBreederRepository.findByUser).toHaveBeenCalledWith(userId, keyword)
