@@ -5,6 +5,8 @@ import RegisterBuilder from '@Builders/RegisterBuilder'
 import { TYPES_WITH_METADATA } from '@Constants/register'
 import i18n from '@Configs/i18n'
 
+const typesWithouthMetadata = Object.values(RegisterTypeEnum).filter(type => !TYPES_WITH_METADATA.includes(type))
+
 describe('RegisterBuilder', () => {
   describe('.build', () => {
     it('a valid register', () => {
@@ -20,8 +22,6 @@ describe('RegisterBuilder', () => {
         type: register.type,
       })
     })
-
-    const typesWithouthMetadata = Object.values(RegisterTypeEnum).filter(type => !TYPES_WITH_METADATA.includes(type))
 
     typesWithouthMetadata.forEach((type) => {
       it(`throwns an error when has metadata and the type is ${type}`, () => {
