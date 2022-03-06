@@ -7,30 +7,30 @@ import RegisterFile from './RegisterFileEntity'
 @Entity('registers')
 export default class Register {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+    id: string
 
   @Column({ type: 'uuid', name: 'poultry_id'})
-  poultryId: string;
+    poultryId: string
 
   @Column('varchar')
-  description: string;
+    description: string
 
   @Column('json')
-  metadata: Record<string, any>;
+    metadata: Record<string, any>
   
   @Column('timestamp')
-  date: Date;
+    date: Date
 
   @Column('varchar')
-  type: string;
+    type: string
 
   @Column('boolean')
-  active: boolean;
+    active: boolean
 
   @ManyToOne(() => Poultry, poultry => poultry.registers)
   @JoinColumn({ name: 'poultry_id' })
-  poultry: Poultry;
+    poultry: Poultry
 
   @OneToMany(() => RegisterFile, registerFile => registerFile.register)
-  files?: RegisterFile[];
+    files?: RegisterFile[]
 }

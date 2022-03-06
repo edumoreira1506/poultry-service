@@ -6,8 +6,8 @@ import Breeder from '@Entities/BreederEntity'
 import BreederUser from '@Entities/BreederUserEntity'
 
 export default class BreederUserBuilder {
-  private _userId = '';
-  private _breeder: Breeder;
+  private _userId = ''
+  private _breeder: Breeder
 
   setBreeder(breeder: Breeder): BreederUserBuilder {
     this._breeder = breeder

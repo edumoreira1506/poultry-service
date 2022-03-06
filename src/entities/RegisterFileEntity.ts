@@ -6,18 +6,18 @@ import Register from './RegisterEntity'
 @Entity('register_files')
 export default class RegisterFile {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+    id: string
 
   @Column({ type: 'uuid', name: 'register_id'})
-  registerId: string;
+    registerId: string
 
   @Column({ type: 'varchar', name: 'file_name' })
-  fileName: string;
+    fileName: string
 
   @Column('boolean')
-  active: boolean;
+    active: boolean
 
   @ManyToOne(() => Register, poultry => poultry.files)
   @JoinColumn({ name: 'register_id' })
-  register: Register;
+    register: Register
 }

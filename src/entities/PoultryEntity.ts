@@ -9,66 +9,66 @@ import Register from './RegisterEntity'
 @Entity('poultries')
 export default class Poultry {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+    id: string
 
   @Column('int')
-  number: number;
+    number: number
 
   @Column('varchar')
-  description: string;
+    description: string
 
   @Column('varchar')
-  tail: string;
+    tail: string
 
   @Column('varchar')
-  crest: string;
+    crest: string
 
   @Column('varchar')
-  dewlap: string;
+    dewlap: string
 
   @Column('varchar')
-  register: string;
+    register: string
 
   @Column('varchar')
-  name: string;
+    name: string
 
   @Column('varchar')
-  type: string;
+    type: string
 
   @Column('varchar')
-  gender: string;
+    gender: string
 
   @Column({ type: 'varchar', name: 'gender_category' })
-  genderCategory: string;
+    genderCategory: string
 
   @Column({ type: 'int', name: 'current_advertising_price' })
-  currentAdvertisingPrice: number;
+    currentAdvertisingPrice: number
 
   @Column({ type: 'uuid', name: 'breeder_id'})
-  breederId: string;
+    breederId: string
 
   @Column({ name: 'birth_date', type: 'date' })
-  birthDate: Date;
+    birthDate: Date
 
   @Column('json')
-  colors: IPoultryColors;
+    colors: IPoultryColors
 
   @Column('json')
-  videos: IPoultryVideos;
+    videos: IPoultryVideos
 
   @Column({ name: 'for_sale', type: 'boolean' })
-  forSale: boolean;
+    forSale: boolean
 
   @Column('boolean')
-  active: boolean;
+    active: boolean
 
   @ManyToOne(() => Breeder, breeder => breeder.poultries)
   @JoinColumn({ name: 'breeder_id' })
-  breeder: Breeder;
+    breeder: Breeder
 
   @OneToMany(() => PoultryImage, poultryImage => poultryImage.poultry)
-  images?: PoultryImage[];
+    images?: PoultryImage[]
 
   @OneToMany(() => Register, register => register.poultry)
-  registers?: Register[];
+    registers?: Register[]
 }

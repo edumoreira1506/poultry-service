@@ -7,14 +7,14 @@ import BreederRepository from '@Repositories/BreederRepository'
 import CepService from '@Services/CepService'
 
 export default class BreederBuilder {
-  private _name = '';
-  private _description = '';
-  private _address: undefined | IBreederAddress;
-  private _foundationDate: Date;
-  private _mainVideo: string;
-  private _code: string;
+  private _name = ''
+  private _description = ''
+  private _address: undefined | IBreederAddress
+  private _foundationDate: Date
+  private _mainVideo: string
+  private _code: string
   private _profileImageUrl = ''
-  private _repository: BreederRepository;
+  private _repository: BreederRepository
 
   constructor(breederRepository: BreederRepository) {
     this._repository = breederRepository

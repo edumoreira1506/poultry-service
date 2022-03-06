@@ -6,18 +6,18 @@ import Breeder from './BreederEntity'
 @Entity('breeder_images')
 export default class BreederImage {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+    id: string
 
   @Column({ type: 'uuid', name: 'breeder_id'})
-  breederId: string;
+    breederId: string
 
   @Column('boolean')
-  active: boolean;
+    active: boolean
 
   @Column({ type: 'varchar', name: 'image_url' })
-  imageUrl: string;
+    imageUrl: string
 
   @ManyToOne(() => Breeder, breeder => breeder.images)
   @JoinColumn({ name: 'breeder_id' })
-  breeder: Breeder;
+    breeder: Breeder
 }

@@ -2,9 +2,9 @@ import BreederContact from '@Entities/BreederContactEntity'
 import Breeder from '@Entities/BreederEntity'
 
 export default class BreederContactBuilder {
-  private _type: string;
-  private _value: string;
-  private _breeder: Breeder;
+  private _type: string
+  private _value: string
+  private _breeder: Breeder
 
   setBreeder(breeder: Breeder): BreederContactBuilder {
     this._breeder = breeder

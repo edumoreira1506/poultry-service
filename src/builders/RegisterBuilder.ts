@@ -14,11 +14,11 @@ const metadataSchemas: Record<string, ObjectPropertiesSchema<any>> = {
 }
 
 export default class RegisterBuilder {
-  private _poultry: Poultry;
-  private _type: string;
-  private _description: string;
-  private _metadata: Record<string, any>;
-  private _date: Date;
+  private _poultry: Poultry
+  private _type: string
+  private _description: string
+  private _metadata: Record<string, any>
+  private _date: Date
 
   setDate(date: string) {
     if (date) {
