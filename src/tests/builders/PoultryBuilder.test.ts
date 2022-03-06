@@ -26,16 +26,21 @@ describe('PoultryBuilder', () => {
     const chickenGenderCategories = [PoultryGenderCategoryEnum.FemaleChicken, PoultryGenderCategoryEnum.MaleChicken]
 
     chickenGenderCategories.forEach(genderCategory => {
-      it(`throws an error and gender category is ${genderCategory} and the birth date is of adult`, () => {
-        const poultry = poultryFactory()
-        const nowDate = new Date()
-        const twoYearsAgoDate = new Date(nowDate.getTime() - (2 * YEAR))
-        const poultryBuilder = new PoultryBuilder({} as any)
-          .setBirthDate(twoYearsAgoDate)
+      it(`throws an error when gender category is ${genderCategory} and the poultry alread is adult`, () => {
+        const poultry = poultryFactory({ genderCategory })
+        const adultPoultry = poultryFactory({
+          ...poultry,
+          genderCategory: genderCategory === PoultryGenderCategoryEnum.FemaleChicken ? PoultryGenderCategoryEnum.Matrix : PoultryGenderCategoryEnum.Reproductive
+        })
+        const poultryBuilder = new PoultryBuilder({
+          findById: jest.fn().mockResolvedValue(adultPoultry)
+        } as any)
+          .setBirthDate(poultry.birthDate)
           .setColors(poultry.colors)
-          .setGenderCategory(genderCategory)
+          .setGenderCategory(poultry.genderCategory)
           .setType(poultry.type)
           .setVideos(poultry.videos)
+          .setId(poultry.id)
   
         expect(poultryBuilder.build).rejects.toThrow(i18n.__('poultry.errors.gender-category-not-allowed'))
       })
