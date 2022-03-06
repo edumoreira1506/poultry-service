@@ -1,4 +1,4 @@
-import faker from 'faker'
+import faker from '@faker-js/faker'
 import { breederFactory } from '@cig-platform/factories'
 
 import BreederBuilder from '@Builders/BreederBuilder'
