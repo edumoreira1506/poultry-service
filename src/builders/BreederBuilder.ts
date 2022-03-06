@@ -77,7 +77,7 @@ export default class BreederBuilder {
     if (this._code) {
       const breederWithSameCode = await this._repository.findByCode(this._code)
 
-      if (breederWithSameCode)  throw new ValidationError(i18n.__('breeder.errors.duplicated-code'))
+      if (breederWithSameCode) throw new ValidationError(i18n.__('breeder.errors.duplicated-code'))
     }
   }
 

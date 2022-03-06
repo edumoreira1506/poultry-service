@@ -31,7 +31,7 @@ describe('BreederBuilder', () => {
         siafi: '7107'
       })
 
-      const breeder = breederFactory({ address: mockAddress, id: '', name: 'mock name', description: 'mock description' })
+      const breeder = breederFactory({ address: mockAddress })
       const breederBuilder = await new BreederBuilder({} as any)
         .setName(breeder.name)
         .setDescription(breeder.description)
@@ -89,6 +89,49 @@ describe('BreederBuilder', () => {
         .setAddress(breeder.address)
 
       await expect(breederBuilder.build).rejects.toThrow(i18n.__('breeder.errors.invalid-address-city'))
+    })
+
+    it('throws an error when already exists a breeder with same code', async () => {
+      const mockAddress = {
+        city: 'São Paulo',
+        province: 'SP',
+        street: 'Praça da Sé',
+        zipcode: '01001-000',
+        number: 1004,
+        latitude: Number(faker.address.latitude()),
+        longitude: Number(faker.address.longitude()),
+      }
+      const breeder = {
+        ...breederFactory({ address: mockAddress }),
+        code: 'ABCD'
+      }
+      const mockBreederRepository: any = {
+        findByCode: jest.fn().mockResolvedValue(breeder)
+      }
+
+      jest.spyOn(CepService, 'getInfo').mockResolvedValue({
+        cep: mockAddress.zipcode,
+        logradouro: mockAddress.street,
+        complemento: 'lado ímpar',
+        bairro: 'Sé',
+        localidade: mockAddress.city,
+        uf: mockAddress.province,
+        ibge: '3550308',
+        gia: '1004',
+        ddd: '11',
+        siafi: '7107'
+      })
+
+      const breederBuilder = await new BreederBuilder(mockBreederRepository)
+        .setName(breeder.name)
+        .setDescription(breeder.description)
+        .setAddress(breeder.address)
+        .setMainVideo(breeder.mainVideo)
+        .setProfileImageUrl(breeder.profileImageUrl)
+        .setCode(breeder.code)
+        
+      await expect(breederBuilder.build).rejects.toThrow(i18n.__('breeder.errors.duplicated-code'))
+      expect(mockBreederRepository.findByCode).toHaveBeenCalledWith(breeder.code)
     })
   })
 })
