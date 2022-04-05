@@ -1,5 +1,5 @@
 
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
 import {  } from '@cig-platform/types'
 import Breeder from './BreederEntity'
 
@@ -23,4 +23,7 @@ export default class BreederContact {
   @ManyToOne(() => Breeder, breeder => breeder.contacts)
   @JoinColumn({ name: 'breeder_id' })
     breeder: Breeder
+    
+  @CreateDateColumn({ name: 'created_at' })
+    createdAt: Date
 }
