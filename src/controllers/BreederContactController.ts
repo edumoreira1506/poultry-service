@@ -1,6 +1,6 @@
 import { Response } from 'express'
 import { ObjectType } from 'typeorm'
-import { BaseController, NotFoundError } from '@cig-platform/core'
+import { ApiError, BaseController, NotFoundError } from '@cig-platform/core'
 
 import BreederContactRepository from '@Repositories/BreederContactRepository'
 import BreederContact from '@Entities/BreederContactEntity'
@@ -16,6 +16,7 @@ class BreederContactController extends BaseController<BreederContact, BreederCon
     this.index = this.index.bind(this)
     this.remove = this.remove.bind(this)
     this.update = this.update.bind(this)
+    this.rollback = this.rollback.bind(this)
   }
 
   @BaseController.errorHandler()
@@ -77,6 +78,23 @@ class BreederContactController extends BaseController<BreederContact, BreederCon
     const contacts = await this.repository.findByBreeder(breeder.id)
 
     return BaseController.successResponse(res, { contacts })
+  }
+
+  @BaseController.errorHandler()
+  @BaseController.actionHandler(i18n.__('messages.removed'))
+  async rollback(req: RequestWithBreederAndBreederContact): Promise<void> {
+    const breederContact = req.breederContact
+
+    if (!breederContact || !breederContact?.createdAt) throw new NotFoundError()
+
+    const now = new Date()
+    const breederContactCreatedAt = breederContact.createdAt
+    const diffInMilliSeconds = Math.abs(now.getTime() - breederContactCreatedAt.getTime())
+    const diffInSeconds = diffInMilliSeconds / 1000
+
+    if (diffInSeconds > 60) throw new ApiError(i18n.__('rollback.errors.expired'))
+
+    await this.repository.delete({ id: breederContact.id })
   }
 }
 
