@@ -97,6 +97,13 @@ router.patch(
   BreederContactController.update
 )
 
+router.post(
+  '/breeders/:breederId/contacts/:contactId/rollback',
+  withBreederParam,
+  withBreederContactParam,
+  BreederContactController.rollback
+)
+
 router.get(
   '/breeders/:breederId/contacts',
   withBreederParam,
