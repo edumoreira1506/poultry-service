@@ -1,4 +1,4 @@
-import { EntityRepository, Not, In, Like, Between } from 'typeorm'
+import { EntityRepository, Not, In, Like } from 'typeorm'
 import { BaseRepository } from '@cig-platform/core'
 
 import Poultry from '@Entities/PoultryEntity'
@@ -18,7 +18,6 @@ export default class PoultryRepository extends BaseRepository<Poultry> {
     tail,
     description,
     name,
-    prices,
     breederId
   }: {
     gender?: string[];
@@ -31,7 +30,6 @@ export default class PoultryRepository extends BaseRepository<Poultry> {
     tail?: string[];
     description?: string;
     name?: string;
-    prices?: { min?: number; max?: number };
     breederId?: string;
   } = {}) {
     const commonQueryParams = {
@@ -45,9 +43,6 @@ export default class PoultryRepository extends BaseRepository<Poultry> {
       ...(tail?.length ? { tail: In(tail) } : {}),
       ...(typeof forSale === 'boolean' ? { forSale } : {}),
       ...(breederId ? { breederId } : {}),
-      ...(typeof prices?.min === 'number' && typeof prices?.max === 'number' ? {
-        currentAdvertisingPrice: Between(prices.min, prices.max)
-      } : {})
     }
     const queryParams = [
       (name ? { name: Like(`%${name}%`), ...commonQueryParams } : undefined),
@@ -69,8 +64,6 @@ export default class PoultryRepository extends BaseRepository<Poultry> {
     tail,
     description,
     name,
-    prices,
-    sort,
     page = 0
   }: {
     gender?: string[];
@@ -83,8 +76,6 @@ export default class PoultryRepository extends BaseRepository<Poultry> {
     tail?: string[];
     description?: string;
     name?: string;
-    prices?: { min?: number; max?: number };
-    sort?: string;
     page?: number;
   } = {}) {
     const queryParams = PoultryRepository.createFilters({
@@ -98,16 +89,11 @@ export default class PoultryRepository extends BaseRepository<Poultry> {
       tail,
       description,
       name,
-      prices,
     })
 
     return this.find({
       where: queryParams,
       relations: ['images'],
-      order: {
-        ...(sort === 'MAX_TO_MIN' ? { currentAdvertisingPrice: 'DESC' } : {}),
-        ...(sort === 'MIN_TO_MAX' ? { currentAdvertisingPrice: 'ASC' } : {}),
-      },
       skip: page * ITEMS_PER_PAGE,
       take: ITEMS_PER_PAGE
     })
@@ -124,7 +110,6 @@ export default class PoultryRepository extends BaseRepository<Poultry> {
     tail,
     description,
     name,
-    prices,
     breederId
   }: {
     gender?: string[];
@@ -137,7 +122,6 @@ export default class PoultryRepository extends BaseRepository<Poultry> {
     tail?: string[];
     description?: string;
     name?: string;
-    prices?: { min?: number; max?: number };
     breederId?: string;
   } = {}) {
     const queryParams = PoultryRepository.createFilters({
@@ -151,7 +135,6 @@ export default class PoultryRepository extends BaseRepository<Poultry> {
       tail,
       description,
       name,
-      prices,
       breederId
     })
 

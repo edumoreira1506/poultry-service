@@ -93,8 +93,6 @@ class PoultryController extends BaseController<Poultry, PoultryRepository>  {
     const genderCategory = req?.query?.genderCategory?.toString()?.split(',').filter(Boolean) ?? []
     const forSale = req?.query?.forSale ? Boolean(req?.query?.forSale === 'true') : undefined
     const poultryIds = (req?.query?.poultryIds?.toString() ?? '').split(',').filter(Boolean)
-    const prices = req?.query?.prices && JSON.parse(req.query.prices.toString())
-    const sort = req?.query?.sort?.toString()
     const page = Number(req?.query?.page ?? 0)
     const poultries = await this.repository.search({
       gender,
@@ -107,8 +105,6 @@ class PoultryController extends BaseController<Poultry, PoultryRepository>  {
       crest,
       description,
       name,
-      prices,
-      sort,
       page
     })
     const pages = await this.repository.countPages({
@@ -122,7 +118,6 @@ class PoultryController extends BaseController<Poultry, PoultryRepository>  {
       crest,
       description,
       name,
-      prices,
     })
     const formattedPoultries = poultries.map(poultry => {
       const images = poultry.images?.filter(image => image.active)
@@ -169,7 +164,6 @@ class PoultryController extends BaseController<Poultry, PoultryRepository>  {
       .setTail(newPoultry.tail)
       .setGenderCategory(newPoultry.genderCategory)
       .setForSale(newPoultry.forSale)
-      .setCurrentAdvertisingPrice(newPoultry.currentAdvertisingPrice)
       .setBreeder(breeder)
       .build()
 
@@ -186,7 +180,6 @@ class PoultryController extends BaseController<Poultry, PoultryRepository>  {
       tail: poultryDTO.tail,
       description: poultryDTO.description,
       forSale: poultryDTO.forSale,
-      currentAdvertisingPrice: poultryDTO.currentAdvertisingPrice
     })
   }
 
