@@ -34,7 +34,7 @@
 	"poultry.errors.gender-category-not-allowed": "Sexagem não permitida",
 	"poultry.errors.invalid-color": "Cor inválida",
 	"poultry.errors.duplicated-register": "Código já registrado nesse criatório",
-	"poultry.fields.type": "Tipo",
+	"poultry.fields.type": "Raça",
 	"poultry.fields.tail": "Rabo",
 	"poultry.fields.crest": "Crista",
 	"poultry.fields.dewlap": "Barbela",
