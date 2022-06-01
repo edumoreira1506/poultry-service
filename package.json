@@ -22,7 +22,7 @@
 	"dependencies": {
 		"@cig-platform/core": "^0.7.9",
 		"@cig-platform/docs": "^0.4.6",
-		"@cig-platform/enums": "^0.0.5",
+		"@cig-platform/enums": "^0.0.7",
 		"@cig-platform/factories": "^0.0.20",
 		"@cig-platform/types": "0.0.33",
 		"aws-sdk": "^2.1087.0",
