@@ -92,6 +92,14 @@ const poultryDocs = {
   ], {
     pathVariables: [{ type: 'string', name: 'breederId' }, { type: 'string', name: 'poultryId' }]
   }),
+  ...createDoc('/breeders/{breederId}/poultries/{poultryId}/kill', ['Poultry kill'], [
+    {
+      method: 'post',
+      title: 'Kill poultry',
+    },
+  ], {
+    pathVariables: [{ type: 'string', name: 'breederId' }, { type: 'string', name: 'poultryId' }]
+  }),
   ...createDoc('/poultries', ['Poultries'], [
     {
       method: 'get',

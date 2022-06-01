@@ -11,6 +11,9 @@ export default class Poultry {
   @PrimaryGeneratedColumn('uuid')
     id: string
 
+  @Column({ type: 'bool', name: 'is_alive' })
+    isAlive: boolean
+
   @Column('int')
     number: number
 

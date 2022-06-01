@@ -5,7 +5,7 @@ import withBreederParam from '@Middlewares/withBreederParam'
 import withFileSupport from '@Middlewares/withFileSupport'
 import { withFileUploadFactory } from '@Middlewares/withFileUpload'
 import withBreederImageParam from '@Middlewares/withBreederImageParam'
-import withPoultryParam, { withJustPoultryParam } from '@Middlewares/withPoultryParam'
+import withPoultryParam, { withAlivePoultryParam, withJustPoultryParam } from '@Middlewares/withPoultryParam'
 import withBreederContactParam from '@Middlewares/withBreederContactParam'
 import withPoultryImageParam from '@Middlewares/withPoultryImageParam'
 
@@ -152,6 +152,13 @@ router.post(
   withPoultryParam,
   withBodyValidation(transferPoultrySchema),
   PoultryController.transfer
+)
+
+router.post(
+  '/breeders/:breederId/poultries/:poultryId/kill',
+  withBreederParam,
+  withAlivePoultryParam,
+  PoultryController.kill
 )
 
 router.post(
