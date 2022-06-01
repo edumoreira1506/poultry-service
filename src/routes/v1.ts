@@ -141,7 +141,7 @@ router.get('/breeders/:breederId/poultries/:poultryId', withBreederParam, withPo
 router.patch(
   '/breeders/:breederId/poultries/:poultryId',
   withBreederParam,
-  withPoultryParam,
+  withAlivePoultryParam,
   withBodyValidation(updatePoultrySchema),
   PoultryController.update
 )
@@ -149,7 +149,7 @@ router.patch(
 router.post(
   '/breeders/:breederId/poultries/:poultryId/transfer',
   withBreederParam,
-  withPoultryParam,
+  withAlivePoultryParam,
   withBodyValidation(transferPoultrySchema),
   PoultryController.transfer
 )
@@ -164,7 +164,7 @@ router.post(
 router.post(
   '/breeders/:breederId/poultries/:poultryId/images',
   withBreederParam,
-  withPoultryParam,
+  withAlivePoultryParam,
   withFileSupport,
   withFileUploadFactory({ folder: 'poultries', subfolder: 'images' }),
   PoultryImageController.store
@@ -180,7 +180,7 @@ router.get(
 router.delete(
   '/breeders/:breederId/poultries/:poultryId/images/:imageId',
   withBreederParam,
-  withPoultryParam,
+  withAlivePoultryParam,
   withPoultryImageParam,
   PoultryImageController.remove
 )
@@ -188,7 +188,7 @@ router.delete(
 router.post(
   '/breeders/:breederId/poultries/:poultryId/registers',
   withBreederParam,
-  withPoultryParam,
+  withAlivePoultryParam,
   withFileSupport,
   withFileUploadFactory({ folder: 'poultries', subfolder: 'registers' }),
   withBodyValidation(storeRegisterSchema),
