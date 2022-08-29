@@ -53,6 +53,13 @@ export default class PoultryRepository extends BaseRepository<Poultry> {
     return queryParams
   }
 
+  findById(id: string) {
+    return this.findOne({
+      id,
+      active: true
+    }, { relations: ['mom', 'dad'] })
+  }
+
   search({
     gender,
     genderCategory,
