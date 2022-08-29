@@ -147,4 +147,6 @@ export const updatePoultrySchema = Joi.object({
   tail: tailSchema,
   description: descriptionSchema,
   forSale: forSaleSchema,
+  momId: momIdSchema,
+  dadId: dadIdSchema
 })
