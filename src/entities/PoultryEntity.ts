@@ -47,6 +47,12 @@ export default class Poultry {
   @Column({ type: 'uuid', name: 'breeder_id'})
     breederId: string
 
+  @Column({ type: 'uuid', name: 'mom_id'})
+    momId: string
+
+  @Column({ type: 'uuid', name: 'dad_id'})
+    dadId: string
+
   @Column({ name: 'birth_date', type: 'date' })
     birthDate: Date
 
@@ -65,6 +71,17 @@ export default class Poultry {
   @ManyToOne(() => Breeder, breeder => breeder.poultries)
   @JoinColumn({ name: 'breeder_id' })
     breeder: Breeder
+
+  @OneToMany(() => Poultry, poultry => poultry.dad || poultry.mom)
+    childrens?: Poultry[]
+
+  @ManyToOne(() => Poultry, poultry => poultry.childrens)
+  @JoinColumn({ name: 'dad_id' })
+    dad: Poultry
+
+  @ManyToOne(() => Poultry, poultry => poultry.childrens)
+  @JoinColumn({ name: 'mom_id' })
+    mom: Poultry
 
   @OneToMany(() => PoultryImage, poultryImage => poultryImage.poultry)
     images?: PoultryImage[]

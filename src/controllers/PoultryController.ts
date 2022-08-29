@@ -40,6 +40,8 @@ class PoultryController extends BaseController<Poultry, PoultryRepository>  {
       .setCrest(req.body.crest)
       .setTail(req.body.tail)
       .setGenderCategory(req.body.genderCategory)
+      .setMomId(req.body.momId)
+      .setDadId(req.body.dadId)
       .setBreeder(breeder)
       .build()
 

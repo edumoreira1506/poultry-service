@@ -1,4 +1,4 @@
-import { ValidationError } from '@cig-platform/core'
+import { NotFoundError, ValidationError } from '@cig-platform/core'
 import { IPoultryColors, IPoultryVideos } from '@cig-platform/types'
 import { PoultryTypeEnum, PoultryGenderEnum, PoultryGenderCategoryEnum } from '@cig-platform/enums'
 
@@ -10,6 +10,8 @@ import { MONTH } from '@Constants/time'
 import { MAX_MONTHS_CHILDREN } from '@Constants/poultry'
 
 export default class PoultryBuilder {
+  private _momId: string
+  private _dadId: string
   private _type: string
   private _birthDate: Date
   private _colors: IPoultryColors
@@ -29,6 +31,18 @@ export default class PoultryBuilder {
 
   constructor(poutryRepository: PoultryRepository) {
     this._repository = poutryRepository
+  }
+
+  setMomId(momId: string) {
+    this._momId = momId
+
+    return this
+  }
+
+  setDadId(dadId: string) {
+    this._dadId = dadId
+
+    return this
   }
 
   setForSale(forSale: boolean) {
@@ -167,6 +181,18 @@ export default class PoultryBuilder {
         }
       }
     }
+
+    if (this._dadId) {
+      const poultryDad = await this._repository.findById(this._dadId)
+
+      if (!poultryDad|| poultryDad.gender !== PoultryGenderEnum.Male) throw new NotFoundError()
+    }
+
+    if (this._momId) {
+      const poultryMom = await this._repository.findById(this._momId)
+
+      if (!poultryMom || poultryMom.gender !== PoultryGenderEnum.Female) throw new NotFoundError()
+    }
   }
 
   build = async (): Promise<Poultry> => {
@@ -187,6 +213,14 @@ export default class PoultryBuilder {
     poultry.tail = this._tail
     poultry.genderCategory = this._genderCategory
     poultry.forSale = this._forSale
+
+    if (this._dadId) {
+      poultry.dadId = this._dadId
+    }
+
+    if (this._momId) {
+      poultry.momId = this._momId
+    }
     
     if (this._breeder) {
       poultry.breeder = this._breeder 

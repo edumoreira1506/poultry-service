@@ -110,6 +110,9 @@ const forSaleSchema = Joi.boolean().messages({
   'any.required': i18n.__('required-field', { field: i18n.__('poultry.fields.for-sale') })
 })
 
+const momIdSchema = Joi.string().uuid()
+const dadIdSchema = Joi.string().uuid()
+
 export const storePoultrySchema = Joi.object({
   type: typeSchema.required(),
   tail: tailSchema,
@@ -122,7 +125,9 @@ export const storePoultrySchema = Joi.object({
   register: registerSchema,
   dewlap: dewlapSchema,
   crest: crestSchema,
-  description: descriptionSchema
+  description: descriptionSchema,
+  momId: momIdSchema,
+  dadId: dadIdSchema
 })
 
 export const transferPoultrySchema = Joi.object({
