@@ -16,7 +16,8 @@ const poultryDocs = {
       queryParams: [
         { type: 'string', name: 'gender' },
         { type: 'string', name: 'poultryIds' },
-        { type: 'string', name: 'page' }
+        { type: 'string', name: 'page' },
+        { type: 'string', name: 'name' },
       ]
     }
   ], {
