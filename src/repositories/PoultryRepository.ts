@@ -159,18 +159,21 @@ export default class PoultryRepository extends BaseRepository<Poultry> {
       genderCategory,
       poultryIds = [],
       page = 0,
+      name
     }: {
       gender?: string;
       genderCategory?: string;
       poultryIds?: string[];
       page?: number;
+      name?: string;
     } = {}
   ) {
     const where = PoultryRepository.createFilters({
       gender: [gender].filter(Boolean) as string[],
       genderCategory: [genderCategory].filter(Boolean) as string[],
       poultryIds,
-      breederId
+      breederId,
+      name
     })
 
     return this.find({
