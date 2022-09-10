@@ -1,8 +1,12 @@
-import { EntityRepository } from 'typeorm'
-import { BaseRepository } from '@cig-platform/core'
+import { BaseRepositoryFunctionsGenerator } from '@cig-platform/core'
 
+import { dataSource } from '@Configs/database'
 import BreederUser from '@Entities/BreederUserEntity'
 
-@EntityRepository(BreederUser)
-export default class BreederUserRepository extends BaseRepository<BreederUser> {
-}
+const BaseRepository = BaseRepositoryFunctionsGenerator<BreederUser>()
+
+const BreederUserRepository = dataSource.getRepository(BreederUser).extend({
+  ...BaseRepository,
+})
+
+export default BreederUserRepository

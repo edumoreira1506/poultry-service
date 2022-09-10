@@ -1,30 +1,24 @@
-import { getCustomRepository, ObjectType } from 'typeorm'
 import { Response } from 'express'
 import { BaseController, NotFoundError } from '@cig-platform/core'
 
 import RegisterRepository from '@Repositories/RegisterRepository'
-import Register from '@Entities/RegisterEntity'
 import { RequestWithPoultryAndBreeder, RequestWithPoultryAndBreederAndFile } from '@Types/requests'
 import RegisterBuilder from '@Builders/RegisterBuilder'
 import RegisterFileRepository from '@Repositories/RegisterFileRepository'
-import RegisterFile from '@Entities/RegisterFileEntity'
 
-class RegisterController extends BaseController<Register, RegisterRepository>  {
-  private _fileEntity: ObjectType<RegisterFile>
+class RegisterController  {
+  private repository: typeof RegisterRepository
+  private registerFileRepository: typeof RegisterFileRepository
 
-  constructor(repository: ObjectType<Register>, registerFile: ObjectType<RegisterFile>) {
-    super(repository)
-
-    this._fileEntity = registerFile
+  constructor(
+    _repository: typeof RegisterRepository,
+    _registerFileRepository:  typeof RegisterFileRepository
+  ) {
+    this.repository = _repository
+    this.registerFileRepository = _registerFileRepository
 
     this.store = this.store.bind(this)
     this.index = this.index.bind(this)
-  }
-
-  get registerFileRepository() {
-    const repository = getCustomRepository<RegisterFileRepository>(this._fileEntity)
-
-    return repository
   }
 
   @BaseController.errorHandler()

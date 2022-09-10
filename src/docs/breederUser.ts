@@ -8,6 +8,7 @@ const breederUserDocs = {
       method: 'post',
       title: 'Store breeder user',
       objectSchema: storeBreederUserSchema,
+      headerParams: [{ type: 'string', name: 'Cig-Api-Key' }]
     },
   ], {
     pathVariables: [{ type: 'string', name: 'breederId' }]
@@ -16,6 +17,7 @@ const breederUserDocs = {
     {
       method: 'post',
       title: 'Rollback breeder user register',
+      headerParams: [{ type: 'string', name: 'Cig-Api-Key' }]
     },
   ], {
     pathVariables: [{ type: 'string', name: 'breederId' }, { type: 'string', name: 'userId' }]

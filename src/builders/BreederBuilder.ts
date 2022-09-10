@@ -14,9 +14,9 @@ export default class BreederBuilder {
   private _mainVideo: string
   private _code: string
   private _profileImageUrl = ''
-  private _repository: BreederRepository
+  private _repository: typeof BreederRepository
 
-  constructor(breederRepository: BreederRepository) {
+  constructor(breederRepository: typeof BreederRepository) {
     this._repository = breederRepository
   }
 

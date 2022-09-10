@@ -1,16 +1,16 @@
 import { Response } from 'express'
-import { ObjectType } from 'typeorm'
 import { ApiError, BaseController, NotFoundError } from '@cig-platform/core'
 
 import BreederContactRepository from '@Repositories/BreederContactRepository'
-import BreederContact from '@Entities/BreederContactEntity'
 import { RequestWithBreeder, RequestWithBreederAndBreederContact, RequestWithBreederContact } from '@Types/requests'
 import BreederContactBuilder from '@Builders/BreederContactBuilder'
 import i18n from '@Configs/i18n'
 
-class BreederContactController extends BaseController<BreederContact, BreederContactRepository>  {
-  constructor(repository: ObjectType<BreederContact>) {
-    super(repository)
+class BreederContactController {
+  private repository: typeof BreederContactRepository
+
+  constructor(_repository: typeof BreederContactRepository) {
+    this.repository = _repository
 
     this.store = this.store.bind(this)
     this.index = this.index.bind(this)

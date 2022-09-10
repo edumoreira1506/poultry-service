@@ -23,19 +23,21 @@ import { storePoultrySchema, transferPoultrySchema, updatePoultrySchema } from '
 import { storeBreederContactSchema, updateBreederContactSchema } from '@Schemas/BreederContactSchema'
 import { storeRegisterSchema } from '@Schemas/RegisterSchemas'
 import withBreederUserParam from '@Middlewares/withBreederUserParam'
+import withApiKey from '@Middlewares/withApiKey'
 
 const router = express.Router()
 
-router.get('/poultries', PoultryController.search)
+router.get('/poultries', withApiKey, PoultryController.search)
 
-router.get('/poultries/:poultryId', withJustPoultryParam, PoultryController.show)
+router.get('/poultries/:poultryId', withApiKey, withJustPoultryParam, PoultryController.show)
 
-router.post('/breeders', withBodyValidation(storeBreederSchema), BreederController.store)
+router.post('/breeders', withApiKey, withBodyValidation(storeBreederSchema), BreederController.store)
 
-router.get('/breeders', BreederController.index)
+router.get('/breeders', withApiKey, BreederController.index)
 
 router.patch(
   '/breeders/:breederId',
+  withApiKey,
   withBreederParam,
   withFileSupport,
   withFileUploadFactory({ folder: 'breeders', subfolder: 'profile' }),
@@ -45,24 +47,28 @@ router.patch(
 
 router.get(
   '/breeders/:breederId',
+  withApiKey,
   withBreederParam,
   BreederController.show
 )
 
 router.delete(
   '/breeders/:breederId',
+  withApiKey,
   withBreederParam,
   BreederController.remove
 )
 
 router.post(
   '/breeders/:breederId/rollback',
+  withApiKey,
   withBreederParam,
   BreederController.rollback
 )
 
 router.post(
   '/breeders/:breederId/users',
+  withApiKey,
   withBreederParam,
   withBodyValidation(storeBreederUserSchema),
   BreederUserController.store
@@ -70,6 +76,7 @@ router.post(
 
 router.post(
   '/breeders/:breederId/users/:breederUserId/rollback',
+  withApiKey,
   withBreederParam,
   withBreederUserParam,
   BreederUserController.rollback
@@ -77,6 +84,7 @@ router.post(
 
 router.post(
   '/breeders/:breederId/contacts',
+  withApiKey,
   withBreederParam,
   withBodyValidation(storeBreederContactSchema),
   BreederContactController.store
@@ -84,6 +92,7 @@ router.post(
 
 router.delete(
   '/breeders/:breederId/contacts/:contactId',
+  withApiKey,
   withBreederParam,
   withBreederContactParam,
   BreederContactController.remove
@@ -91,6 +100,7 @@ router.delete(
 
 router.patch(
   '/breeders/:breederId/contacts/:contactId',
+  withApiKey,
   withBreederParam,
   withBreederContactParam,
   withBodyValidation(updateBreederContactSchema),
@@ -99,6 +109,7 @@ router.patch(
 
 router.post(
   '/breeders/:breederId/contacts/:contactId/rollback',
+  withApiKey,
   withBreederParam,
   withBreederContactParam,
   BreederContactController.rollback
@@ -106,22 +117,30 @@ router.post(
 
 router.get(
   '/breeders/:breederId/contacts',
+  withApiKey,
   withBreederParam,
   BreederContactController.index
 )
 
 router.post(
   '/breeders/:breederId/images',
+  withApiKey,
   withBreederParam,
   withFileSupport,
   withFileUploadFactory({ folder: 'breeders', subfolder: 'images' }),
   BreederImageController.store
 )
 
-router.get('/breeders/:breederId/images', withBreederParam, BreederImageController.index)
+router.get(
+  '/breeders/:breederId/images',
+  withApiKey,
+  withBreederParam,
+  BreederImageController.index
+)
 
 router.delete(
   '/breeders/:breederId/images/:breederImageId',
+  withApiKey,
   withBreederParam,
   withBreederImageParam,
   BreederImageController.remove
@@ -129,17 +148,30 @@ router.delete(
 
 router.post(
   '/breeders/:breederId/poultries',
+  withApiKey,
   withBreederParam,
   withBodyValidation(storePoultrySchema),
   PoultryController.store
 )
 
-router.get('/breeders/:breederId/poultries', withBreederParam, PoultryController.index)
+router.get(
+  '/breeders/:breederId/poultries',
+  withApiKey,
+  withBreederParam,
+  PoultryController.index
+)
 
-router.get('/breeders/:breederId/poultries/:poultryId', withBreederParam, withPoultryParam, PoultryController.show)
+router.get(
+  '/breeders/:breederId/poultries/:poultryId',
+  withApiKey,
+  withBreederParam,
+  withPoultryParam,
+  PoultryController.show
+)
 
 router.patch(
   '/breeders/:breederId/poultries/:poultryId',
+  withApiKey,
   withBreederParam,
   withAlivePoultryParam,
   withBodyValidation(updatePoultrySchema),
@@ -148,6 +180,7 @@ router.patch(
 
 router.post(
   '/breeders/:breederId/poultries/:poultryId/transfer',
+  withApiKey,
   withBreederParam,
   withAlivePoultryParam,
   withBodyValidation(transferPoultrySchema),
@@ -156,6 +189,7 @@ router.post(
 
 router.post(
   '/breeders/:breederId/poultries/:poultryId/kill',
+  withApiKey,
   withBreederParam,
   withAlivePoultryParam,
   PoultryController.kill
@@ -163,6 +197,7 @@ router.post(
 
 router.post(
   '/breeders/:breederId/poultries/:poultryId/images',
+  withApiKey,
   withBreederParam,
   withAlivePoultryParam,
   withFileSupport,
@@ -172,6 +207,7 @@ router.post(
 
 router.get(
   '/breeders/:breederId/poultries/:poultryId/images',
+  withApiKey,
   withBreederParam,
   withPoultryParam,
   PoultryImageController.index
@@ -179,6 +215,7 @@ router.get(
 
 router.delete(
   '/breeders/:breederId/poultries/:poultryId/images/:imageId',
+  withApiKey,
   withBreederParam,
   withAlivePoultryParam,
   withPoultryImageParam,
@@ -187,6 +224,7 @@ router.delete(
 
 router.post(
   '/breeders/:breederId/poultries/:poultryId/registers',
+  withApiKey,
   withBreederParam,
   withAlivePoultryParam,
   withFileSupport,
@@ -197,6 +235,7 @@ router.post(
 
 router.get(
   '/breeders/:breederId/poultries/:poultryId/registers',
+  withApiKey,
   withBreederParam,
   withPoultryParam,
   RegisterController.index

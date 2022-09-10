@@ -1,16 +1,16 @@
 import { Response } from 'express'
-import { ObjectType } from 'typeorm'
 import { ApiError, BaseController, NotFoundError } from '@cig-platform/core'
 
 import BreederUserRepository from '@Repositories/BreederUserRepository'
-import BreederUser from '@Entities/BreederUserEntity'
 import { RequestWithBreeder, RequestWithBreederUser } from '@Types/requests'
 import BreederUserBuilder from '@Builders/BreederUserBuilder'
 import i18n from '@Configs/i18n'
 
-class BreederUserController extends BaseController<BreederUser, BreederUserRepository>  {
-  constructor(repository: ObjectType<BreederUser>) {
-    super(repository)
+class BreederUserController {
+  private repository: typeof BreederUserRepository
+
+  constructor(_repository: typeof BreederUserRepository) {
+    this.repository = _repository
 
     this.store = this.store.bind(this)
     this.rollback = this.rollback.bind(this)

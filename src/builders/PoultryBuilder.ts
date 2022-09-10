@@ -26,10 +26,10 @@ export default class PoultryBuilder {
   private _crest: string
   private _tail: string
   private _description: string
-  private _repository: PoultryRepository
+  private _repository: typeof PoultryRepository
   private _forSale = false
 
-  constructor(poutryRepository: PoultryRepository) {
+  constructor(poutryRepository: typeof PoultryRepository) {
     this._repository = poutryRepository
   }
 

@@ -1,16 +1,16 @@
 import { Request, Response } from 'express'
-import { ObjectType } from 'typeorm'
 import { ApiError, BaseController, NotFoundError } from '@cig-platform/core'
 
 import i18n from '@Configs/i18n'
 import BreederRepository from '@Repositories/BreederRepository'
-import Breeder from '@Entities/BreederEntity'
 import BreederBuilder from '@Builders/BreederBuilder'
 import { RequestWithBreederAndFile, RequestWithBreeder } from '@Types/requests'
 
-class BreederController extends BaseController<Breeder, BreederRepository>  {
-  constructor(repository: ObjectType<Breeder>) {
-    super(repository)
+class BreederController {
+  private repository: typeof BreederRepository
+
+  constructor(_repository: typeof BreederRepository) {
+    this.repository = _repository
 
     this.store = this.store.bind(this)
     this.update = this.update.bind(this)
@@ -89,7 +89,14 @@ class BreederController extends BaseController<Breeder, BreederRepository>  {
     const userIdQueryParam = String(req.query?.userId ?? '')
     const keywordQueryParam = String(req.query?.keyword ?? '')
     const breeders = userIdQueryParam
-      ? await this.repository.findByUser(userIdQueryParam, keywordQueryParam)
+      ? await this.repository
+        .createQueryBuilder('breeder')
+        .innerJoinAndSelect('breeder.users', 'users')
+        .where('users.userId = :userId')
+        .andWhere('breeder.active = true')
+        .andWhere('breeder.name LIKE :keyword')
+        .setParameters({ userId: userIdQueryParam, keyword: `%${keywordQueryParam}%` })
+        .getMany()
       : await this.repository.search(keywordQueryParam)
 
     return BaseController.successResponse(res, { breeders })

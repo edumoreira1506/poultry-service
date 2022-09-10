@@ -1,10 +1,13 @@
-import { EntityRepository } from 'typeorm'
-import { BaseRepository } from '@cig-platform/core'
+import { BaseRepositoryFunctionsGenerator } from '@cig-platform/core'
 
 import Register from '@Entities/RegisterEntity'
+import { dataSource } from '@Configs/database'
 
-@EntityRepository(Register)
-export default class RegisterRepository extends BaseRepository<Register> {
+const BaseRepository = BaseRepositoryFunctionsGenerator<Register>()
+
+const RegisterRepository = dataSource.getRepository(Register).extend({
+  ...BaseRepository,
+  
   findByPoultry(poultryId: string, registerType = '') {
     return this.find({
       where: {
@@ -18,4 +21,6 @@ export default class RegisterRepository extends BaseRepository<Register> {
       }
     })
   }
-}
+})
+
+export default RegisterRepository
