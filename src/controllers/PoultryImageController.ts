@@ -1,15 +1,15 @@
-import { ObjectType } from 'typeorm'
 import { Response } from 'express'
 import { BaseController, NotFoundError } from '@cig-platform/core'
 
 import PoultryImageRepository from '@Repositories/PoultryImageRepository'
-import PoultryImage from '@Entities/PoultryImageEntity'
 import { RequestWithPoultryAndBreeder, RequestWithPoultryAndBreederAndFile, RequestWithPoultryImageAndPoultryAndBreeder } from '@Types/requests'
 import i18n from '@Configs/i18n'
 
-class PoultryImageController extends BaseController<PoultryImage, PoultryImageRepository>  {
-  constructor(repository: ObjectType<PoultryImage>) {
-    super(repository)
+class PoultryImageController {
+  private repository: typeof PoultryImageRepository
+
+  constructor(_repository: typeof PoultryImageRepository) {
+    this.repository = _repository
 
     this.store = this.store.bind(this)
     this.index = this.index.bind(this)
