@@ -9,6 +9,7 @@ const poultryDocs = {
       method: 'post',
       title: 'Register poultry',
       objectSchema: storePoultrySchema,
+      headerParams: [{ type: 'string', name: 'Cig-Api-Key' }]
     },
     {
       method: 'get',
@@ -26,12 +27,14 @@ const poultryDocs = {
   ...createDoc('/breeders/{breederId}/poultries/{poultryId}', ['Poultries'], [
     {
       method: 'get',
-      title: 'Get poultry'
+      title: 'Get poultry',
+      headerParams: [{ type: 'string', name: 'Cig-Api-Key' }]
     },
     {
       method: 'patch',
       title: 'Update poultry',
-      objectSchema: updatePoultrySchema
+      objectSchema: updatePoultrySchema,
+      headerParams: [{ type: 'string', name: 'Cig-Api-Key' }]
     }
   ], {
     pathVariables: [{ type: 'string', name: 'breederId' }, { type: 'string', name: 'poultryId' }]
@@ -39,7 +42,8 @@ const poultryDocs = {
   ...createDoc('/poultries/{poultryId}', ['Poultries'], [
     {
       method: 'get',
-      title: 'Get poultry directly'
+      title: 'Get poultry directly',
+      headerParams: [{ type: 'string', name: 'Cig-Api-Key' }]
     },
   ], {
     pathVariables: [{ type: 'string', name: 'poultryId' }]
@@ -48,11 +52,13 @@ const poultryDocs = {
     {
       method: 'post',
       title: 'Register poultry image',
-      files: ['files']
+      files: ['files'],
+      headerParams: [{ type: 'string', name: 'Cig-Api-Key' }]
     },
     {
       method: 'get',
       title: 'Get poultry images',
+      headerParams: [{ type: 'string', name: 'Cig-Api-Key' }]
     }
   ], {
     pathVariables: [{ type: 'string', name: 'breederId' }, { type: 'string', name: 'poultryId' }]
@@ -61,6 +67,7 @@ const poultryDocs = {
     {
       method: 'delete',
       title: 'Remove poultry image',
+      headerParams: [{ type: 'string', name: 'Cig-Api-Key' }]
     },
   ], {
     pathVariables: [
@@ -74,12 +81,14 @@ const poultryDocs = {
       method: 'post',
       title: 'Register poultry register',
       files: ['files'],
-      objectSchema: storeRegisterSchema
+      objectSchema: storeRegisterSchema,
+      headerParams: [{ type: 'string', name: 'Cig-Api-Key' }]
     },
     {
       method: 'get',
       title: 'Get poultry registers',
-      queryParams: [{ type: 'string', name: 'registerType' }]
+      queryParams: [{ type: 'string', name: 'registerType' }],
+      headerParams: [{ type: 'string', name: 'Cig-Api-Key' }]
     }
   ], {
     pathVariables: [{ type: 'string', name: 'breederId' }, { type: 'string', name: 'poultryId' }]
@@ -88,7 +97,8 @@ const poultryDocs = {
     {
       method: 'post',
       title: 'Transfer poultry',
-      objectSchema: transferPoultrySchema
+      objectSchema: transferPoultrySchema,
+      headerParams: [{ type: 'string', name: 'Cig-Api-Key' }]
     },
   ], {
     pathVariables: [{ type: 'string', name: 'breederId' }, { type: 'string', name: 'poultryId' }]
@@ -97,6 +107,7 @@ const poultryDocs = {
     {
       method: 'post',
       title: 'Kill poultry',
+      headerParams: [{ type: 'string', name: 'Cig-Api-Key' }]
     },
   ], {
     pathVariables: [{ type: 'string', name: 'breederId' }, { type: 'string', name: 'poultryId' }]
@@ -117,7 +128,8 @@ const poultryDocs = {
         { type: 'string', name: 'name' },
         { type: 'string', name: 'forSale' },
         { type: 'string', name: 'page' },
-      ]
+      ],
+      headerParams: [{ type: 'string', name: 'Cig-Api-Key' }]
     }
   ]),
 }

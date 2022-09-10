@@ -5,11 +5,13 @@ const breederImageDocs = {
     {
       method: 'post',
       title: 'Register breeder image',
-      files: ['files']
+      files: ['files'],
+      headerParams: [{ type: 'string', name: 'Cig-Api-Key' }]
     },
     {
       method: 'get',
       title: 'Get breeder images',
+      headerParams: [{ type: 'string', name: 'Cig-Api-Key' }]
     }
   ], {
     pathVariables: [{ type: 'string', name: 'breederId' }]
@@ -18,6 +20,7 @@ const breederImageDocs = {
     {
       method: 'delete',
       title: 'Delete breeder image',
+      headerParams: [{ type: 'string', name: 'Cig-Api-Key' }]
     }
   ], {
     pathVariables: [{ type: 'string', name: 'breederId' }, { type: 'string', name: 'breederImageId' }]
