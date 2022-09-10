@@ -1,6 +1,6 @@
 import {  withRequestParam } from '@cig-platform/core'
 
-import BreederController from '@Controllers/BreederController'
 import Breeder from '@Entities/BreederEntity'
+import BreederRepository from '@Repositories/BreederRepository'
 
-export default withRequestParam<Breeder>('breederId', 'breeder', BreederController)
+export default withRequestParam<Breeder>('breederId', 'breeder', BreederRepository)
