@@ -1,7 +1,7 @@
 import { ValidationError, AccountServiceClient } from '@cig-platform/core'
 
 import i18n from '@Configs/i18n'
-import { ACCOUNT_SERVICE_URL } from '@Constants/account'
+import { ACCOUNT_SERVICE_API_KEY, ACCOUNT_SERVICE_URL } from '@Constants/account'
 import Breeder from '@Entities/BreederEntity'
 import BreederUser from '@Entities/BreederUserEntity'
 
@@ -22,7 +22,7 @@ export default class BreederUserBuilder {
   }
 
   async validate(): Promise<void> {
-    const accountServiceClient = new AccountServiceClient(ACCOUNT_SERVICE_URL)
+    const accountServiceClient = new AccountServiceClient(ACCOUNT_SERVICE_URL, ACCOUNT_SERVICE_API_KEY)
     const user = await accountServiceClient.getUser(this._userId)
 
     if (!user) throw new ValidationError(i18n.__('breeder-user.errors.invalid-user'))
